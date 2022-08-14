@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>CentOS安装Mysql5.7</title>
+      <link href="/2022/08/14/CentOS%E5%AE%89%E8%A3%85Mysql5.7/"/>
+      <url>/2022/08/14/CentOS%E5%AE%89%E8%A3%85Mysql5.7/</url>
+      
+        <content type="html"><![CDATA[<p>Linux环境中安装Mysql5.7，系统版本centos7.6。</p><h2 id="安装MYSQL5-7"><a href="#安装MYSQL5-7" class="headerlink" title="安装MYSQL5.7"></a>安装MYSQL5.7</h2><h2 id="下载mysql，下载地址"><a href="#下载mysql，下载地址" class="headerlink" title="下载mysql，下载地址"></a>下载mysql，<a href="https://downloads.mysql.com/archives/community/">下载地址</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.31-linux-glibc2.12-x86_64.tar.gz</span><br></pre></td></tr></table></figure><h2 id="解压mysql"><a href="#解压mysql" class="headerlink" title="解压mysql"></a>解压mysql</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.34-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> mysql-5.7.34-linux-glibc2.12-x86_64 /usr/local/mysql/</span><br></pre></td></tr></table></figure><h2 id="创建数据和⽇志⽬录"><a href="#创建数据和⽇志⽬录" class="headerlink" title="创建数据和⽇志⽬录"></a>创建数据和⽇志⽬录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/data</span><br><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/log</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/data/</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/log/</span><br></pre></td></tr></table></figure><h2 id="复制服务⽂件"><a href="#复制服务⽂件" class="headerlink" title="复制服务⽂件"></a>复制服务⽂件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/mysql/bin/mysql /usr/bin</span><br></pre></td></tr></table></figure><h2 id="初始化mysqld"><a href="#初始化mysqld" class="headerlink" title="初始化mysqld"></a>初始化mysqld</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld --initialize --basedir=/usr/local/mysql -- datadir=/home/mysql/data</span><br></pre></td></tr></table></figure><h2 id="开机⾃启"><a href="#开机⾃启" class="headerlink" title="开机⾃启"></a>开机⾃启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add mysql</span><br><span class="line">chkconfig --list</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> Mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>U盘安装CentOS7</title>
       <link href="/2022/08/14/U%E7%9B%98%E5%AE%89%E8%A3%85CentOS7/"/>
       <url>/2022/08/14/U%E7%9B%98%E5%AE%89%E8%A3%85CentOS7/</url>
@@ -14,6 +45,8 @@
       <categories>
           
           <category> 运维 </category>
+          
+          <category> 系统 </category>
           
       </categories>
       
@@ -41,6 +74,8 @@
       
       
       <categories>
+          
+          <category> 系统 </category>
           
           <category> 运维 </category>
           
@@ -71,6 +106,8 @@
       
       <categories>
           
+          <category> 系统 </category>
+          
           <category> 运维 </category>
           
       </categories>
@@ -99,6 +136,8 @@
       
       
       <categories>
+          
+          <category> 监控 </category>
           
           <category> 运维 </category>
           
