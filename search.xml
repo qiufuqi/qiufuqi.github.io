@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>U盘安装CentOS7</title>
+      <link href="/2022/08/14/U%E7%9B%98%E5%AE%89%E8%A3%85CentOS7/"/>
+      <url>/2022/08/14/U%E7%9B%98%E5%AE%89%E8%A3%85CentOS7/</url>
+      
+        <content type="html"><![CDATA[<p>前置条件：服务器 &amp;&amp; U盘CentOS7</p><h2 id="安装步骤："><a href="#安装步骤：" class="headerlink" title="安装步骤："></a>安装步骤：</h2><p>1.把U盘插到电脑上</p><p>2.设置开机U盘启动 ps：机器不一样设置也不一样具体请百度，我的是按F12可选择U盘。</p><p>3.选择U盘后跳转到下图界面<br><img src="/img/centos7_build.png" alt="图片"></p><p>4.按下键盘TAB键将最下面的vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet 改为 vmlinuz initrd=initrd.img linux dd quiet</p><p>5.查看U盘启动盘的名称比如：sda，sdb，sdc  ps：label一列会显示Centos7等字样的</p><p>6.重启后到第三步界面按下TAB键</p><p>7.将vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet  改为  vmlinuz initrd=initrd.img inst.stage2=hd:/dev/sdb1 quiet  <br>  ps：sdb1就是你看到的启动盘名称</p><p>8.之后等待安装到图形界面</p><p>9.选择中文→简体中文→点击继续</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> 系统安装 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CentOS防火墙管理</title>
       <link href="/2022/08/14/CentOS%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%A1%E7%90%86/"/>
       <url>/2022/08/14/CentOS%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%A1%E7%90%86/</url>
@@ -51,9 +80,9 @@
             
             <tag> Linux </tag>
             
-            <tag> 自启动 </tag>
-            
             <tag> CentOS </tag>
+            
+            <tag> 自启动 </tag>
             
         </tags>
       
