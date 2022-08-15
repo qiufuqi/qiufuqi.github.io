@@ -8,14 +8,14 @@
       <link href="/2022/08/14/CentOS%E5%AE%89%E8%A3%85Mysql5.7/"/>
       <url>/2022/08/14/CentOS%E5%AE%89%E8%A3%85Mysql5.7/</url>
       
-        <content type="html"><![CDATA[<p>Linux环境中安装Mysql5.7，系统版本centos7.6。</p><h2 id="安装MYSQL5-7"><a href="#安装MYSQL5-7" class="headerlink" title="安装MYSQL5.7"></a>安装MYSQL5.7</h2><h2 id="下载mysql，下载地址"><a href="#下载mysql，下载地址" class="headerlink" title="下载mysql，下载地址"></a>下载mysql，<a href="https://downloads.mysql.com/archives/community/">下载地址</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.31-linux-glibc2.12-x86_64.tar.gz</span><br></pre></td></tr></table></figure><h2 id="解压mysql"><a href="#解压mysql" class="headerlink" title="解压mysql"></a>解压mysql</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.34-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> mysql-5.7.34-linux-glibc2.12-x86_64 /usr/local/mysql/</span><br></pre></td></tr></table></figure><h2 id="创建数据和⽇志⽬录"><a href="#创建数据和⽇志⽬录" class="headerlink" title="创建数据和⽇志⽬录"></a>创建数据和⽇志⽬录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/data</span><br><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/log</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/data/</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/log/</span><br></pre></td></tr></table></figure><h2 id="复制服务⽂件"><a href="#复制服务⽂件" class="headerlink" title="复制服务⽂件"></a>复制服务⽂件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/mysql/bin/mysql /usr/bin</span><br></pre></td></tr></table></figure><h2 id="初始化mysqld"><a href="#初始化mysqld" class="headerlink" title="初始化mysqld"></a>初始化mysqld</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld --initialize --basedir=/usr/local/mysql -- datadir=/home/mysql/data</span><br></pre></td></tr></table></figure><h2 id="开机⾃启"><a href="#开机⾃启" class="headerlink" title="开机⾃启"></a>开机⾃启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add mysql</span><br><span class="line">chkconfig --list</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>Linux环境中安装Mysql5.7，系统版本centos7.6。</p><h3 id="安装MYSQL5-7"><a href="#安装MYSQL5-7" class="headerlink" title="安装MYSQL5.7"></a>安装MYSQL5.7</h3><h3 id="下载mysql，下载地址"><a href="#下载mysql，下载地址" class="headerlink" title="下载mysql，下载地址"></a>下载mysql，<a href="https://downloads.mysql.com/archives/community/">下载地址</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.31-linux-glibc2.12-x86_64.tar.gz</span><br></pre></td></tr></table></figure><h3 id="解压mysql"><a href="#解压mysql" class="headerlink" title="解压mysql"></a>解压mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.34-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> mysql-5.7.34-linux-glibc2.12-x86_64 /usr/local/mysql/</span><br></pre></td></tr></table></figure><h3 id="创建数据和⽇志⽬录"><a href="#创建数据和⽇志⽬录" class="headerlink" title="创建数据和⽇志⽬录"></a>创建数据和⽇志⽬录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/data</span><br><span class="line"><span class="built_in">mkdir</span> -p /home/mysql/log</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/data/</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /home/mysql/log/</span><br></pre></td></tr></table></figure><h3 id="复制服务⽂件"><a href="#复制服务⽂件" class="headerlink" title="复制服务⽂件"></a>复制服务⽂件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/mysql/bin/mysql /usr/bin/mysql</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动mysql服务</span></span><br><span class="line">systemctl start mysql</span><br></pre></td></tr></table></figure><h3 id="初始化mysqld"><a href="#初始化mysqld" class="headerlink" title="初始化mysqld"></a>初始化mysqld</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#务必记住数据库管理员临时密码</span></span><br><span class="line">/usr/local/mysql/bin/mysqld --initialize --basedir=/usr/local/mysql -- datadir=/home/mysql/data</span><br></pre></td></tr></table></figure><p><img src="/img/mysql_passwd.png" alt="图片"></p><h3 id="登录mysql"><a href="#登录mysql" class="headerlink" title="登录mysql"></a>登录mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#密码就是初始化时生成的临时密码</span></span><br><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure><h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> password <span class="keyword">for</span> root@localhost = password(<span class="string">&#x27;root&#x27;</span>);</span><br></pre></td></tr></table></figure><h3 id="开放远程连接"><a href="#开放远程连接" class="headerlink" title="开放远程连接"></a>开放远程连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user <span class="built_in">set</span> user.Host=<span class="string">&#x27;%&#x27;</span> <span class="built_in">where</span> user.User=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><h3 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将服务文件拷贝到init.d下，并重命名为mysql</span></span><br><span class="line"><span class="built_in">cp</span> /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"><span class="comment">#赋予可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /etc/init.d/mysqld</span><br><span class="line"><span class="comment">#添加服务</span></span><br><span class="line">chkconfig --add mysqld</span><br><span class="line"><span class="comment">#显示服务列表</span></span><br><span class="line">chkconfig --list</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
           <category> 运维 </category>
           
-          <category> 数据库 </category>
+          <category> 数据库Mysql </category>
           
       </categories>
       
@@ -46,7 +46,7 @@
           
           <category> 运维 </category>
           
-          <category> 系统 </category>
+          <category> 系统安装 </category>
           
       </categories>
       
@@ -75,9 +75,9 @@
       
       <categories>
           
-          <category> 系统 </category>
-          
           <category> 运维 </category>
+          
+          <category> 防火墙 </category>
           
       </categories>
       
@@ -106,9 +106,9 @@
       
       <categories>
           
-          <category> 系统 </category>
-          
           <category> 运维 </category>
+          
+          <category> 自启动 </category>
           
       </categories>
       
@@ -137,9 +137,9 @@
       
       <categories>
           
-          <category> 监控 </category>
-          
           <category> 运维 </category>
+          
+          <category> 监控 </category>
           
       </categories>
       
