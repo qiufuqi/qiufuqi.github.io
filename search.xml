@@ -4,9 +4,40 @@
   
     
     <entry>
+      <title>KVM虚拟化网桥搭建</title>
+      <link href="/2022/08/16/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E7%BD%91%E6%A1%A5%E6%90%AD%E5%BB%BA/"/>
+      <url>/2022/08/16/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E7%BD%91%E6%A1%A5%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<p>Linux环境部署KVM虚拟化平台，系统版本centos7.6，GUI桌面以及虚拟化支持（安装时）。</p><h2 id="Bridge基本原理"><a href="#Bridge基本原理" class="headerlink" title="Bridge基本原理"></a>Bridge基本原理</h2><p>一般来说，KVM客户机有两种网络连接方式：NAT与Bridge。<br>NAT方式：让虚拟机访问主机、互联网或本地网络上的资源的简单方法，但是不能从网络或其他的客户机访问客户机，性能上也需要大的调整。<br>Virtual Bridge：这种方式要比用户网络复杂一些，但是设置好后客户机与互联网，客户机与主机之间的通信都很容易。客户机和子网里面的机器能够互相通信。可以使虚拟机成为网络中具有独立IP的主机。<br>桥接网络（也叫物理设备共享）被用作把一个物理设备复制到一台虚拟机。</p><h2 id="Bridge创建步骤"><a href="#Bridge创建步骤" class="headerlink" title="Bridge创建步骤"></a>Bridge创建步骤</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 虚拟化 </category>
+          
+          <category> 网桥 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> KVM </tag>
+            
+            <tag> Birdge </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>KVM虚拟化基本命令</title>
-      <link href="/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
-      <url>/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</url>
+      <link href="/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
+      <url>/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</url>
       
         <content type="html"><![CDATA[<p>KVM虚拟化常用命令</p><h2 id="KVM的基本管理"><a href="#KVM的基本管理" class="headerlink" title="KVM的基本管理"></a>KVM的基本管理</h2><h3 id="查看KVM虚拟机配置文件"><a href="#查看KVM虚拟机配置文件" class="headerlink" title="查看KVM虚拟机配置文件"></a>查看KVM虚拟机配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Kvm虚拟机默认配置文件位置</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># pwd</span></span><br><span class="line">/etc/libvirt/qemu</span><br><span class="line">[root@node1 qemu]<span class="comment"># ll</span></span><br><span class="line">总用量 16</span><br><span class="line">drwxr-xr-x. 2 root root   42 5月   2 15:42 autostart</span><br><span class="line">drwx------. 3 root root   42 4月  28 2021 networks</span><br><span class="line">-rw-------. 1 root root 4259 4月  27 16:54 test11.xml</span><br><span class="line">-rw-------. 1 root root 4259 4月  27 14:14 test12.xml</span><br></pre></td></tr></table></figure><h3 id="启动与关闭"><a href="#启动与关闭" class="headerlink" title="启动与关闭"></a>启动与关闭</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#显示正在运行的虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh list</span></span><br><span class="line"> Id    名称                         状态</span><br><span class="line">----------------------------------------------------</span><br><span class="line"> 1     test11                         running</span><br><span class="line"> 2     test12                         running</span><br><span class="line"><span class="comment">#显示所有虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh list --all</span></span><br><span class="line"> Id    名称                         状态</span><br><span class="line">----------------------------------------------------</span><br><span class="line"> 1     test11                         running</span><br><span class="line"> 2     test12                         running</span><br></pre></td></tr></table></figure><h3 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh start test11</span></span><br></pre></td></tr></table></figure><h3 id="关闭虚拟机"><a href="#关闭虚拟机" class="headerlink" title="关闭虚拟机"></a>关闭虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh shutdown test11</span></span><br><span class="line"><span class="comment">#或者对应id</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh shutdown 1</span></span><br></pre></td></tr></table></figure><h3 id="强制关闭虚拟机"><a href="#强制关闭虚拟机" class="headerlink" title="强制关闭虚拟机"></a>强制关闭虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh destroy test11</span></span><br></pre></td></tr></table></figure><h3 id="移除虚拟机"><a href="#移除虚拟机" class="headerlink" title="移除虚拟机"></a>移除虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh undefine test11</span></span><br></pre></td></tr></table></figure><h3 id="设置虚拟机开机启动"><a href="#设置虚拟机开机启动" class="headerlink" title="设置虚拟机开机启动"></a>设置虚拟机开机启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh autostart test11</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh autostart --disable test11</span></span><br></pre></td></tr></table></figure><p>默认情况下virsh工具不能对linux虚拟机进行关机操作<br>linux操作系统需要开启与启动acpid服务。在安装KVM linux虚拟机必须配置此服务。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y install acpid</span></span><br><span class="line"><span class="comment"># /etc/init.d/acpid start</span></span><br></pre></td></tr></table></figure><h3 id="通过配置文件启动虚拟机"><a href="#通过配置文件启动虚拟机" class="headerlink" title="通过配置文件启动虚拟机"></a>通过配置文件启动虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 qemu]<span class="comment"># virsh create /etc/libvirt/qemu/test11.xml</span></span><br></pre></td></tr></table></figure><h3 id="挂起，恢复-virsh命令"><a href="#挂起，恢复-virsh命令" class="headerlink" title="挂起，恢复 virsh命令"></a>挂起，恢复 virsh命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#挂起服务器</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh suspend test11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#恢复服务器</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh resume test11</span></span><br></pre></td></tr></table></figure><h3 id="重命名虚拟机"><a href="#重命名虚拟机" class="headerlink" title="重命名虚拟机"></a>重命名虚拟机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#停止虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh shutdown test11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#导出虚拟机的配置文件</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># pwd</span></span><br><span class="line">/etc/libvirt/qemu</span><br><span class="line">[root@node1 qemu-img]<span class="comment"># virsh dumpxml test11 &gt; test-test11.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#更改配置文件</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># sed -i &#x27;s/test11/test-test11/g&#x27; test-test11.xml</span></span><br><span class="line"><span class="comment">#注 可以不用更改镜像名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#移除原有的虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh undefine test11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#加载新建的虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh define test-test11.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启动虚拟机</span></span><br><span class="line">[root@node1 qemu]<span class="comment"># virsh start test-test11</span></span><br></pre></td></tr></table></figure><h2 id="虚拟机快照操作"><a href="#虚拟机快照操作" class="headerlink" title="虚拟机快照操作"></a>虚拟机快照操作</h2><h3 id="转换磁盘镜像文件格式为qcow2"><a href="#转换磁盘镜像文件格式为qcow2" class="headerlink" title="转换磁盘镜像文件格式为qcow2"></a>转换磁盘镜像文件格式为qcow2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># virsh shutdown test-test11</span></span><br><span class="line">[root@node1 qemu-img]<span class="comment"># qemu-img convert -f raw test11.raw -O qcow2 test11.raw.qcow2</span></span><br><span class="line"><span class="comment">#快照一定需要qcow2格式才行 </span></span><br><span class="line"><span class="comment">#我这边从新建立一个虚拟机以qcow2</span></span><br></pre></td></tr></table></figure><h3 id="创建快照"><a href="#创建快照" class="headerlink" title="创建快照"></a>创建快照</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm qemu-img]<span class="comment"># virsh snapshot-create test11</span></span><br></pre></td></tr></table></figure><h3 id="查看快照"><a href="#查看快照" class="headerlink" title="查看快照"></a>查看快照</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm qemu-img]<span class="comment"># virsh snapshot-list test11</span></span><br><span class="line"> Name                 Creation Time             State</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"> 1660579077           2022-08-15 23:57:57 +0800 shutoff</span><br></pre></td></tr></table></figure><h3 id="恢复快照"><a href="#恢复快照" class="headerlink" title="恢复快照"></a>恢复快照</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm qemu-img]<span class="comment"># virsh snapshot-revert test11  1660579077</span></span><br></pre></td></tr></table></figure><h3 id="删除快照"><a href="#删除快照" class="headerlink" title="删除快照"></a>删除快照</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm qemu-img]<span class="comment"># virsh snapshot-delete test11 1660579077</span></span><br></pre></td></tr></table></figure>]]></content>
       
@@ -17,18 +48,14 @@
           
           <category> 虚拟化 </category>
           
+          <category> 命令 </category>
+          
       </categories>
       
       
         <tags>
             
-            <tag> Linux </tag>
-            
-            <tag> CentOS </tag>
-            
             <tag> KVM </tag>
-            
-            <tag> 虚拟化 </tag>
             
             <tag> Bash </tag>
             
@@ -39,9 +66,9 @@
     
     
     <entry>
-      <title>CentOS部署KVM虚拟化</title>
-      <link href="/2022/08/15/CentOS%E9%83%A8%E7%BD%B2KVM%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-      <url>/2022/08/15/CentOS%E9%83%A8%E7%BD%B2KVM%E8%99%9A%E6%8B%9F%E5%8C%96/</url>
+      <title>KVM虚拟化搭建</title>
+      <link href="/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E6%90%AD%E5%BB%BA/"/>
+      <url>/2022/08/15/KVM%E8%99%9A%E6%8B%9F%E5%8C%96/KVM%E8%99%9A%E6%8B%9F%E5%8C%96%E6%90%AD%E5%BB%BA/</url>
       
         <content type="html"><![CDATA[<p>Linux环境部署KVM虚拟化平台，系统版本centos7.6，GUI桌面以及虚拟化支持（安装时）。</p><h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="查看CPU是否支持VT"><a href="#查看CPU是否支持VT" class="headerlink" title="查看CPU是否支持VT"></a>查看CPU是否支持VT</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#重要，安装时需要慎重</span></span><br><span class="line">egrep <span class="string">&#x27;(vmx|svm)&#x27;</span> --color=always /proc/cpuinfo</span><br></pre></td></tr></table></figure><h3 id="检查内核模块是否加载"><a href="#检查内核模块是否加载" class="headerlink" title="检查内核模块是否加载"></a>检查内核模块是否加载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep kvm</span><br></pre></td></tr></table></figure><h3 id="查看Selinux状态"><a href="#查看Selinux状态" class="headerlink" title="查看Selinux状态"></a>查看Selinux状态</h3><p>如果是启动状态，需要将其关闭</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sestatus</span><br><span class="line">getenforce</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改SELINUX=disabled ，然后重启reboot</span></span><br><span class="line">sudo vim /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure><h3 id="安装KVM"><a href="#安装KVM" class="headerlink" title="安装KVM"></a>安装KVM</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install  kvm libvirt python-virtinst qemu-kvm virt-viewer tunctl bridge-utils avahi dmidecode qemu-kvm-tools virt-manager qemu-img virt-install net-tools libguestfs-tools</span><br></pre></td></tr></table></figure><h3 id="启动libvirt服务"><a href="#启动libvirt服务" class="headerlink" title="启动libvirt服务"></a>启动libvirt服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start libvirtd</span><br></pre></td></tr></table></figure><h3 id="设计开机自启"><a href="#设计开机自启" class="headerlink" title="设计开机自启"></a>设计开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> libvirtd</span><br></pre></td></tr></table></figure>]]></content>
       
@@ -57,13 +84,7 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
-            <tag> CentOS </tag>
-            
             <tag> KVM </tag>
-            
-            <tag> 虚拟化 </tag>
             
         </tags>
       
