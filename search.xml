@@ -776,39 +776,6 @@
     
     
     <entry>
-      <title>K8S监控 Prometheus</title>
-      <link href="/k8s_prometheus/"/>
-      <url>/k8s_prometheus/</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/11151649.html">https://www.cnblogs.com/kevingrace/p/11151649.html</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> K8S </category>
-          
-          <category> 监控 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Prometheus </tag>
-            
-            <tag> K8S </tag>
-            
-            <tag> 监控 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Prometheus监控+altermanager+钉钉告警</title>
       <link href="/prometheus/"/>
       <url>/prometheus/</url>
@@ -834,6 +801,39 @@
             <tag> Grafana </tag>
             
             <tag> 钉钉告警 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>K8S监控 Prometheus</title>
+      <link href="/k8s_prometheus/"/>
+      <url>/k8s_prometheus/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/11151649.html">https://www.cnblogs.com/kevingrace/p/11151649.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> K8S </category>
+          
+          <category> 监控 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> K8S </tag>
+            
+            <tag> 监控 </tag>
             
         </tags>
       
