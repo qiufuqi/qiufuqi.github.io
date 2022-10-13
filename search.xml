@@ -322,41 +322,6 @@
     
     
     <entry>
-      <title>Mysql日志</title>
-      <link href="/mysql5.7_RZ/"/>
-      <url>/mysql5.7_RZ/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.进入MySQL，开启日志选项（默认情况应该是关闭的）：</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br><span class="line"></span><br><span class="line">2. 查询本机MySQL执行日志保存的路径：</span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;general_log_file&#x27;</span>;</span><br><span class="line"></span><br><span class="line">3. 重启MySQL服务器：</span><br><span class="line">systemctl restart mysqld</span><br><span class="line"></span><br><span class="line">4. 查看MySQL执行日志：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径也就是在第2步中查询出的</span></span><br><span class="line"><span class="built_in">tail</span> -f /path/to/general_log_file</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> 数据库 </category>
-          
-          <category> Mysql </category>
-          
-          <category> 日志 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Mysql </tag>
-            
-            <tag> 日志 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Mysql5.7 主从同步</title>
       <link href="/mysql5.7_MS/"/>
       <url>/mysql5.7_MS/</url>
@@ -384,6 +349,41 @@
             <tag> Mysql </tag>
             
             <tag> 主从 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql日志</title>
+      <link href="/mysql5.7_RZ/"/>
+      <url>/mysql5.7_RZ/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.进入MySQL，开启日志选项（默认情况应该是关闭的）：</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br><span class="line"></span><br><span class="line">2. 查询本机MySQL执行日志保存的路径：</span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;general_log_file&#x27;</span>;</span><br><span class="line"></span><br><span class="line">3. 重启MySQL服务器：</span><br><span class="line">systemctl restart mysqld</span><br><span class="line"></span><br><span class="line">4. 查看MySQL执行日志：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径也就是在第2步中查询出的</span></span><br><span class="line"><span class="built_in">tail</span> -f /path/to/general_log_file</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 数据库 </category>
+          
+          <category> Mysql </category>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
+            
+            <tag> 日志 </tag>
             
         </tags>
       
