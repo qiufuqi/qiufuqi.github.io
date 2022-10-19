@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>EXSI6.7多网卡</title>
+      <link href="/exsi_wangka/"/>
+      <url>/exsi_wangka/</url>
+      
+        <content type="html"><![CDATA[<p>EXSI双网卡连接</p><h2 id="检查双网卡"><a href="#检查双网卡" class="headerlink" title="检查双网卡"></a>检查双网卡</h2><p>若服务器存在多个网卡，查看可以使用的网络适配器，链接速度有显示的，代表当前使用中的网口。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221019100441.png"></p><h2 id="新增虚拟交换机"><a href="#新增虚拟交换机" class="headerlink" title="新增虚拟交换机"></a>新增虚拟交换机</h2><p>由于有多个物理网卡，在虚拟交换机界面择物理网卡需要新增的物理网卡，注意最开始的默认网口已经分配给虚拟机内部通信使用。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221019100522.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221019100554.png"></p><h2 id="新增网络端口组"><a href="#新增网络端口组" class="headerlink" title="新增网络端口组"></a>新增网络端口组</h2><p>新增网络端口组，定义端口组的名称，这里定义为PC，绑定刚刚新建的虚拟交换机；<br><img src="https://qiufuqi.gitee.io/img/hexo/20221019100623.png"></p><h2 id="添加网络适配器"><a href="#添加网络适配器" class="headerlink" title="添加网络适配器"></a>添加网络适配器</h2><p>配置虚拟机网络适配器完成，可在每个WIN系统中添加对应的网络适配器，这样打开WIN系统就可以在电脑网络适配器看到新增的这个网口了。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221019100659.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> EXSI </category>
+          
+          <category> 网卡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EXSI </tag>
+            
+            <tag> 网卡 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker基本命令</title>
       <link href="/docker_bash/"/>
       <url>/docker_bash/</url>
