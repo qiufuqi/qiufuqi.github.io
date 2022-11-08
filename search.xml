@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>Zabbix-agent监控客户端</title>
+      <link href="/zabbix_agent/"/>
+      <url>/zabbix_agent/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Zabbix监控客户端：window版本 和 linux版本</strong><br>zabbix服务器：10.11.7.60<br>官网<a href="https://www.zabbix.com/cn/download_agents?version=5.0+LTS&release=5.0.16&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0#tab:44">下载地址</a></p><h1 id="Window压缩包"><a href="#Window压缩包" class="headerlink" title="Window压缩包"></a>Window压缩包</h1><p>window服务器：10.128.2.200</p><h2 id="下载window安装包"><a href="#下载window安装包" class="headerlink" title="下载window安装包"></a>下载window安装包</h2><p>下载对应window版本安装包<br>链接: <a href="https://pan.baidu.com/s/1iN9ie7EkeVEELU_N14bS_Q">https://pan.baidu.com/s/1iN9ie7EkeVEELU_N14bS_Q</a> 提取码: mcte </p><h2 id="上传至服务器"><a href="#上传至服务器" class="headerlink" title="上传至服务器"></a>上传至服务器</h2><p>1、将压缩包上传至目标服务器<br>2、新建一个文件夹zabbix（英文路径），将压缩包解压至zabbix文件夹中<br>3、解压文件共两个子文件夹：bin   conf<br>4、进入conf文件夹，修改配置文件 zabbix_agentd.conf：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 23行 日志路径写自己解压的路径，或者自己定义一个路径，此路径存放zabbix的日志</span></span><br><span class="line">LogFile=D:\zabbix\zabbix_agentd.log  </span><br><span class="line"><span class="comment"># 106行 zabbix服务器地址</span></span><br><span class="line">Server=10.11.7.60</span><br><span class="line"><span class="comment"># 147行 zabbix服务器地址</span></span><br><span class="line">ServerActive=10.11.7.60</span><br><span class="line"><span class="comment"># 158行 window服务器地址</span></span><br><span class="line">Hostname=10.128.2.200</span><br></pre></td></tr></table></figure><p>5、以管理员身份运行命令行，下面操作在命令行执行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 路径是自己解压的路径  bin文件夹</span></span><br><span class="line"><span class="built_in">cd</span> C:\zabbix\bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装客户端  路径是自己解压的路径  conf文件夹的路径</span></span><br><span class="line">C:\zabbix\bin&gt; zabbix_agentd.exe -i -c C:\zabbix\conf\zabbix_agentd.conf</span><br><span class="line">zabbix_agentd.exe [4808]: service [Zabbix Agent] installed successfully</span><br><span class="line">zabbix_agentd.exe [4808]: event <span class="built_in">source</span> [Zabbix Agent] installed successfully</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line">C:\zabbix\bin&gt; zabbix_agentd.exe -s -c C:\zabbix\conf\zabbix_agentd.conf</span><br><span class="line">zabbix_agentd.exe [4748]: service [Zabbix Agent] started successfully</span><br></pre></td></tr></table></figure><p><img src="https://qiufuqi.gitee.io/img/hexo/20221108140924.png"></p><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>上述操作出现错误则卸载重新安装</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\zabbix\bin</span><br><span class="line">C:\zabbix\bin&gt; zabbix_agentd.exe -d -c C:\zabbix\conf\zabbix_agentd.conf</span><br><span class="line">zabbix_agentd.exe [4860]: service [Zabbix Agent] uninstalled successfully</span><br><span class="line">zabbix_agentd.exe [4860]: event <span class="built_in">source</span> [Zabbix Agent] uninstalled successfully</span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line">  -c：指定配置文件所有位置</span><br><span class="line">  -i：安装客户端</span><br><span class="line">  -s：启动客户端</span><br><span class="line">  -x：停止客户端</span><br><span class="line">  -d：卸载客户端</span><br></pre></td></tr></table></figure><h2 id="防火墙端口放行"><a href="#防火墙端口放行" class="headerlink" title="防火墙端口放行"></a>防火墙端口放行</h2><p>打开window防火墙：控制面板\系统和安全\Windows 防火墙，点击：允许应用或功能通过windows防火墙<br><img src="https://qiufuqi.gitee.io/img/hexo/20221108141534.png"><br>点击：允许其他应用–浏览 找到制定应用<br><img src="https://qiufuqi.gitee.io/img/hexo/20221108141604.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221108141702.png"></p><h1 id="window官网安装"><a href="#window官网安装" class="headerlink" title="window官网安装"></a>window官网安装</h1><p>官网<a href="https://www.zabbix.com/cn/download_agents?version=5.0+LTS&release=5.0.16&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0#tab:44">下载地址</a></p><h2 id="双机安装包"><a href="#双机安装包" class="headerlink" title="双机安装包"></a>双机安装包</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221108150142.png"></p><h2 id="配置zabbix-server参数信息"><a href="#配置zabbix-server参数信息" class="headerlink" title="配置zabbix-server参数信息"></a>配置zabbix-server参数信息</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221108150221.png"></p><h2 id="选择zabbix-agent安装目录"><a href="#选择zabbix-agent安装目录" class="headerlink" title="选择zabbix-agent安装目录"></a>选择zabbix-agent安装目录</h2><p>默认安装目录C:\Program Files\Zabbix Agent\，需要记住次安装目录，手动启动时需要进入此目录启动客户端。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221108150327.png"></p><h2 id="启动zabbix-agent客户端"><a href="#启动zabbix-agent客户端" class="headerlink" title="启动zabbix-agent客户端"></a>启动zabbix-agent客户端</h2><p>进入指定目录下C:\Program Files\Zabbix Agent\ ，双机zabbix_agentd.exe</p><h1 id="Linux版本"><a href="#Linux版本" class="headerlink" title="Linux版本"></a>Linux版本</h1><h1 id="添加zabbix监控"><a href="#添加zabbix监控" class="headerlink" title="添加zabbix监控"></a>添加zabbix监控</h1><p>zabbix服务器端，点击左侧边栏，配置—-主机—-右上角的创建主机；</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">主机名称：10.128.2.200 写IP地址，便于分辨，此处填写内容与下文中158行内容需保持一致</span><br><span class="line">可见的名称：10.128.2.200  可写可不写</span><br><span class="line">群组：Templates/Operating systems;</span><br><span class="line">interfaces：类型客户端，IP 10.128.2.200，端口10050；</span><br><span class="line">描述：可加可不加</span><br><span class="line">其他不动</span><br><span class="line"></span><br><span class="line">模板：Template OS Windows by Zabbix agent</span><br><span class="line">其他的不动</span><br></pre></td></tr></table></figure><p>创建完成后可看见ZBX绿色图标<br><img src="https://qiufuqi.gitee.io/img/hexo/20221108142656.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 监控 </category>
+          
+          <category> zabbix </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zabbix </tag>
+            
+            <tag> agent </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Zabbix-(zabbix-agent)主动和被动模式</title>
+      <link href="/zabbix_agent_model/"/>
+      <url>/zabbix_agent_model/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/zfw_666666/article/details/124712980">https://blog.csdn.net/zfw_666666/article/details/124712980</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 监控 </category>
+          
+          <category> zabbix </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zabbix </tag>
+            
+            <tag> agent </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Nginx安装部署</title>
       <link href="/nginx_install/"/>
       <url>/nginx_install/</url>
@@ -33,11 +95,11 @@
     
     
     <entry>
-      <title>Nginx双机热备-主从模式</title>
-      <link href="/nginx_fzjh/"/>
-      <url>/nginx_fzjh/</url>
+      <title>Keepalived安装部署</title>
+      <link href="/keepalive_install/"/>
+      <url>/keepalive_install/</url>
       
-        <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/huanglm_OneWholeLife/article/details/124628383">https://blog.csdn.net/huanglm_OneWholeLife/article/details/124628383</a></p>]]></content>
+        <content type="html"><![CDATA[<p><strong>Keepalived安装部署</strong><br>Keepalived 2.2.7 安装<br>安装方式如下：</p><ul><li>YUM安装</li><li>编译安装</li><li>docker安装</li></ul><h1 id="YUM安装"><a href="#YUM安装" class="headerlink" title="YUM安装"></a>YUM安装</h1><p>yum安装keepalived版本不好控制</p><h2 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># yum -y install keepalived</span></span><br></pre></td></tr></table></figure><h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qa|grep keepalived</span></span><br><span class="line">keepalived-1.3.5-19.el7.x86_64</span><br></pre></td></tr></table></figure><p>查看安装后目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qc keepalived</span></span><br><span class="line">/etc/keepalived/keepalived.conf</span><br><span class="line">/etc/sysconfig/keepalived</span><br></pre></td></tr></table></figure><h1 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h1><h2 id="获取安装包"><a href="#获取安装包" class="headerlink" title="获取安装包"></a>获取安装包</h2><p>下载<a href="https://www.keepalived.org/download.html">安装包</a>并解压</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node opt]<span class="comment"># wget https://www.keepalived.org/software/keepalived-2.2.7.tar.gz --no-check-certificate</span></span><br><span class="line">[root@master-node opt]<span class="comment"># tar -zxvf keepalived-2.2.7.tar.gz</span></span><br></pre></td></tr></table></figure><h2 id="编译安装-1"><a href="#编译安装-1" class="headerlink" title="编译安装"></a>编译安装</h2><p>安装在/etc/keepalived目录下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /opt/keepalived-2.2.7</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># ./configure --prefix=/etc/keepalived --sysconf=/etc</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># make &amp;&amp; make install</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#让系统识别nginx的操作命令</span></span><br><span class="line">[root@slave-node nginx-1.20.2]<span class="comment"># ls -s /etc/keepalived/sbin/keepalived /usr/local/sbin/</span></span><br></pre></td></tr></table></figure><h2 id="添加系统服务"><a href="#添加系统服务" class="headerlink" title="添加系统服务"></a>添加系统服务</h2><p>如果已存在则不需要更改</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node keepalived]<span class="comment"># vi /lib/systemd/system/keepalived.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=LVS and VRRP High Availability Monitor</span><br><span class="line">After=network-online.target syslog.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line">Documentation=man:keepalived(8)</span><br><span class="line">Documentation=man:keepalived.conf(5)</span><br><span class="line">Documentation=man:genhash(1)</span><br><span class="line">Documentation=https://keepalived.org</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/run/keepalived.pid</span><br><span class="line">KillMode=process</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/keepalived</span><br><span class="line">ExecStart=/etc/keepalived/sbin/keepalived  <span class="variable">$KEEPALIVED_OPTIONS</span></span><br><span class="line">ExecReload=/bin/kill -HUP <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure><h2 id="启动keepalived"><a href="#启动keepalived" class="headerlink" title="启动keepalived"></a>启动keepalived</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node ~]<span class="comment"># systemctl enable keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># ps -ef|grep keepalived</span></span><br><span class="line">root     15388  9182  0 16:02 pts/0    00:00:00 grep --color=auto keepalived</span><br></pre></td></tr></table></figure><h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><ul><li>systemctl start keepalived启动异常<br>Failed to start LVS and VRRP High Availability Monitor.<br>缺失配置文件,创建该文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /etc/keepalived/</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># &gt; keepalived.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新启动</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># cd /etc/keepalived/sbin/ &amp;&amp; ./keepalived</span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
       
       
       <categories>
@@ -46,7 +108,7 @@
           
           <category> Nginx </category>
           
-          <category> 双机热备-主从 </category>
+          <category> keepalived </category>
           
       </categories>
       
@@ -55,9 +117,7 @@
             
             <tag> Linux </tag>
             
-            <tag> Nginx </tag>
-            
-            <tag> 主从 </tag>
+            <tag> keepalive </tag>
             
         </tags>
       
@@ -70,7 +130,7 @@
       <link href="/nginx_zhucong/"/>
       <url>/nginx_zhucong/</url>
       
-        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/6138185.html">技术参考</a><br>负载均衡技术对于一个网站尤其是大型网站的web服务器集群来说是至关重要的！做好负载均衡架构，可以实现故障转移和高可用环境，避免单点故障，保证网站健康持续运行。</p><p>双机高可用一般是通过虚拟IP（飘移IP）方法来实现的，基于Linux/Unix的IP别名技术。<br>双机高可用方法目前分为两种：</p><ul><li>双机主从模式：即前端使用两台服务器，一台主服务器和一台热备服务器，正常情况下，主服务器绑定一个公网虚拟IP，提供负载均衡服务，热备服务器处于空闲状态；当主服务器发生故障时，热备服务器接管主服务器的公网虚拟IP，提供负载均衡服务；<strong>但是热备服务器在主机器不出现故障的时候，永远处于浪费状态，对于服务器不多的网站，该方案不经济实惠。</strong></li><li>双机主主模式：即前端使用两台负载均衡服务器，互为主备，且都处于活动状态，同时各自绑定一个公网虚拟IP，提供负载均衡服务；当其中一台发生故障时，另一台接管发生故障服务器的公网虚拟IP（这时由非故障机器一台负担所有的请求）。这种方案，经济实惠，非常适合于当前架构环境。</li></ul><p>keepalived可以认为是VRRP协议在Linux上的实现，主要有三个模块，分别是core、check和vrrp。<br>core模块为keepalived的核心，负责主进程的启动、维护以及全局配置文件的加载和解析。<br>check负责健康检查，包括常见的各种检查方式。<br>vrrp模块是来实现VRRP协议的。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221022154433.png"></p><p>keepalived核心概念</p><ul><li>通过选举投票，决定谁是主节点谁是备节点（选举）</li><li>如果Master故障，Backup自动接管，那么Master恢复后会夺权吗（抢占试、非抢占式）</li><li>两台服务器都认为自己是master，那么会出现一个故障（脑裂）</li></ul><h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>操作系统：centos7.6 设置主机名<br>master机器(master-node)：10.11.7.231<br>slave机器(slave-node)：10.11.7.232<br>虚拟IP（VIP）：10.11.7.235      //负载均衡器上配置的域名都解析到这个VIP上</p><h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><p>安装nginx（1.20.2）和keepalive（2.2.7）服务 （master-node和slave-node两台服务器上的安装操作完全一样）<br>可选择编译安装或者yum安装，注意版本号</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">[root@master-node ~]<span class="comment"># yum -y install gcc pcre-devel zlib-devel openssl-devel</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/6138185.html">技术参考</a><br>负载均衡技术对于一个网站尤其是大型网站的web服务器集群来说是至关重要的！做好负载均衡架构，可以实现故障转移和高可用环境，避免单点故障，保证网站健康持续运行。</p><p>双机高可用一般是通过虚拟IP（飘移IP）方法来实现的，基于Linux/Unix的IP别名技术。<br>双机高可用方法目前分为两种：</p><ul><li>双机主从模式：即前端使用两台服务器，一台主服务器和一台热备服务器，正常情况下，主服务器绑定一个公网虚拟IP，提供负载均衡服务，热备服务器处于空闲状态；当主服务器发生故障时，热备服务器接管主服务器的公网虚拟IP，提供负载均衡服务；<strong>但是热备服务器在主机器不出现故障的时候，永远处于浪费状态，对于服务器不多的网站，该方案不经济实惠。</strong></li><li>双机主主模式：即前端使用两台负载均衡服务器，互为主备，且都处于活动状态，同时各自绑定一个公网虚拟IP，提供负载均衡服务；当其中一台发生故障时，另一台接管发生故障服务器的公网虚拟IP（这时由非故障机器一台负担所有的请求）。这种方案，经济实惠，非常适合于当前架构环境。</li></ul><p>keepalived可以认为是VRRP协议在Linux上的实现，主要有三个模块，分别是core、check和vrrp。<br>core模块为keepalived的核心，负责主进程的启动、维护以及全局配置文件的加载和解析。<br>check负责健康检查，包括常见的各种检查方式。<br>vrrp模块是来实现VRRP协议的。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221022154433.png"></p><p>keepalived核心概念</p><ul><li>通过选举投票，决定谁是主节点谁是备节点（选举）</li><li>如果Master故障，Backup自动接管，那么Master恢复后会夺权吗（抢占试、非抢占式）</li><li>两台服务器都认为自己是master，那么会出现一个故障（脑裂）</li></ul><h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>操作系统：centos7.6 设置主机名<br>master机器(master-node)：10.11.7.231<br>slave机器(slave-node)：10.11.7.232<br>虚拟IP（VIP）：10.11.7.235      //负载均衡器上配置的域名都解析到这个VIP上</p><h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><p>部署 <a href="/nginx_install">nginx-1.20.2</a> 和 <a href="/keepalive_install">keepalive-2.2.7</a>服务 （master-node和slave-node两台服务器上的安装操作完全一样）<br>可选择编译安装或者yum安装，注意版本号;</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">[root@master-node ~]<span class="comment"># yum -y install gcc pcre-devel zlib-devel openssl-devel</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
