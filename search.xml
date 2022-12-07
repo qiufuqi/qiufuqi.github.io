@@ -4,6 +4,72 @@
   
     
     <entry>
+      <title>vSAN常见使用问题</title>
+      <link href="/exsi_vCenter_vSAN_problem/"/>
+      <url>/exsi_vCenter_vSAN_problem/</url>
+      
+        <content type="html"><![CDATA[<p>vCenter常见问题归类</p><h1 id="许可证过期"><a href="#许可证过期" class="headerlink" title="许可证过期"></a>许可证过期</h1><p>当我们进入系统时，上方会有个明显的提示：清单中包含许可证已过期或即将过期的 vCenter Server 系统。从官方下载的都是申请60天试用的，那么就意味着60天后会过期。<br>运行许可证生成软件<br><img src="https://qiufuqi.gitee.io/img/hexo/20221205135047.png"></p><p>进入分配许可 “管理您的许可证”——“许可证”——“添加新许可” 输入许可证秘钥<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174415.png"></p><p>编辑许可证名称 点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174453.png"></p><p>许可证添加成功之后，信息如下从灰色!可以得知，其实该许可证还没分配的，所以上方的许可证即将过期的提示还在<br>进入分配许可证 资产——选择主机——选择分配许可证<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174533.png"></p><p>分配许可证<br>选择刚才上面新配置的许可证，选中之后可以看到下面分配验证的提示：许可证分配有效<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174557.png"></p><p>分配许可证成功之后校验<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174637.png"><br>刷新之后，上方明显：‘清单中包含许可证已过期或即将过期的 vCenter Server 系统’的提示已消失<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174656.png"></p><p>vSAN许可证过期<br>选中集群 =&gt; 配置 =&gt; 配置 =&gt; 许可 =&gt; 分配许可证<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207153953.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207154059.png"></p><h1 id="vSAN-相关问题"><a href="#vSAN-相关问题" class="headerlink" title="vSAN 相关问题"></a>vSAN 相关问题</h1><p>HA高可用<br>其运行机制是监控群集中的ESXi主机及虚拟机，通过配置合适的策略，当群集中的ESXi主机或虚拟机发生故障，可以自动到其他的ESXi主机上进行重新启动，最大限度保证重要服务不中断。<br>选中集群 =&gt; 配置 =&gt; 配置 =&gt; 快速入门   vSphere HA<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207154253.png"></p><p>DRS 动态资源平衡<br>vSphere DRS 可不间断地平衡资源池内的计算容量，以提供物理基础架构所不能提供的性能、可扩展性和可用性。<br>选中集群 =&gt; 配置 =&gt; 配置 =&gt; 快速入门   vSphere DRS<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207154253.png"></p><p>故障域<br>vSAN故障域可以隔离ESXi主机。我们在同一个vSAN群集中，可以把服务器A和B定义在一个故障域中，服务器C、D和E定义在另外一个故障域中，那么vSAN存放虚拟机主机时，不会把组件存放在同一个故障域中的主机上，当某一个故障域出现问题，服务仍然能提供。<br>选中集群 =&gt; 配置 =&gt; vSAN =&gt; 故障域<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207162723.png"></p><h1 id="添加新节点"><a href="#添加新节点" class="headerlink" title="添加新节点"></a>添加新节点</h1><p>新增一个节点，将节点加入到vsan集群中，新节点可没有存储，只使用它的cpu和内存，也可将磁盘加入vsan集群。<br>在数据中心处添加节点，并进入维护模式<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207162952.png"></p><p>添加和管理主机，将新主机纳入分布式交换机管理（后期纳入vsan，内部通信）<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207163141.png"><br>添加VMkernel适配器，分配内部通信ip<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207163351.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207163436.png"><br>查看新节点 虚拟交换机配置情况<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207163538.png"></p><p>将新节点移入到vsan集群中，资源池根据需要来改变，如果加入失败，参考下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207163650.png"></p><p>新节点退出维护模式，将磁盘加入vsan集群管理<br>选中集群 =&gt; 配置 =&gt; vSAN =&gt; 磁盘管理 =&gt; 声明未使用的磁盘，将新节点的磁盘加入即可<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207164316.png"></p><h2 id="新节点加入失败"><a href="#新节点加入失败" class="headerlink" title="新节点加入失败"></a>新节点加入失败</h2><p>vSphere Web Client 添加主机进VSAN集群时“SAN 主机移至目标群集: vSAN 群集的 UUID 不匹配”报错<br>原因分析：是因为该esxi主机已经加入过其它集群，和现在新加入的集群UUID冲突了，需要该esxi主机先退出旧集群，然后再加入新集群。<br>解决方案：<br>登录该esxi主机的ssh服务器；通过命令行操作。<br>1、查看VSAN集群状态<br>执行命令：esxcli vsan cluster get<br>2、退出VSAN集群<br>执行命令： esxcli vsan cluster leave<br>3、加入VSAN集群  – 可在页面操作<br>执行命令： esxcli vsan cluster join -u 523ae663-623b-e2fc-39e3-43b15c5ca801</p><h1 id="删除某节点"><a href="#删除某节点" class="headerlink" title="删除某节点"></a>删除某节点</h1><p>选中节点，进入维护模式，迁移全部数据<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207164612.png"></p><p>选中节点 =&gt; 配置 =&gt; 网络 =&gt; 虚拟交换机 =&gt; 删除VMkernel<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207164939.png"><br>分布式交换机删除节点，选择移除节点<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207165040.png"><br>删除磁盘组，选中集群 =&gt; 配置 =&gt; vSAN =&gt; 磁盘管理 =&gt; 选中节点磁盘，选择移除<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207165439.png"><br>选中节点，删除即可<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207165138.png"></p><p>可在节点上执行如下操作，方便节点加入别的vsan<br>1、查看VSAN集群状态<br>执行命令：esxcli vsan cluster get<br>2、退出VSAN集群<br>执行命令： esxcli vsan cluster leave</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> EXSI </category>
+          
+          <category> vCenter </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EXSI </tag>
+            
+            <tag> vCenter </tag>
+            
+            <tag> vSAN </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vSAN单站点群集</title>
+      <link href="/exsi_vCenter_vSAN/"/>
+      <url>/exsi_vCenter_vSAN/</url>
+      
+        <content type="html"><![CDATA[<p><strong>VMware vSAN 6.7 搭建单站点vSAN群集</strong><br>VMware vSAN 是作为 ESXi 管理程序的一部分本机运行的分布式软件层。<br>vSAN 可汇总主机群集的本地或直接连接容量设备，并创建在 vSAN 群集的所有主机之间共享的单个存储池。<br>vSAN 支持 HA、vMotion 和 DRS 等需要共享存储的 VMware 功能，但它无需外部共享存储，并且简化了存储配置和虚拟机置备活动。<br>注：如果主机向 vSAN 数据存储提供其本地存储设备，则必须至少提供一个闪存缓存设备和一个容量设备；容量设备也称为数据磁盘，此类主机上的设备将构成一个或多个磁盘组；每个磁盘组包含一个闪存缓存设备，以及一个或多个用于持久存储的容量设备；每个主机都可配置为使用多个磁盘组。<br><a href="https://www.qedev.com/tag/VMwarevSAN">部署参考地址</a></p><h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><p>前期准备：</p><ul><li>搭建好vCenter vSphere Client管理平台，<a href="/exsi_vCenter_install">搭建参考</a>。</li><li>三台EXSI6.7主机，系统盘+闪存盘+容量盘，<a href="https://blog.51cto.com/u_15233520/5226348">部署参考</a>。</li><li>交换机，用于内部通信</li></ul><p>三台EXSI6.7主机ip：<br>10.11.8.10<br>10.11.8.13<br>10.11.8.14</p><h1 id="配置vSphere群集"><a href="#配置vSphere群集" class="headerlink" title="配置vSphere群集"></a>配置vSphere群集</h1><h2 id="添加主机"><a href="#添加主机" class="headerlink" title="添加主机"></a>添加主机</h2><p>在vCenter中新建数据中心，把3台主机都加入vCenter，并进入维护模式<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207142926.png"></p><h2 id="开启SSH"><a href="#开启SSH" class="headerlink" title="开启SSH"></a>开启SSH</h2><p>选中主机 =&gt; 配置 =&gt; 系统 =&gt; 服务 =&gt; SSH ，启动即可，也可编辑启动策略<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207143140.png"></p><h2 id="标记磁盘"><a href="#标记磁盘" class="headerlink" title="标记磁盘"></a>标记磁盘</h2><p>选中主机 =&gt; 配置 =&gt; 存储 =&gt; 存储适配器 =&gt; 选中磁盘 =&gt; 设备 ，将其中一块盘标记为闪存盘<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207143430.png"></p><h2 id="新建集群"><a href="#新建集群" class="headerlink" title="新建集群"></a>新建集群</h2><p>在数据中心下新建集群test_vsan_cluster，并将3台主机拖入集群<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207143845.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207143933.png"></p><h2 id="调整存储名称"><a href="#调整存储名称" class="headerlink" title="调整存储名称"></a>调整存储名称</h2><p>本步骤可不做，但是为了方便管理，以ip最后数字命名<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144045.png"></p><h1 id="配置启用vSAN"><a href="#配置启用vSAN" class="headerlink" title="配置启用vSAN"></a>配置启用vSAN</h1><h2 id="新建分布式交换机"><a href="#新建分布式交换机" class="headerlink" title="新建分布式交换机"></a>新建分布式交换机</h2><p>新建分布式交换机，建立vSAN存储网络<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144235.png"><br>输入分布式交换机名称test_DSwitch_vsan<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144352.png"><br>选择版本，3台主机exsi的版本<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144431.png"><br>上行链路数目为1，每台主机都有1条网卡来连接vSAN的。顺便创建默认的端口组。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144609.png"><br>完成分布式交换机创建<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207144643.png"></p><h2 id="交换机添加主机配置链路"><a href="#交换机添加主机配置链路" class="headerlink" title="交换机添加主机配置链路"></a>交换机添加主机配置链路</h2><p>添加和管理主机，添加主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207145105.png"><br>+新主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207145157.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207145224.png"><br>分配上行链路，选中网卡（用于内部通信）<br>如果机器相同，且连接网卡相同，则选择将此上行链路分配到所有主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207145605.png"><br>暂时不管理网络适配器，下一步直至完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207145902.png"><br>到每台ESXi主机虚拟网络处可以看到此时分布式交换机的拓扑，选中主机 =&gt; 配置 =&gt; 网络 =&gt; 虚拟交换机<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150012.png"></p><p>为分布式端口组添加VMkernel网卡，配置分布式交换机的左端<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150221.png"><br>选择所有主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150252.png"><br>务必选中vSAN服务<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150337.png"></p><p>配置ip地址，图片中172.16.0.0/24网段，用于内部通信（交换机端设置放行）<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150413.png"><br>配置完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150525.png"><br>返回ESXi主机查看网络，可以看到分布式交换机的左端（端口组）已经配置。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150556.png"></p><p>至此，分布式交换机配置完成。</p><p>此时可登录exsi主机，确保各个主机间正常通信。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150729.png"></p><h2 id="创建磁盘组"><a href="#创建磁盘组" class="headerlink" title="创建磁盘组"></a>创建磁盘组</h2><p>启用vSAN前，请保证要用来做磁盘组的磁盘（缓存盘和数据盘）不包含任何分区信息。未消耗<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150840.png"><br>开启vsan服务，选中集群 =&gt; 配置 =&gt; vSAN<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207150924.png"></p><p>选择单站点群集，如果缓存盘为SSD，固态盘，可开启去重和压缩<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151046.png"><br>声明磁盘，（二次实验，已经声明过了，所以此处不显示，参考第二章图片，区分容量层和缓存层）<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151254.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151334.png"></p><p>故障域在此先不声明，点击下一步完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151451.png"><br>正在配置vSAN群集，等待任务执行完毕即可<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151552.png"><br>将所有主机退出维护模式，到群集的数据存储处查看 vsanDatastore 的容量<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207151955.png"><br>查看vSAN的运行状况，保证其不出现红色的警告<br><img src="https://qiufuqi.gitee.io/img/hexo/20221207152045.png"></p><p><strong>至此，一个单站点的vSAN群集搭建成功。</strong><br>创建虚拟机时可选择存储位置为vsandatastore中，具体来说是将虚拟机的对象（主页和hard disk）以网络RAID1的方式存放在多台ESXi主机上的，实现多副本，避免单点故障，某一台主机故障（进入维护模式或者掉电），虚拟机仍可运行。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> EXSI </category>
+          
+          <category> vCenter </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EXSI </tag>
+            
+            <tag> vCenter </tag>
+            
+            <tag> vSAN </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>StarVCenter部署安装</title>
       <link href="/StartVCenter_install/"/>
       <url>/StartVCenter_install/</url>
@@ -657,73 +723,11 @@
     
     
     <entry>
-      <title>vCenter使用问题</title>
-      <link href="/exsi_vCenter_qianyi/"/>
-      <url>/exsi_vCenter_qianyi/</url>
-      
-        <content type="html"><![CDATA[<p>vcenter vsan<br><a href="https://ericzhong.blog.csdn.net/article/details/104525497">https://ericzhong.blog.csdn.net/article/details/104525497</a></p><p><a href="https://ericzhong.blog.csdn.net/article/details/103330929">https://ericzhong.blog.csdn.net/article/details/103330929</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> EXSI </category>
-          
-          <category> vCenter </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> EXSI </tag>
-            
-            <tag> vCenter </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>vCenter安装</title>
-      <link href="/exsi_vCenter/"/>
-      <url>/exsi_vCenter/</url>
+      <link href="/exsi_vCenter_install/"/>
+      <url>/exsi_vCenter_install/</url>
       
-        <content type="html"><![CDATA[<p><strong>Vmware vCenter 6.7部署安装全过程</strong></p><p><a href="https://baijiahao.baidu.com/s?id=1735797791474009805&wfr=spider&for=pc">参考地址</a></p><h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><p>前期准备：</p><ul><li>安装前请先准备好VMware-VCSA-all-6.7.0-19300125.iso文件，放置在windows操作系统下。</li><li>一台EXSI主机 （vCenter系统安装在次主机上）</li></ul><p>vCenter硬件要求<br>准备把vCenter安装在ESXI服务器上的一个虚拟机中，最低12G内存+2VCPU，这个条件还只是最小化安装vCenter，只能管理10台ESXI服务器，100台虚拟机。由于ESXI本身需要4G内存，因此使用此搭配时，至少需要16G+的内存，否则无法安装虚拟机。</p><h1 id="安装开始"><a href="#安装开始" class="headerlink" title="安装开始"></a>安装开始</h1><p>双击前面准备好的iso文件，将其挂载为DVD驱动器，进入vcsa-ui-installer文件夹。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172408.png"><br>然后选择win32，如果你的其它的操作系统，则相应安装。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172436.png"><br>双击安装程序，开始安装。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172455.png"><br>设置安装界面语言为中文，点击右上角切换，点击“安装”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172517.png"></p><p>下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172626.png"><br>勾选许可，点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172704.png"></p><p>输入ESXi主机的地址、端口号、用户名以及密码，然后点击下一步  提前准备的exsi主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172728.png"><br>点击是<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172809.png"><br>设置 一下虚拟名称，root密码，点击下一步。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172829.png"><br>我这里就部署一台微型，点击下一步。不同部署大小所需的资源如下图：<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172846.png"><br>下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172903.png"><br>根据自己的情况选择dhcp或是静态ip地址，配置。下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172920.png"><br>最后点击完成。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172934.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172945.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172958.png"><br>继续部署第二阶段，点击继续。然后点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173022.png"><br>点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173037.png"><br>输入vCenterServer密码，并单击”下一步”<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173051.png"><br>取消勾选，点击下一步。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173112.png"><br>点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174019.png"><br>点击确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174035.png"><br>最后耐心等待即可。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174105.png"><br>完成后点击关闭<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174122.png"></p><p>然后通过我们的浏览器就能正常访问了。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174214.png"></p><h1 id="许可证过期"><a href="#许可证过期" class="headerlink" title="许可证过期"></a>许可证过期</h1><p>当我们进入系统时，上方会有个明显的提示：清单中包含许可证已过期或即将过期的 vCenter Server 系统。从官方下载的都是申请60天试用的，那么就意味着60天后会过期。<br>进入分配许可 “管理您的许可证”——“许可证”——“添加新许可” 输入许可证秘钥<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174415.png"></p><p>编辑许可证名称 点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174453.png"></p><p>许可证添加成功之后，信息如下从灰色!可以得知，其实该许可证还没分配的，所以上方的许可证即将过期的提示还在<br>进入分配许可证 资产——选择主机——选择分配许可证<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174533.png"></p><p>分配许可证<br>选择刚才上面新配置的许可证，选中之后可以看到下面分配验证的提示：许可证分配有效<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174557.png"></p><p>分配许可证成功之后校验<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174637.png"><br>刷新之后，上方明显：‘清单中包含许可证已过期或即将过期的 vCenter Server 系统’的提示已消失<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174656.png"></p><h1 id="新建数据中心"><a href="#新建数据中心" class="headerlink" title="新建数据中心"></a>新建数据中心</h1><p>添加主机了。点击首页IP地址后面的“操作”下拉框，选择“新建数据中心”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174734.png"><br>设置新建数据中心的名称。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174755.png"></p><p>新建完成之后，点击进入到数据中心。再点击数据中心后面的“操作”下拉框，选择“添加主机”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174813.png"></p><p>设置ESXi主机的IP地址信息，按照提示进行下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174829.png"><br>分配许可证信息。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174910.png"></p><p>锁定模式，一般不建议启用，如果是正规的数据中心，应该要进行管控。我就这一台，而且vCenter还是嵌入式部署，可不敢点启用，使用了默认的“禁用”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174931.png"></p><p>再点击到数据中心“Guo Tiejun”下的主机，就可以看到主机信息了。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175001.png"></p><h1 id="其他问题处理"><a href="#其他问题处理" class="headerlink" title="其他问题处理"></a>其他问题处理</h1><h2 id="管理问题"><a href="#管理问题" class="headerlink" title="管理问题"></a>管理问题</h2><p>vcenter在添加主机时，锁定模式选择“正常”，故导致无法直接登陆ESXI宿主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175051.png"></p><p>在vcenter选择相应的ESXI宿主机，配置&gt;系统&gt;安全配置文件&gt;锁定模式&gt;编辑，修改为禁用。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175125.png"></p><h2 id="迁移问题"><a href="#迁移问题" class="headerlink" title="迁移问题"></a>迁移问题</h2><p>单击主机→配置→VMkernel适配器→单击vmk0设备→编辑<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103544.png"><br>勾选vMotion服务，然后确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103615.png"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> EXSI </category>
-          
-          <category> vCenter </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> EXSI </tag>
-            
-            <tag> vCenter </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vCenter使用问题</title>
-      <link href="/exsi_vCenter_qianyi/"/>
-      <url>/exsi_vCenter_qianyi/</url>
-      
-        <content type="html"><![CDATA[<p><strong>Vmware vCenter 6.7日常使用问题处理</strong></p><h1 id="管理问题"><a href="#管理问题" class="headerlink" title="管理问题"></a>管理问题</h1><h2 id="浏览器访问"><a href="#浏览器访问" class="headerlink" title="浏览器访问"></a>浏览器访问</h2><p>vcenter在添加主机时，锁定模式选择“正常”，故导致无法直接登陆ESXI宿主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175051.png"></p><p>在vcenter选择相应的ESXI宿主机，配置&gt;系统&gt;安全配置文件&gt;锁定模式&gt;编辑，修改为禁用。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175125.png"></p><h1 id="迁移虚拟机"><a href="#迁移虚拟机" class="headerlink" title="迁移虚拟机"></a>迁移虚拟机</h1><p><a href="https://blog.51cto.com/xiaoyuanzheng/5611330">迁移参考</a><br>迁移的两种：冷迁移和热迁移。<br>冷迁移：vm关机后进行迁移，该方法适用所有vm，只要不是vm的版本不高过esxi的所支持版本，迁移后都可以正常启动<br>热迁移：vm在开机状态下进行迁移。</p><p>vmware从6.7版本开始支持跨cpu进行热迁移了，只需要开启一个叫evc的功能。（6.7以前没这个功能）<br>开启evc功能后，分intel跟amd的cpu支持热迁移。选择之后，vm使用的cpu是vmware虚拟机一层后的cpu，也就是模拟intel或者amd的cpu，这个时候cpuid 还有特性会被修改，不依赖物理主机的cpu。</p><h2 id="开启evc功能"><a href="#开启evc功能" class="headerlink" title="开启evc功能"></a>开启evc功能</h2><p>开启evc的位置有两个，一个是针对单个vm的,需要在关机状态下才能操作，开机状态无法操作，开启路径选择一台vm——配置——vmware evc —— 编辑–指定cpu，如下图：<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085507.png"></p><p>第二个开启evc的位置是通过群集，选择群集–配置——vmware evc —— 编辑–指定cpu，但是群集启用有要求，必须是群集里面没有开启其他系列evc的vm。 也就是说，开启的时候，会应用到群集所有vm，但是要求vm都没开启evc（如开启evc，必须是选择同一个系列的cpu，例如都选择了intel–sky 系列cpu）。<br>开启之后，vm重启后会生效evc的功能。</p><p>这里注意一点，如果把群集的evc功能关闭，群集内的vm的evc功能并不会失效，即便重启vm也不会关闭，具体原因不知道，所以建议尽量在单个vm上开启evc，最好是做镜像的时候设置，不要开启群集的evc。</p><p><strong>解决DELL 服务器安装完esxi后evc模式被禁用问题</strong><br>当我们安装完DELL服务器的esxi后，主机EVC模式出现：CPU模式 不可用（无响应）时，是因为在BIOS里面【Monitor/Mwait】功能被禁用了，需要开启。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085646.png"><br>开启<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085658.png"></p><h2 id="开启vMotion"><a href="#开启vMotion" class="headerlink" title="开启vMotion"></a>开启vMotion</h2><p>单击主机→配置→VMkernel适配器→单击vmk0设备→编辑<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103544.png"><br>勾选vMotion服务，然后确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103615.png"></p>]]></content>
+        <content type="html"><![CDATA[<p><strong>Vmware vCenter 6.7部署安装全过程</strong></p><p><a href="https://baijiahao.baidu.com/s?id=1735797791474009805&wfr=spider&for=pc">参考地址</a></p><h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><p>前期准备：</p><ul><li>安装前请先准备好VMware-VCSA-all-6.7.0-19300125.iso文件，放置在windows操作系统下。</li><li>一台EXSI主机 （vCenter系统安装在次主机上）</li></ul><p>vCenter硬件要求<br>准备把vCenter安装在ESXI服务器上的一个虚拟机中，最低12G内存+2VCPU，这个条件还只是最小化安装vCenter，只能管理10台ESXI服务器，100台虚拟机。由于ESXI本身需要4G内存，因此使用此搭配时，至少需要16G+的内存，否则无法安装虚拟机。</p><h1 id="安装开始"><a href="#安装开始" class="headerlink" title="安装开始"></a>安装开始</h1><p>双击前面准备好的iso文件，将其挂载为DVD驱动器，进入vcsa-ui-installer文件夹。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172408.png"><br>然后选择win32，如果你的其它的操作系统，则相应安装。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172436.png"><br>双击安装程序，开始安装。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172455.png"><br>设置安装界面语言为中文，点击右上角切换，点击“安装”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172517.png"></p><p>下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172626.png"><br>勾选许可，点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172704.png"></p><p>输入ESXi主机的地址、端口号、用户名以及密码，然后点击下一步  提前准备的exsi主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172728.png"><br>点击是<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172809.png"><br>设置 一下虚拟名称，root密码，点击下一步。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172829.png"><br>我这里就部署一台微型，点击下一步。不同部署大小所需的资源如下图：<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172846.png"><br>下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172903.png"><br>根据自己的情况选择dhcp或是静态ip地址，配置。下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172920.png"><br>最后点击完成。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172934.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172945.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20220921172958.png"><br>继续部署第二阶段，点击继续。然后点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173022.png"><br>点击下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173037.png"><br>输入vCenterServer密码，并单击”下一步”<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173051.png"><br>取消勾选，点击下一步。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921173112.png"><br>点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174019.png"><br>点击确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174035.png"><br>最后耐心等待即可。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174105.png"><br>完成后点击关闭<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174122.png"></p><p>然后通过我们的浏览器就能正常访问了。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174214.png"></p><h1 id="许可证过期"><a href="#许可证过期" class="headerlink" title="许可证过期"></a>许可证过期</h1><p>当我们进入系统时，上方会有个明显的提示：清单中包含许可证已过期或即将过期的 vCenter Server 系统。从官方下载的都是申请60天试用的，那么就意味着60天后会过期。<br>运行许可证生成软件<br><img src="https://qiufuqi.gitee.io/img/hexo/20221205135047.png"></p><p>进入分配许可 “管理您的许可证”——“许可证”——“添加新许可” 输入许可证秘钥<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174415.png"></p><p>编辑许可证名称 点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174453.png"></p><p>许可证添加成功之后，信息如下从灰色!可以得知，其实该许可证还没分配的，所以上方的许可证即将过期的提示还在<br>进入分配许可证 资产——选择主机——选择分配许可证<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174533.png"></p><p>分配许可证<br>选择刚才上面新配置的许可证，选中之后可以看到下面分配验证的提示：许可证分配有效<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174557.png"></p><p>分配许可证成功之后校验<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174637.png"><br>刷新之后，上方明显：‘清单中包含许可证已过期或即将过期的 vCenter Server 系统’的提示已消失<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174656.png"></p><h1 id="新建数据中心"><a href="#新建数据中心" class="headerlink" title="新建数据中心"></a>新建数据中心</h1><p>添加主机了。点击首页IP地址后面的“操作”下拉框，选择“新建数据中心”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174734.png"><br>设置新建数据中心的名称。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174755.png"></p><p>新建完成之后，点击进入到数据中心。再点击数据中心后面的“操作”下拉框，选择“添加主机”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174813.png"></p><p>设置ESXi主机的IP地址信息，按照提示进行下一步<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174829.png"><br>分配许可证信息。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174910.png"></p><p>锁定模式，一般不建议启用，如果是正规的数据中心，应该要进行管控。我就这一台，而且vCenter还是嵌入式部署，可不敢点启用，使用了默认的“禁用”。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921174931.png"></p><p>再点击到数据中心“Guo Tiejun”下的主机，就可以看到主机信息了。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175001.png"></p><h1 id="其他问题处理"><a href="#其他问题处理" class="headerlink" title="其他问题处理"></a>其他问题处理</h1><h2 id="管理问题"><a href="#管理问题" class="headerlink" title="管理问题"></a>管理问题</h2><p>vcenter在添加主机时，锁定模式选择“正常”，故导致无法直接登陆ESXI宿主机<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175051.png"></p><p>在vcenter选择相应的ESXI宿主机，配置&gt;系统&gt;安全配置文件&gt;锁定模式&gt;编辑，修改为禁用。<br><img src="https://qiufuqi.gitee.io/img/hexo/20220921175125.png"></p><h2 id="迁移问题"><a href="#迁移问题" class="headerlink" title="迁移问题"></a>迁移问题</h2><p><a href="https://blog.51cto.com/xiaoyuanzheng/5611330">迁移参考</a><br>迁移的两种：冷迁移和热迁移。<br>冷迁移：vm关机后进行迁移，该方法适用所有vm，只要不是vm的版本不高过esxi的所支持版本，迁移后都可以正常启动<br>热迁移：vm在开机状态下进行迁移。</p><p>vmware从6.7版本开始支持跨cpu进行热迁移了，只需要开启一个叫evc的功能。（6.7以前没这个功能）<br>开启evc功能后，分intel跟amd的cpu支持热迁移。选择之后，vm使用的cpu是vmware虚拟机一层后的cpu，也就是模拟intel或者amd的cpu，这个时候cpuid 还有特性会被修改，不依赖物理主机的cpu。</p><h3 id="开启evc功能"><a href="#开启evc功能" class="headerlink" title="开启evc功能"></a>开启evc功能</h3><p>开启evc的位置有两个，一个是针对单个vm的,需要在关机状态下才能操作，开机状态无法操作，开启路径选择一台vm——配置——vmware evc —— 编辑–指定cpu，如下图：<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085507.png"></p><p>第二个开启evc的位置是通过群集，选择群集–配置——vmware evc —— 编辑–指定cpu，但是群集启用有要求，必须是群集里面没有开启其他系列evc的vm。 也就是说，开启的时候，会应用到群集所有vm，但是要求vm都没开启evc（如开启evc，必须是选择同一个系列的cpu，例如都选择了intel–sky 系列cpu）。<br>开启之后，vm重启后会生效evc的功能。</p><p>这里注意一点，如果把群集的evc功能关闭，群集内的vm的evc功能并不会失效，即便重启vm也不会关闭，具体原因不知道，所以建议尽量在单个vm上开启evc，最好是做镜像的时候设置，不要开启群集的evc。</p><p><strong>解决DELL 服务器安装完esxi后evc模式被禁用问题</strong><br>当我们安装完DELL服务器的esxi后，主机EVC模式出现：CPU模式 不可用（无响应）时，是因为在BIOS里面【Monitor/Mwait】功能被禁用了，需要开启。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085646.png"><br>开启<br><img src="https://qiufuqi.gitee.io/img/hexo/20221104085658.png"></p><h3 id="开启vMotion"><a href="#开启vMotion" class="headerlink" title="开启vMotion"></a>开启vMotion</h3><p>单击主机→配置→VMkernel适配器→单击vmk0设备→编辑<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103544.png"><br>勾选vMotion服务，然后确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20220926103615.png"></p>]]></content>
       
       
       <categories>
@@ -940,41 +944,6 @@
     
     
     <entry>
-      <title>Mysql日志</title>
-      <link href="/mysql5.7_RZ/"/>
-      <url>/mysql5.7_RZ/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.进入MySQL，开启日志选项（默认情况应该是关闭的）：</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br><span class="line"></span><br><span class="line">2. 查询本机MySQL执行日志保存的路径：</span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;general_log_file&#x27;</span>;</span><br><span class="line"></span><br><span class="line">3. 重启MySQL服务器：</span><br><span class="line">systemctl restart mysqld</span><br><span class="line"></span><br><span class="line">4. 查看MySQL执行日志：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径也就是在第2步中查询出的</span></span><br><span class="line"><span class="built_in">tail</span> -f /path/to/general_log_file</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> 数据库 </category>
-          
-          <category> Mysql </category>
-          
-          <category> 日志 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Mysql </tag>
-            
-            <tag> 日志 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Mysql5.7 主从同步</title>
       <link href="/mysql5.7_MS/"/>
       <url>/mysql5.7_MS/</url>
@@ -1002,6 +971,41 @@
             <tag> Mysql </tag>
             
             <tag> 主从 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql日志</title>
+      <link href="/mysql5.7_RZ/"/>
+      <url>/mysql5.7_RZ/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.进入MySQL，开启日志选项（默认情况应该是关闭的）：</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br><span class="line"></span><br><span class="line">2. 查询本机MySQL执行日志保存的路径：</span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;general_log_file&#x27;</span>;</span><br><span class="line"></span><br><span class="line">3. 重启MySQL服务器：</span><br><span class="line">systemctl restart mysqld</span><br><span class="line"></span><br><span class="line">4. 查看MySQL执行日志：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径也就是在第2步中查询出的</span></span><br><span class="line"><span class="built_in">tail</span> -f /path/to/general_log_file</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 数据库 </category>
+          
+          <category> Mysql </category>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
+            
+            <tag> 日志 </tag>
             
         </tags>
       
@@ -1387,9 +1391,9 @@
             
             <tag> Linux </tag>
             
-            <tag> CentOS </tag>
-            
             <tag> Mysql </tag>
+            
+            <tag> CentOS </tag>
             
         </tags>
       
@@ -1491,39 +1495,6 @@
     
     
     <entry>
-      <title>K8S监控 Prometheus</title>
-      <link href="/k8s_prometheus/"/>
-      <url>/k8s_prometheus/</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/11151649.html">https://www.cnblogs.com/kevingrace/p/11151649.html</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> K8S </category>
-          
-          <category> 监控 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Prometheus </tag>
-            
-            <tag> K8S </tag>
-            
-            <tag> 监控 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Prometheus监控+altermanager+钉钉告警</title>
       <link href="/prometheus/"/>
       <url>/prometheus/</url>
@@ -1549,6 +1520,39 @@
             <tag> Grafana </tag>
             
             <tag> 钉钉告警 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>K8S监控 Prometheus</title>
+      <link href="/k8s_prometheus/"/>
+      <url>/k8s_prometheus/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/kevingrace/p/11151649.html">https://www.cnblogs.com/kevingrace/p/11151649.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> K8S </category>
+          
+          <category> 监控 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> K8S </tag>
+            
+            <tag> 监控 </tag>
             
         </tags>
       
