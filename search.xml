@@ -128,35 +128,6 @@
     
     
     <entry>
-      <title>window防火墙端口放行</title>
-      <link href="/window_firewalld/"/>
-      <url>/window_firewalld/</url>
-      
-        <content type="html"><![CDATA[<p><strong>Windows Server启用防火墙并开放80端口</strong><br>Windows Server是自带防火墙的，可以过滤一些包。一般情况下为了安全都要打开防火墙，可以防止一些攻击行为。同时，由于启用防火墙后会封闭所有的端口，计算机根本就不会接受外部对端口发起的连接请求，也就无法对外提供服务。<br>如果要端口开放,必须要有进程程序安装对应该端口对应，比如安装web后对应80端口；同时服务器内部防火墙对端口不要做限制，或者需要添加例外。</p><h2 id="防火墙高级设置"><a href="#防火墙高级设置" class="headerlink" title="防火墙高级设置"></a>防火墙高级设置</h2><p>控制面板 =&gt; Windows防火墙 =&gt; 高级设置(左侧)<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121084445.png"></p><h2 id="新建规则"><a href="#新建规则" class="headerlink" title="新建规则"></a>新建规则</h2><p>入站规则(右击) =&gt; 新建规则<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121084619.png"></p><h2 id="选择规则类型"><a href="#选择规则类型" class="headerlink" title="选择规则类型"></a>选择规则类型</h2><p>规则类型 选择“端口”<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121084656.png"></p><h2 id="输入端口号"><a href="#输入端口号" class="headerlink" title="输入端口号"></a>输入端口号</h2><p>输入要开启的端口号，例如“80“点击“下一步”<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121085200.png"><br>选择“允许连接”，点“下一步”；可按默认选中“域”“专用”“公用”<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121085254.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221121085303.png"></p><h2 id="输入规则名称"><a href="#输入规则名称" class="headerlink" title="输入规则名称"></a>输入规则名称</h2><p>输入名称和描述，点击完成<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121085339.png"></p><h2 id="查看规则"><a href="#查看规则" class="headerlink" title="查看规则"></a>查看规则</h2><p>可看到自己创建的入站规则<br><img src="https://qiufuqi.gitee.io/img/hexo/20221121085401.png"></p><p>完成后，服务器中的防火墙对网页上的80端口就不再阻拦，输入服务器地址，连接vpn后，外部网络也可访问服务器的项目。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Windown </category>
-          
-          <category> 放行端口 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Windown </tag>
-            
-            <tag> 端口 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Python升级3.*</title>
       <link href="/python_upgrate/"/>
       <url>/python_upgrate/</url>
@@ -281,11 +252,11 @@
     
     
     <entry>
-      <title>IBM X3650 M3配置raid5</title>
-      <link href="/ibm_raid5/"/>
-      <url>/ibm_raid5/</url>
+      <title>IBM X3650 M3配置多raid</title>
+      <link href="/ibm_raid_more/"/>
+      <url>/ibm_raid_more/</url>
       
-        <content type="html"><![CDATA[<p><strong>IBM X3650 M3服务器上RAID配置</strong></p><h4 id="进入Web-BIOS"><a href="#进入Web-BIOS" class="headerlink" title="进入Web BIOS"></a>进入Web BIOS</h4><ul><li>进入Web BIOS启动机器，自检过程中会有 <Ctrl> + <H> 的提示，同时按下这两个键，再点击Start，就可以进入WEB BIOS的图形设置界面<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164336.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164355.png"></li><li>系统启动后，按F1进入bios进行设置  选择system setting =&gt; Adpters and UEFI Drivers =&gt; 选择LSI EFI SAS Driver下的PCI的驱动设置<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164633.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164715.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164355.png"></li></ul><h4 id="进入设置步骤"><a href="#进入设置步骤" class="headerlink" title="进入设置步骤"></a>进入设置步骤</h4><p>进入WebBIOS后点击Configuration Wizard，进入阵列设置向导<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164756.png"><br>有三个选项：</p><ul><li>Clear Configuration（清除配置）：清除已有的配置信息，注意会丢失所有的数据</li><li>New Configuration（全新配置）：清除已有的配置信息，并且全新创建新的配置</li><li>Add Configuration（添加配置）：保留原有配置信息，并且添加新的硬盘到原有的配置中（该配置通常不会引起数据丢失，但该操作有风险，建议先备份数据！）<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164814.png"></li></ul><p>点Next进入下一步，选择Yes确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164851.png"></p><p>选择手动配置 Manual Configuration，选择Next<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164905.png"></p><p>左边选择要配置在阵列中的硬盘，然后按Add to Array，从左边的Drivers中选到右边 Drivers Groups中的Drive group 0做RAID 1<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164929.png"></p><p>然后选择Accept DG，创建新的Drive group 1，再选择左边的硬盘Add to Array到右边的Drive group 1中做JBOD或RAID 0，选好硬盘后，选择 Accept DG后点击Next进入下图界面<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164957.png"></p><p>点Next进入下图，在左侧的ArrayWithFreeSpace中选中刚才做好的 Disk Groups，按Add to SPAN添加到右侧的span中，然后点Next<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165029.png"></p><p>进入Virtual Disk配置界面，选好Virtual Disk参数后，点选Accept接受配置，Next</p><ul><li>RAID Level中可以选择要配置的RAID级别</li><li>右侧的Possible RAID Level中显示可能的RAID级别的磁盘容量，比如示例中三个73G的硬盘配置raid0容量约为200G，而如果配置RAID5容量约为134G</li><li>Select size选项中可以修改Virtual Disk的容量，通常这个值设定为该磁盘组RAID级别的最大容量，注意单位选择GB<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165111.png"></li></ul><p>如要对Drive group 1做操作，按照对Drive group 0的操作重复即可<br>在最后的确认画面里点选Accept接受配置，然后会要求确认保存配置和初始化清除数据，就完成了对阵列的配置<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165130.png"></p>]]></content>
+        <content type="html"><![CDATA[<p><strong>IBM X3650 M3服务器上多RAID配置</strong><br><a href="https://blog.51cto.com/u_15233520/5226348">配置参考</a></p><p>物理机，两块系统盘做raid1，其余盘每块硬盘做raid0，4块SATA和2块SSD   <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170745.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170756.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170820.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170834.png"></p><p>调整 cache写策略为write through     <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170847.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170856.png"></p><p>全部硬盘 raid做完： <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170910.png"></p>]]></content>
       
       
       <categories>
@@ -312,11 +283,11 @@
     
     
     <entry>
-      <title>IBM X3650 M3配置多raid</title>
-      <link href="/ibm_raid_more/"/>
-      <url>/ibm_raid_more/</url>
+      <title>IBM X3650 M3配置raid5</title>
+      <link href="/ibm_raid5/"/>
+      <url>/ibm_raid5/</url>
       
-        <content type="html"><![CDATA[<p><strong>IBM X3650 M3服务器上多RAID配置</strong><br><a href="https://blog.51cto.com/u_15233520/5226348">配置参考</a></p><p>物理机，两块系统盘做raid1，其余盘每块硬盘做raid0，4块SATA和2块SSD   <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170745.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170756.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170820.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170834.png"></p><p>调整 cache写策略为write through     <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170847.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170856.png"></p><p>全部硬盘 raid做完： <br><img src="https://qiufuqi.gitee.io/img/hexo/20221207170910.png"></p>]]></content>
+        <content type="html"><![CDATA[<p><strong>IBM X3650 M3服务器上RAID配置</strong></p><h4 id="进入Web-BIOS"><a href="#进入Web-BIOS" class="headerlink" title="进入Web BIOS"></a>进入Web BIOS</h4><ul><li>进入Web BIOS启动机器，自检过程中会有 <Ctrl> + <H> 的提示，同时按下这两个键，再点击Start，就可以进入WEB BIOS的图形设置界面<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164336.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164355.png"></li><li>系统启动后，按F1进入bios进行设置  选择system setting =&gt; Adpters and UEFI Drivers =&gt; 选择LSI EFI SAS Driver下的PCI的驱动设置<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164633.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164715.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164355.png"></li></ul><h4 id="进入设置步骤"><a href="#进入设置步骤" class="headerlink" title="进入设置步骤"></a>进入设置步骤</h4><p>进入WebBIOS后点击Configuration Wizard，进入阵列设置向导<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164756.png"><br>有三个选项：</p><ul><li>Clear Configuration（清除配置）：清除已有的配置信息，注意会丢失所有的数据</li><li>New Configuration（全新配置）：清除已有的配置信息，并且全新创建新的配置</li><li>Add Configuration（添加配置）：保留原有配置信息，并且添加新的硬盘到原有的配置中（该配置通常不会引起数据丢失，但该操作有风险，建议先备份数据！）<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164814.png"></li></ul><p>点Next进入下一步，选择Yes确定<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164851.png"></p><p>选择手动配置 Manual Configuration，选择Next<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164905.png"></p><p>左边选择要配置在阵列中的硬盘，然后按Add to Array，从左边的Drivers中选到右边 Drivers Groups中的Drive group 0做RAID 1<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164929.png"></p><p>然后选择Accept DG，创建新的Drive group 1，再选择左边的硬盘Add to Array到右边的Drive group 1中做JBOD或RAID 0，选好硬盘后，选择 Accept DG后点击Next进入下图界面<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110164957.png"></p><p>点Next进入下图，在左侧的ArrayWithFreeSpace中选中刚才做好的 Disk Groups，按Add to SPAN添加到右侧的span中，然后点Next<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165029.png"></p><p>进入Virtual Disk配置界面，选好Virtual Disk参数后，点选Accept接受配置，Next</p><ul><li>RAID Level中可以选择要配置的RAID级别</li><li>右侧的Possible RAID Level中显示可能的RAID级别的磁盘容量，比如示例中三个73G的硬盘配置raid0容量约为200G，而如果配置RAID5容量约为134G</li><li>Select size选项中可以修改Virtual Disk的容量，通常这个值设定为该磁盘组RAID级别的最大容量，注意单位选择GB<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165111.png"></li></ul><p>如要对Drive group 1做操作，按照对Drive group 0的操作重复即可<br>在最后的确认画面里点选Accept接受配置，然后会要求确认保存配置和初始化清除数据，就完成了对阵列的配置<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110165130.png"></p>]]></content>
       
       
       <categories>
@@ -1422,9 +1393,9 @@
             
             <tag> Linux </tag>
             
-            <tag> Mysql </tag>
-            
             <tag> CentOS </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
