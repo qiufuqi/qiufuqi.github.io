@@ -188,37 +188,6 @@
     
     
     <entry>
-      <title>Zabbix监控简介</title>
-      <link href="/zabbix_agent_model/"/>
-      <url>/zabbix_agent_model/</url>
-      
-        <content type="html"><![CDATA[<p>zabbix是一款非常强大，同时也是应用最为广泛的开源监控软件。</p><h2 id="监控方式"><a href="#监控方式" class="headerlink" title="监控方式"></a>监控方式</h2><p>zabbix监控的方式主要有以下三种类型</p><h3 id="Zabbix-agent"><a href="#Zabbix-agent" class="headerlink" title="Zabbix agent"></a>Zabbix agent</h3><p>在被监控机上面安装zabbix agent，zabbix agent将被监控机采集到的数据发送给zabbix server。这种方式最常用，一般用来采集服务器的cpu、内存等信息。</p><h3 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h3><p>一些网络设备如交换机，上面无法安装zabbix agent，所以只能通过snmp的方式收集监控数据如端口状态，流量等。</p><h3 id="External-check"><a href="#External-check" class="headerlink" title="External check"></a>External check</h3><p>在zabbix server上面运行查询脚本，直接查询被监控机上的数据。<strong>此种方式在被监控机上面不需要做任何部署</strong>，所有查询全部从zabbix server上面发出，所以对zabbix server的性能要求较高，官方不推荐大量使用该方式。对于少量的oracle数据库服务器，可以采用该方式。</p><p><a href="https://blog.csdn.net/zfw_666666/article/details/124712980">https://blog.csdn.net/zfw_666666/article/details/124712980</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> 监控 </category>
-          
-          <category> zabbix </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Zabbix </tag>
-            
-            <tag> agent </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Zabbix监控Oracle</title>
       <link href="/zabbix_oracle/"/>
       <url>/zabbix_oracle/</url>
@@ -242,6 +211,37 @@
             <tag> Oracle </tag>
             
             <tag> Zabbix </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Zabbix监控简介</title>
+      <link href="/zabbix_agent_model/"/>
+      <url>/zabbix_agent_model/</url>
+      
+        <content type="html"><![CDATA[<p>zabbix是一款非常强大，同时也是应用最为广泛的开源监控软件。</p><h2 id="监控方式"><a href="#监控方式" class="headerlink" title="监控方式"></a>监控方式</h2><p>zabbix监控的方式主要有以下三种类型</p><h3 id="Zabbix-agent"><a href="#Zabbix-agent" class="headerlink" title="Zabbix agent"></a>Zabbix agent</h3><p>在被监控机上面安装zabbix agent，zabbix agent将被监控机采集到的数据发送给zabbix server。这种方式最常用，一般用来采集服务器的cpu、内存等信息。</p><h3 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h3><p>一些网络设备如交换机，上面无法安装zabbix agent，所以只能通过snmp的方式收集监控数据如端口状态，流量等。</p><h3 id="External-check"><a href="#External-check" class="headerlink" title="External check"></a>External check</h3><p>在zabbix server上面运行查询脚本，直接查询被监控机上的数据。<strong>此种方式在被监控机上面不需要做任何部署</strong>，所有查询全部从zabbix server上面发出，所以对zabbix server的性能要求较高，官方不推荐大量使用该方式。对于少量的oracle数据库服务器，可以采用该方式。</p><p><a href="https://blog.csdn.net/zfw_666666/article/details/124712980">https://blog.csdn.net/zfw_666666/article/details/124712980</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 监控 </category>
+          
+          <category> zabbix </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zabbix </tag>
+            
+            <tag> agent </tag>
             
         </tags>
       
@@ -496,37 +496,6 @@
     
     
     <entry>
-      <title>Keepalived安装部署</title>
-      <link href="/keepalive_install/"/>
-      <url>/keepalive_install/</url>
-      
-        <content type="html"><![CDATA[<p><strong>Keepalived安装部署</strong><br>Keepalived 2.2.7 安装<br>安装方式如下：</p><ul><li>YUM安装</li><li>编译安装</li><li>docker安装</li></ul><h1 id="YUM安装"><a href="#YUM安装" class="headerlink" title="YUM安装"></a>YUM安装</h1><p>yum安装keepalived版本不好控制</p><h2 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># yum -y install keepalived</span></span><br></pre></td></tr></table></figure><h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qa|grep keepalived</span></span><br><span class="line">keepalived-1.3.5-19.el7.x86_64</span><br></pre></td></tr></table></figure><p>查看安装后目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qc keepalived</span></span><br><span class="line">/etc/keepalived/keepalived.conf</span><br><span class="line">/etc/sysconfig/keepalived</span><br></pre></td></tr></table></figure><h1 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h1><h2 id="获取安装包"><a href="#获取安装包" class="headerlink" title="获取安装包"></a>获取安装包</h2><p>下载<a href="https://www.keepalived.org/download.html">安装包</a>并解压</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node opt]<span class="comment"># wget https://www.keepalived.org/software/keepalived-2.2.7.tar.gz --no-check-certificate</span></span><br><span class="line">[root@master-node opt]<span class="comment"># tar -zxvf keepalived-2.2.7.tar.gz</span></span><br></pre></td></tr></table></figure><h2 id="编译安装-1"><a href="#编译安装-1" class="headerlink" title="编译安装"></a>编译安装</h2><p>安装在/etc/keepalived目录下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /opt/keepalived-2.2.7</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># ./configure --prefix=/etc/keepalived --sysconf=/etc</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># make &amp;&amp; make install</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#让系统识别nginx的操作命令</span></span><br><span class="line">[root@slave-node nginx-1.20.2]<span class="comment"># ls -s /etc/keepalived/sbin/keepalived /usr/local/sbin/</span></span><br></pre></td></tr></table></figure><h2 id="添加系统服务"><a href="#添加系统服务" class="headerlink" title="添加系统服务"></a>添加系统服务</h2><p>如果已存在则不需要更改</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node keepalived]<span class="comment"># vi /lib/systemd/system/keepalived.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=LVS and VRRP High Availability Monitor</span><br><span class="line">After=network-online.target syslog.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line">Documentation=man:keepalived(8)</span><br><span class="line">Documentation=man:keepalived.conf(5)</span><br><span class="line">Documentation=man:genhash(1)</span><br><span class="line">Documentation=https://keepalived.org</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/run/keepalived.pid</span><br><span class="line">KillMode=process</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/keepalived</span><br><span class="line">ExecStart=/etc/keepalived/sbin/keepalived  <span class="variable">$KEEPALIVED_OPTIONS</span></span><br><span class="line">ExecReload=/bin/kill -HUP <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure><h2 id="启动keepalived"><a href="#启动keepalived" class="headerlink" title="启动keepalived"></a>启动keepalived</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node ~]<span class="comment"># systemctl enable keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># ps -ef|grep keepalived</span></span><br><span class="line">root     15388  9182  0 16:02 pts/0    00:00:00 grep --color=auto keepalived</span><br></pre></td></tr></table></figure><h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><ul><li>systemctl start keepalived启动异常<br>Failed to start LVS and VRRP High Availability Monitor.<br>缺失配置文件,创建该文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /etc/keepalived/</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># &gt; keepalived.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新启动</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># cd /etc/keepalived/sbin/ &amp;&amp; ./keepalived</span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> Nginx </category>
-          
-          <category> keepalived </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> keepalive </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Nginx双机热备-主从模式</title>
       <link href="/nginx_zhucong/"/>
       <url>/nginx_zhucong/</url>
@@ -552,6 +521,37 @@
             <tag> Nginx </tag>
             
             <tag> 主从 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Keepalived安装部署</title>
+      <link href="/keepalive_install/"/>
+      <url>/keepalive_install/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Keepalived安装部署</strong><br>Keepalived 2.2.7 安装<br>安装方式如下：</p><ul><li>YUM安装</li><li>编译安装</li><li>docker安装</li></ul><h1 id="YUM安装"><a href="#YUM安装" class="headerlink" title="YUM安装"></a>YUM安装</h1><p>yum安装keepalived版本不好控制</p><h2 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># yum -y install keepalived</span></span><br></pre></td></tr></table></figure><h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qa|grep keepalived</span></span><br><span class="line">keepalived-1.3.5-19.el7.x86_64</span><br></pre></td></tr></table></figure><p>查看安装后目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># rpm -qc keepalived</span></span><br><span class="line">/etc/keepalived/keepalived.conf</span><br><span class="line">/etc/sysconfig/keepalived</span><br></pre></td></tr></table></figure><h1 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h1><h2 id="获取安装包"><a href="#获取安装包" class="headerlink" title="获取安装包"></a>获取安装包</h2><p>下载<a href="https://www.keepalived.org/download.html">安装包</a>并解压</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node opt]<span class="comment"># wget https://www.keepalived.org/software/keepalived-2.2.7.tar.gz --no-check-certificate</span></span><br><span class="line">[root@master-node opt]<span class="comment"># tar -zxvf keepalived-2.2.7.tar.gz</span></span><br></pre></td></tr></table></figure><h2 id="编译安装-1"><a href="#编译安装-1" class="headerlink" title="编译安装"></a>编译安装</h2><p>安装在/etc/keepalived目录下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /opt/keepalived-2.2.7</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># ./configure --prefix=/etc/keepalived --sysconf=/etc</span></span><br><span class="line">[root@master-node keepalived-2.2.7]<span class="comment"># make &amp;&amp; make install</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#让系统识别nginx的操作命令</span></span><br><span class="line">[root@slave-node nginx-1.20.2]<span class="comment"># ls -s /etc/keepalived/sbin/keepalived /usr/local/sbin/</span></span><br></pre></td></tr></table></figure><h2 id="添加系统服务"><a href="#添加系统服务" class="headerlink" title="添加系统服务"></a>添加系统服务</h2><p>如果已存在则不需要更改</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node keepalived]<span class="comment"># vi /lib/systemd/system/keepalived.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=LVS and VRRP High Availability Monitor</span><br><span class="line">After=network-online.target syslog.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line">Documentation=man:keepalived(8)</span><br><span class="line">Documentation=man:keepalived.conf(5)</span><br><span class="line">Documentation=man:genhash(1)</span><br><span class="line">Documentation=https://keepalived.org</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/run/keepalived.pid</span><br><span class="line">KillMode=process</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/keepalived</span><br><span class="line">ExecStart=/etc/keepalived/sbin/keepalived  <span class="variable">$KEEPALIVED_OPTIONS</span></span><br><span class="line">ExecReload=/bin/kill -HUP <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure><h2 id="启动keepalived"><a href="#启动keepalived" class="headerlink" title="启动keepalived"></a>启动keepalived</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node ~]<span class="comment"># systemctl enable keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># ps -ef|grep keepalived</span></span><br><span class="line">root     15388  9182  0 16:02 pts/0    00:00:00 grep --color=auto keepalived</span><br></pre></td></tr></table></figure><h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><ul><li>systemctl start keepalived启动异常<br>Failed to start LVS and VRRP High Availability Monitor.<br>缺失配置文件,创建该文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master-node ~]<span class="comment"># cd /etc/keepalived/</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># &gt; keepalived.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新启动</span></span><br><span class="line">[root@master-node keepalived]<span class="comment"># systemctl start keepalived</span></span><br><span class="line">[root@master-node sbin]<span class="comment"># cd /etc/keepalived/sbin/ &amp;&amp; ./keepalived</span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> Nginx </category>
+          
+          <category> keepalived </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> keepalive </tag>
             
         </tags>
       
@@ -1422,9 +1422,9 @@
             
             <tag> Linux </tag>
             
-            <tag> CentOS </tag>
-            
             <tag> Mysql </tag>
+            
+            <tag> CentOS </tag>
             
         </tags>
       
