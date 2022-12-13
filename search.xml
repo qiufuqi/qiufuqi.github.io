@@ -66,7 +66,7 @@
     
     
     <entry>
-      <title>EXSI6.7虚拟机操作</title>
+      <title>EXSI6.7虚拟机操作问题</title>
       <link href="/exsi_caozuo/"/>
       <url>/exsi_caozuo/</url>
       
@@ -1515,9 +1515,9 @@
             
             <tag> Linux </tag>
             
-            <tag> CentOS </tag>
-            
             <tag> Mysql </tag>
+            
+            <tag> CentOS </tag>
             
         </tags>
       
