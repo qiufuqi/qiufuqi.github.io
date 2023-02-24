@@ -622,37 +622,6 @@
     
     
     <entry>
-      <title>Zabbix监控简介</title>
-      <link href="/zabbix_agent_model/"/>
-      <url>/zabbix_agent_model/</url>
-      
-        <content type="html"><![CDATA[<p>zabbix是一款非常强大，同时也是应用最为广泛的开源监控软件。</p><h2 id="监控方式"><a href="#监控方式" class="headerlink" title="监控方式"></a>监控方式</h2><p>zabbix监控的方式主要有以下三种类型</p><h3 id="Zabbix-agent"><a href="#Zabbix-agent" class="headerlink" title="Zabbix agent"></a>Zabbix agent</h3><p>在被监控机上面安装zabbix agent，zabbix agent将被监控机采集到的数据发送给zabbix server。这种方式最常用，一般用来采集服务器的cpu、内存等信息。</p><h3 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h3><p>一些网络设备如交换机，上面无法安装zabbix agent，所以只能通过snmp的方式收集监控数据如端口状态，流量等。</p><h3 id="External-check"><a href="#External-check" class="headerlink" title="External check"></a>External check</h3><p>在zabbix server上面运行查询脚本，直接查询被监控机上的数据。<strong>此种方式在被监控机上面不需要做任何部署</strong>，所有查询全部从zabbix server上面发出，所以对zabbix server的性能要求较高，官方不推荐大量使用该方式。对于少量的oracle数据库服务器，可以采用该方式。</p><p><a href="https://blog.csdn.net/zfw_666666/article/details/124712980">https://blog.csdn.net/zfw_666666/article/details/124712980</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> 监控 </category>
-          
-          <category> zabbix </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Zabbix </tag>
-            
-            <tag> agent </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Zabbix监控Oracle</title>
       <link href="/zabbix_oracle/"/>
       <url>/zabbix_oracle/</url>
@@ -676,6 +645,37 @@
             <tag> Oracle </tag>
             
             <tag> Zabbix </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Zabbix监控简介</title>
+      <link href="/zabbix_agent_model/"/>
+      <url>/zabbix_agent_model/</url>
+      
+        <content type="html"><![CDATA[<p>zabbix是一款非常强大，同时也是应用最为广泛的开源监控软件。</p><h2 id="监控方式"><a href="#监控方式" class="headerlink" title="监控方式"></a>监控方式</h2><p>zabbix监控的方式主要有以下三种类型</p><h3 id="Zabbix-agent"><a href="#Zabbix-agent" class="headerlink" title="Zabbix agent"></a>Zabbix agent</h3><p>在被监控机上面安装zabbix agent，zabbix agent将被监控机采集到的数据发送给zabbix server。这种方式最常用，一般用来采集服务器的cpu、内存等信息。</p><h3 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h3><p>一些网络设备如交换机，上面无法安装zabbix agent，所以只能通过snmp的方式收集监控数据如端口状态，流量等。</p><h3 id="External-check"><a href="#External-check" class="headerlink" title="External check"></a>External check</h3><p>在zabbix server上面运行查询脚本，直接查询被监控机上的数据。<strong>此种方式在被监控机上面不需要做任何部署</strong>，所有查询全部从zabbix server上面发出，所以对zabbix server的性能要求较高，官方不推荐大量使用该方式。对于少量的oracle数据库服务器，可以采用该方式。</p><p><a href="https://blog.csdn.net/zfw_666666/article/details/124712980">https://blog.csdn.net/zfw_666666/article/details/124712980</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 监控 </category>
+          
+          <category> zabbix </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zabbix </tag>
+            
+            <tag> agent </tag>
             
         </tags>
       
