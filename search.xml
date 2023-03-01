@@ -129,8 +129,8 @@
     
     <entry>
       <title>蓝鲸智云社区版6.1部署</title>
-      <link href="/cisco_bash/"/>
-      <url>/cisco_bash/</url>
+      <link href="/ljzy_problem/"/>
+      <url>/ljzy_problem/</url>
       
         <content type="html"><![CDATA[<p><a href="https://bbs.csdn.net/topics/605192079">https://bbs.csdn.net/topics/605192079</a></p><h1 id="删除某个节点"><a href="#删除某个节点" class="headerlink" title="删除某个节点"></a>删除某个节点</h1><p>进入配置平台，依次点击 资源 =&gt; 主机 =&gt; 已分配，选中删除的节点 =&gt; 转移到(主机池)<br><img src="https://qiufuqi.gitee.io/img/hexo/20221222085511.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/20221222085523.png"><br>点击未分配=&gt; 更多 =&gt; 删除</p>]]></content>
       
