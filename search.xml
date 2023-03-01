@@ -473,64 +473,6 @@
     
     
     <entry>
-      <title>StarVCenter部署安装</title>
-      <link href="/StartVCenter_install/"/>
-      <url>/StartVCenter_install/</url>
-      
-        <content type="html"><![CDATA[<p><a href="http://www.starvcs.com/index.html">http://www.starvcs.com/index.html</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> StarVCenter </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> vCenter </tag>
-            
-            <tag> 超融合 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>StarVCenter部署安装</title>
-      <link href="/StartVCenter_install/"/>
-      <url>/StartVCenter_install/</url>
-      
-        <content type="html"><![CDATA[<p><a href="http://www.starvcs.com/index.html">http://www.starvcs.com/index.html</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> StarVCenter </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> vCenter </tag>
-            
-            <tag> 超融合 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>window防火墙端口放行</title>
       <link href="/window_firewalld/"/>
       <url>/window_firewalld/</url>
@@ -746,6 +688,35 @@
     
     
     <entry>
+      <title>RAID简介</title>
+      <link href="/raid_text/"/>
+      <url>/raid_text/</url>
+      
+        <content type="html"><![CDATA[<p>RAID（独立冗余磁盘阵列）是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能与数据备份能力的技术。</p><h1 id="RAID分类"><a href="#RAID分类" class="headerlink" title="RAID分类"></a>RAID分类</h1><p>通常我们有5种常见的RAID级别 raid0 raid1 raid3 raid5 raid10，不同的RAID级别提供不同的性能，数据的有效性和完整性取决于特定的I/O环境。没有任何一种RAID级别可以完美的适合任何用户。<br>较为常用的是raid5</p><h2 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h2><p>RAID0最少要两块硬盘才能实现。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110161738.png"><br>RAID 0 将数据分条，存储到多个磁盘中，不带任何冗余信息。数据被分割成块，继续分布到磁盘中。这一级别也被认为是纯粹的数据分条。创建RAID 0 需要一个或多个磁盘。也就是说，单独的一个磁盘可以被认为是一个RAID 0 阵列。在所有的级别中，RAID 0的速度是最快的。但是RAID 0没有冗余功能的，如果一个磁盘（物理）损坏，则所有的数据都无法使用。</p><h2 id="RAID1"><a href="#RAID1" class="headerlink" title="RAID1"></a>RAID1</h2><p>RAID1最少要两块硬盘才能实现。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110161920.png"><br>RAID 1至少要有两个（只有两个）硬盘才能组成，因此也称为镜像（Mirroring）方式。所谓镜像就是每两个硬盘的内容一模一样，但是对操作系统而言只呈现一个硬盘，以便于管理。由此可见，RAID 1对数据进行了完全的备份，其可靠性是最高的。当然，其数据的写入时间可能会稍长一点，但因为两个镜象硬盘可以同时读取数据，故读数据与RAID 0一样。</p><p>磁盘阵列的总容量为其中N/2块硬盘的容量在RAID 级别中，RAID 1通过数据镜像提供了最高的信息可用性。镜像硬盘相当于一个备份盘，可想而知，这种硬盘模式的安全性是非常高的，RAID 1的数据安全性在所有的RAID级别上来说是最好的。但是其磁盘的利用率却只有50%，是所有RAID级别中最低的。</p><h2 id="RAID3"><a href="#RAID3" class="headerlink" title="RAID3"></a>RAID3</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221110162131.png"><br>RAID 3 是最常使用的硬盘阵列技术。RAID 3至少需要3个硬盘。RAID 3的总容量为各个硬盘容量之和减去一块硬盘的容量。</p><p>应用此技术，数据被分条存储在多个磁盘内。另外，会产生奇偶校验，并一并存储在磁盘内.使用RAID 3，数据知识块会比平均I/O大小来的小的多，同时磁盘主轴会被同步，以便提高数据传送的带宽。由于使用奇偶校验，RAID 3的数据条带可以抵抗其中的一个磁盘出错而不丢失任何信息。RAID 3对于大量的连续数据可提供很好的传输率，但对于随机数据，奇偶盘会成为写操作的瓶颈。利用单独的校验盘来保护数据虽然没有镜像的安全性高，但是硬盘利用率得到了很大的提高，为（n-1）/n。</p><h2 id="RAID5"><a href="#RAID5" class="headerlink" title="RAID5"></a>RAID5</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221110162141.png"><br>RAID 5 和RAID 3极为相似，都是数据分条，奇偶校验产生冗余。但是，它不采用一个固定的硬盘来存储奇偶校验值，所有数据和校验值都分布在所有硬盘上。RAID5最大的好处是在一块盘掉线的情况下，RAID照常工作，相对于RAID0必须每一块盘都正常才可以正常工作的状况容错性能好多了。因此RAID5是RAID级别中最常见的一个类型。</p><h2 id="RAID10"><a href="#RAID10" class="headerlink" title="RAID10"></a>RAID10</h2><p>RAID10至少需要4块盘<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110162303.png"><br>RAID 10的容错功能和RAID 1相同，分条使用RAID 1 段得到较高的I/O率。RAID 10巧妙的利用了RAID 0的速度以及RAID 1的保护两种特性，不过它的缺点是需要的硬盘数较多，因为至少必须拥有四个以上的偶数硬盘才能使用。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> RAID </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> RAID </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IBM X3650 M3配置多raid</title>
       <link href="/ibm_raid_more/"/>
       <url>/ibm_raid_more/</url>
@@ -769,35 +740,6 @@
             <tag> RAID </tag>
             
             <tag> IBM </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>RAID简介</title>
-      <link href="/raid_text/"/>
-      <url>/raid_text/</url>
-      
-        <content type="html"><![CDATA[<p>RAID（独立冗余磁盘阵列）是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能与数据备份能力的技术。</p><h1 id="RAID分类"><a href="#RAID分类" class="headerlink" title="RAID分类"></a>RAID分类</h1><p>通常我们有5种常见的RAID级别 raid0 raid1 raid3 raid5 raid10，不同的RAID级别提供不同的性能，数据的有效性和完整性取决于特定的I/O环境。没有任何一种RAID级别可以完美的适合任何用户。<br>较为常用的是raid5</p><h2 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h2><p>RAID0最少要两块硬盘才能实现。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110161738.png"><br>RAID 0 将数据分条，存储到多个磁盘中，不带任何冗余信息。数据被分割成块，继续分布到磁盘中。这一级别也被认为是纯粹的数据分条。创建RAID 0 需要一个或多个磁盘。也就是说，单独的一个磁盘可以被认为是一个RAID 0 阵列。在所有的级别中，RAID 0的速度是最快的。但是RAID 0没有冗余功能的，如果一个磁盘（物理）损坏，则所有的数据都无法使用。</p><h2 id="RAID1"><a href="#RAID1" class="headerlink" title="RAID1"></a>RAID1</h2><p>RAID1最少要两块硬盘才能实现。<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110161920.png"><br>RAID 1至少要有两个（只有两个）硬盘才能组成，因此也称为镜像（Mirroring）方式。所谓镜像就是每两个硬盘的内容一模一样，但是对操作系统而言只呈现一个硬盘，以便于管理。由此可见，RAID 1对数据进行了完全的备份，其可靠性是最高的。当然，其数据的写入时间可能会稍长一点，但因为两个镜象硬盘可以同时读取数据，故读数据与RAID 0一样。</p><p>磁盘阵列的总容量为其中N/2块硬盘的容量在RAID 级别中，RAID 1通过数据镜像提供了最高的信息可用性。镜像硬盘相当于一个备份盘，可想而知，这种硬盘模式的安全性是非常高的，RAID 1的数据安全性在所有的RAID级别上来说是最好的。但是其磁盘的利用率却只有50%，是所有RAID级别中最低的。</p><h2 id="RAID3"><a href="#RAID3" class="headerlink" title="RAID3"></a>RAID3</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221110162131.png"><br>RAID 3 是最常使用的硬盘阵列技术。RAID 3至少需要3个硬盘。RAID 3的总容量为各个硬盘容量之和减去一块硬盘的容量。</p><p>应用此技术，数据被分条存储在多个磁盘内。另外，会产生奇偶校验，并一并存储在磁盘内.使用RAID 3，数据知识块会比平均I/O大小来的小的多，同时磁盘主轴会被同步，以便提高数据传送的带宽。由于使用奇偶校验，RAID 3的数据条带可以抵抗其中的一个磁盘出错而不丢失任何信息。RAID 3对于大量的连续数据可提供很好的传输率，但对于随机数据，奇偶盘会成为写操作的瓶颈。利用单独的校验盘来保护数据虽然没有镜像的安全性高，但是硬盘利用率得到了很大的提高，为（n-1）/n。</p><h2 id="RAID5"><a href="#RAID5" class="headerlink" title="RAID5"></a>RAID5</h2><p><img src="https://qiufuqi.gitee.io/img/hexo/20221110162141.png"><br>RAID 5 和RAID 3极为相似，都是数据分条，奇偶校验产生冗余。但是，它不采用一个固定的硬盘来存储奇偶校验值，所有数据和校验值都分布在所有硬盘上。RAID5最大的好处是在一块盘掉线的情况下，RAID照常工作，相对于RAID0必须每一块盘都正常才可以正常工作的状况容错性能好多了。因此RAID5是RAID级别中最常见的一个类型。</p><h2 id="RAID10"><a href="#RAID10" class="headerlink" title="RAID10"></a>RAID10</h2><p>RAID10至少需要4块盘<br><img src="https://qiufuqi.gitee.io/img/hexo/20221110162303.png"><br>RAID 10的容错功能和RAID 1相同，分条使用RAID 1 段得到较高的I/O率。RAID 10巧妙的利用了RAID 0的速度以及RAID 1的保护两种特性，不过它的缺点是需要的硬盘数较多，因为至少必须拥有四个以上的偶数硬盘才能使用。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> RAID </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> RAID </tag>
             
         </tags>
       
