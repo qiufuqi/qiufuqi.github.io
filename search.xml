@@ -4,6 +4,265 @@
   
     
     <entry>
+      <title>Linux免密登录</title>
+      <link href="/centos_ssh/"/>
+      <url>/centos_ssh/</url>
+      
+        <content type="html"><![CDATA[<p>免密登录命令：<br>1.进入.ssh目录：  cd ~/.ssh</p><p>2.生成一对密钥： ssh-keygen -t rsa</p><p>3.发送公钥：        ssh-copy-id 192.168.xx.xxx</p><p>4.免密登录测试： ssh 192.168.xx.xxx</p><h1 id="免密登录原理"><a href="#免密登录原理" class="headerlink" title="免密登录原理"></a>免密登录原理</h1><p>免密登录原理通过RSA公开密钥算法的一种应用。RSA是公开密钥密码体制的一种使用不同的加密密钥与解密密钥，“由已知加密密钥推导出解密密钥在计算上是不可行的”密码体制(非对称加密) 。在公开密钥密码体制中，加密密钥（即公开密钥）PK是公开信息，而解密密钥（即秘密密钥）SK是需要保密的。加密算法E和解密算法D也都是公开的。虽然解密密钥SK是由公开密钥PK决定的。</p><p><strong>通俗的来说就是同时生成公钥和私钥，私钥自己保存，公钥发给其他人。</strong></p><h1 id="配置ssh"><a href="#配置ssh" class="headerlink" title="配置ssh"></a>配置ssh</h1><p>进入.ssh目录，生成密钥ssh-keygen -t rsa</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cd .ssh/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#生成一对密钥，使用rsa通用密钥算法，这时需要有三次回车；</span></span><br><span class="line">[root@localhost .ssh]<span class="comment"># ssh-keygen -t rsa</span></span><br><span class="line">[root@localhost .ssh]<span class="comment"># ls</span></span><br><span class="line">authorized_keys  id_rsa  id_rsa.pub  known_hosts</span><br></pre></td></tr></table></figure><table><thead><tr><th align="left">Align <code>left</code></th><th align="center">center align</th><th align="right">Align right</th></tr></thead><tbody><tr><td align="left"><code>left</code>-aligned</td><td align="center">centered</td><td align="right">right-aligned</td></tr><tr><td align="left"><code>左</code>对齐</td><td align="center">中对齐</td><td align="right">右对齐</td></tr></tbody></table><table><thead><tr><th align="left">Align <code>left</code></th><th align="left">center align</th></tr></thead><tbody><tr><td align="left">known_hosts</td><td align="left">记录ssh访问过计算机的公钥（public key）</td></tr><tr><td align="left">id_rsa</td><td align="left">生成的私钥</td></tr><tr><td align="left">id_rsa.pub</td><td align="left">生成的公钥</td></tr><tr><td align="left">authorized_keys</td><td align="left">存放授权过的无密登录服务器公钥（后面会提到）</td></tr></tbody></table><h1 id="发送公钥"><a href="#发送公钥" class="headerlink" title="发送公钥"></a>发送公钥</h1><p>将公钥发送给目标IP(需要输入密码)，目标IP则可以免密码登录<br>命令：ssh-copy-id 10.11.8.63<br>命令：ssh-copy-id -i .ssh/id_dsa.pub <a href="mailto:&#114;&#x6f;&#x6f;&#116;&#64;&#x31;&#48;&#x2e;&#49;&#49;&#x2e;&#56;&#46;&#54;&#x33;">&#114;&#x6f;&#x6f;&#116;&#64;&#x31;&#48;&#x2e;&#49;&#49;&#x2e;&#56;&#46;&#54;&#x33;</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost .ssh]<span class="comment"># ssh-copy-id 10.11.8.63</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 后期就可以直接登录</span></span><br><span class="line">[root@localhost .ssh]<span class="comment"># ssh 10.11.8.63</span></span><br><span class="line">Last login: Tue Apr 18 14:14:41 2023 from 10.11.8.68</span><br><span class="line">[root@devqiu ~]<span class="comment"># </span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 免密 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> 免密 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux安装配置NFS</title>
+      <link href="/centos_nfs/"/>
+      <url>/centos_nfs/</url>
+      
+        <content type="html"><![CDATA[<p>两台CentOS7虚拟机，分别记为A（服务端10.128.0.96） B（客户端192.168.0.101）</p><h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="安装nfs"><a href="#安装nfs" class="headerlink" title="安装nfs"></a>安装nfs</h2><p>在A服务端安装对应nfs服务，并修改对应端口</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># yum -y install rpcbind nfs-utils</span></span><br><span class="line">[root@localhost ~]<span class="comment"># vi /etc/sysconfig/nfs</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置各种*port=...参数</span></span><br><span class="line"><span class="comment"># TCP port rpc.lockd should listen on.</span></span><br><span class="line">LOCKD_TCPPORT=32803</span><br><span class="line"><span class="comment"># UDP port rpc.lockd should listen on.</span></span><br><span class="line">LOCKD_UDPPORT=32769</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Port rpc.statd should listen on.</span></span><br><span class="line">STATD_PORT=662</span><br><span class="line"><span class="comment"># Outgoing port statd should used. The default is port</span></span><br><span class="line"><span class="comment"># is random</span></span><br><span class="line">STATD_OUTGOING_PORT=2020</span><br></pre></td></tr></table></figure><h2 id="开机自启"><a href="#开机自启" class="headerlink" title="开机自启"></a>开机自启</h2><p>设置开机启动并启动对应服务</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">开机自动启动</span><br><span class="line">systemctl <span class="built_in">enable</span> rpcbind</span><br><span class="line">systemctl <span class="built_in">enable</span> nfs</span><br><span class="line">systemctl <span class="built_in">enable</span> nfs-lock</span><br><span class="line">systemctl <span class="built_in">enable</span> nfs-idmap</span><br><span class="line"> </span><br><span class="line">启动服务</span><br><span class="line">systemctl start rpcbind</span><br><span class="line">systemctl start nfs</span><br><span class="line">systemctl start nfs-lock</span><br><span class="line">systemctl start nfs-idmap</span><br></pre></td></tr></table></figure><h2 id="端口管理"><a href="#端口管理" class="headerlink" title="端口管理"></a>端口管理</h2><p>查看端口占用，并通过防火墙 或者暂时关闭防火墙</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># rpcinfo -p</span></span><br><span class="line">   program vers proto   port  service</span><br><span class="line">    100000    4   tcp    111  portmapper</span><br><span class="line">    100000    3   tcp    111  portmapper</span><br><span class="line">    100000    2   tcp    111  portmapper</span><br><span class="line">    100000    4   udp    111  portmapper</span><br><span class="line">    100000    3   udp    111  portmapper</span><br><span class="line">    100000    2   udp    111  portmapper</span><br><span class="line">    100005    1   udp  20048  mountd</span><br><span class="line">    100005    1   tcp  20048  mountd</span><br><span class="line">    100005    2   udp  20048  mountd</span><br><span class="line">    100005    2   tcp  20048  mountd</span><br><span class="line">    100005    3   udp  20048  mountd</span><br><span class="line">    100005    3   tcp  20048  mountd</span><br><span class="line">    100003    3   tcp   2049  nfs</span><br><span class="line">    100003    4   tcp   2049  nfs</span><br><span class="line">    100227    3   tcp   2049  nfs_acl</span><br><span class="line">    100003    3   udp   2049  nfs</span><br><span class="line">    100003    4   udp   2049  nfs</span><br><span class="line">    100227    3   udp   2049  nfs_acl</span><br><span class="line">    100021    1   udp  55264  nlockmgr</span><br><span class="line">    100021    3   udp  55264  nlockmgr</span><br><span class="line">    100021    4   udp  55264  nlockmgr</span><br><span class="line">    100021    1   tcp  43310  nlockmgr</span><br><span class="line">    100021    3   tcp  43310  nlockmgr</span><br><span class="line">    100021    4   tcp  43310  nlockmgr</span><br><span class="line">    100024    1   udp  47115  status</span><br><span class="line">    100024    1   tcp  47466  status</span><br><span class="line"> </span><br><span class="line">开启以下端口</span><br><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=111/tcp --permanent</span></span><br><span class="line">[root@localhost /]<span class="comment"># firewall-cmd --zone=public --list-ports</span></span><br><span class="line">20048/udp 20048/tcp 2049/udp 2049/tcp 111/udp 111/tcp</span><br></pre></td></tr></table></figure><h2 id="设置共享目录"><a href="#设置共享目录" class="headerlink" title="设置共享目录"></a>设置共享目录</h2><p>设置需要共享的目录（以/home目录为例），并加载</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># vi /etc/exports</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#填入以下内容 ip为B客户端网段</span></span><br><span class="line">/home 192.168.0.101/24(rw,root_squash,all_squash,<span class="built_in">sync</span>,anonuid=1000,anongid=1000)</span><br><span class="line"><span class="comment">#或者是网段</span></span><br><span class="line">/home 192.168.0.0/24(rw,<span class="built_in">sync</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每次添加新的IP段，需要执行以下命令重新挂载</span></span><br><span class="line">[root@localhost ~]<span class="comment"># exportfs -r</span></span><br></pre></td></tr></table></figure><h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="挂载硬盘"><a href="#挂载硬盘" class="headerlink" title="挂载硬盘"></a>挂载硬盘</h2><p>挂载分享的硬盘，可以看到已经挂载成功</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]<span class="comment"># mkdir /data</span></span><br><span class="line">[root@localhost /]<span class="comment"># mount -t nfs 10.128.0.96:/home /data</span></span><br><span class="line">[root@localhost /]<span class="comment"># df -h</span></span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs                 1.9G     0  1.9G   0% /dev</span><br><span class="line">tmpfs                    1.9G     0  1.9G   0% /dev/shm</span><br><span class="line">tmpfs                    1.9G  8.5M  1.9G   1% /run</span><br><span class="line">tmpfs                    1.9G     0  1.9G   0% /sys/fs/cgroup</span><br><span class="line">/dev/mapper/centos-root   50G  1.4G   49G   3% /</span><br><span class="line">/dev/vda1               1014M  150M  865M  15% /boot</span><br><span class="line">/dev/mapper/centos-home   46G   33M   46G   1% /home</span><br><span class="line">tmpfs                    379M     0  379M   0% /run/user/0</span><br><span class="line">10.128.0.96:/home         46G   32M   46G   1% /data</span><br></pre></td></tr></table></figure><h2 id="自动挂载"><a href="#自动挂载" class="headerlink" title="自动挂载"></a>自动挂载</h2><p>开机自动挂载</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]<span class="comment"># vi /etc/rc.local</span></span><br><span class="line"><span class="comment"># 添加以下</span></span><br><span class="line">mount -t nfs 10.128.0.96:/home /data</span><br><span class="line">[root@localhost ~]<span class="comment"># chmod +x /etc/rc.local</span></span><br></pre></td></tr></table></figure><h1 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h1><p>搭建好nfs服务后，在client端进行挂载时，提示：<br>mount.nfs: access denied by server while mounting 192.168.0.124:/server/tools/repo<br>出现此类错误原因大致为：</p><ul><li>权限问题</li><li>防火墙机制问题</li><li>共享配置文件问题</li></ul><p><a href="https://www.cnblogs.com/su-root/p/11355486.html">参考解决</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> NFS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> NFS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux常用命令</title>
+      <link href="/centos_command/"/>
+      <url>/centos_command/</url>
+      
+        <content type="html"><![CDATA[<p>Linux下Shell基本命令</p><h2 id="wc-l"><a href="#wc-l" class="headerlink" title="wc -l"></a>wc -l</h2><p>wc 命令用于计算字数。<br>参数：<br>-c, –bytes：统计字节数。<br>-m, –chars：统计字符数。<br>-w, –words：统计字数。<br>-l, –lines：统计行数。<br>-L, –max-line-length：统计最长行的长度。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost shell]<span class="comment"># wc -l init.sh </span></span><br><span class="line">23 init.sh</span><br></pre></td></tr></table></figure><h2 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h2><p>加在一个命令的最后，可以把这个命令放到后台执行</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 常用命令 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> Shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux的CPU占用过高</title>
+      <link href="/centos_cpu/"/>
+      <url>/centos_cpu/</url>
+      
+        <content type="html"><![CDATA[<p>某台服务器上的一个应用总是隔一段时间就自己挂掉 用top看了看 从重新部署应用开始没有多长时间CPU占用上升得很快<br>参考：<a href="https://www.cnblogs.com/you-men/p/13382659.html">https://www.cnblogs.com/you-men/p/13382659.html</a></p><h1 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.使用top 定位到占用CPU高的进程PID</span></span><br><span class="line">top</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.通过ps aux | grep PID命令</span></span><br><span class="line">获取线程信息，并找到占用CPU高的线程</span><br><span class="line">ps -mp pid -o THREAD,tid,time | <span class="built_in">sort</span> -rn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.将需要的线程ID转换为16进制格式</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;%x\n&quot;</span> tid</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.打印线程的堆栈信息 到了这一步具体看堆栈的日志来定位问题了</span></span><br><span class="line">jstack pid |grep tid -A 30</span><br></pre></td></tr></table></figure><h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="TOP查看进程"><a href="#TOP查看进程" class="headerlink" title="TOP查看进程"></a>TOP查看进程</h2><p>top可以看到PID733进程的占用172%<br><img src="https://qiufuqi.gitee.io/img/hexo/20230418150959.png"></p><h2 id="获取线程信息"><a href="#获取线程信息" class="headerlink" title="获取线程信息"></a>获取线程信息</h2><p>查找进程733下的线程 可以看到TID 线程775占用了96%且持有了很长时间 其实到这一步基本上能猜测到应该是 肯定是那段代码发生了死循环<br>ps -mp 733 -o THREAD,tid,time | sort -rn<br><img src="https://qiufuqi.gitee.io/img/hexo/20230418151127.png"></p><h2 id="线程ID转换"><a href="#线程ID转换" class="headerlink" title="线程ID转换"></a>线程ID转换</h2><p>线程ID转换为16进制格式<br>printf “%x\n” 775<br><img src="https://qiufuqi.gitee.io/img/hexo/20230418151203.png"></p><h2 id="查看java的堆栈信息"><a href="#查看java的堆栈信息" class="headerlink" title="查看java的堆栈信息"></a>查看java的堆栈信息</h2><p>jstack 733 |grep 307 -A 30<br><img src="https://qiufuqi.gitee.io/img/hexo/20230418151347.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 常用命令 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> CPU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux监测脚本</title>
+      <link href="/centos_jiance/"/>
+      <url>/centos_jiance/</url>
+      
+        <content type="html"><![CDATA[<p>Linux监测脚本<br>在工作中，我们往往利用脚本定时监控本地、远端数据库服务端或Web服务是否运行正常，例如：负载高、cup高、连接数满了等<br><a href="https://www.cnblogs.com/su-root/p/10409973.html">参考</a></p><h1 id="端口监测"><a href="#端口监测" class="headerlink" title="端口监测"></a>端口监测</h1><h2 id="本地端口监测"><a href="#本地端口监测" class="headerlink" title="本地端口监测"></a>本地端口监测</h2><p>本地：netstat/ss/lsof</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -lntup|grep 3306|<span class="built_in">wc</span> -l</span><br><span class="line">ss -lntup|grep 3306|<span class="built_in">wc</span> -l</span><br><span class="line">lsof -i:3306|<span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure><h2 id="远程端口监测"><a href="#远程端口监测" class="headerlink" title="远程端口监测"></a>远程端口监测</h2><p>远程：telnet/nmap/nc</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\n&quot;</span>|telnet baidu.com 80|grep Connected|<span class="built_in">wc</span></span><br><span class="line">namp www.baidu.com -p 80|grep open|<span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure><h1 id="进程监测"><a href="#进程监测" class="headerlink" title="进程监测"></a>进程监测</h1><ul><li>ps -ef|grep mysql|wc -l</li><li>wget/curl (http方式，判断根据返回值或返回内容)</li><li>header(http)根据状态码判断</li><li>数据库特有，通过mysql客户端连接，根据返回值或返回内存判断。</li></ul><h1 id="监测mysql"><a href="#监测mysql" class="headerlink" title="监测mysql"></a>监测mysql</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bak]<span class="comment"># vi my.sh</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="comment">#if [ `lsof -i tcp:3306|wc -l` -gt 0 ]</span></span><br><span class="line"><span class="comment">#if [ `ps -ef|grep mysql|grep -v grep|wc -l` -gt 0 ] #注意脚本名字不能带mysql，自己也算进程</span></span><br><span class="line"><span class="comment">#if [ `netstat -lntup|grep mysql|wc -l` -gt 0 ] </span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;`netstat -lnt|grep 3306|awk -F &quot;</span>[ :]+<span class="string">&quot; &#x27;&#123;print <span class="variable">$4</span>&#125;&#x27;`&quot;</span> = <span class="string">&quot;3306&quot;</span> ]</span><br><span class="line">      <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;MySQL is Running.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;MySQL is Stopped.&quot;</span></span><br><span class="line">   systemctl start mysqld</span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;MySQL is Starting......&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><p>如果mysql没启动，空值-eq 3306 会报错，如果以字符串的方式比较不会。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@devqiu ~]<span class="comment"># sh my.sh </span></span><br><span class="line">MySQL is Stopped.</span><br><span class="line">MySQL is Starting......</span><br><span class="line">[root@devqiu ~]<span class="comment"># sh my.sh </span></span><br><span class="line">MySQL is Running.</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 监测 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> 监测 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/1/"/>
+      <url>/1/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.dinghui.org/category/veeam">https://www.dinghui.org/category/veeam</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自动化运维汇总</title>
+      <link href="/automation_info/"/>
+      <url>/automation_info/</url>
+      
+        <content type="html"><![CDATA[<p><strong>动化运维是指通过运维工具来解决生产中大量、繁杂的事务，监控生产环境变化、自动响应并处置事件等问题，从而提升运维效率、降低重大问题发生的概率、更全面的保障生产环境。</strong><br><a href="https://www.cnblogs.com/echo-valley/p/12711731.html">参考</a></p><h1 id="Spug"><a href="#Spug" class="headerlink" title="Spug"></a>Spug</h1><h2 id="Spug介绍"><a href="#Spug介绍" class="headerlink" title="Spug介绍"></a>Spug介绍</h2><p>Spug是面向中小型企业设计的无 Agent的自动化运维平台，整合了主机管理、主机批量执行、主机在线终端、应用发布、任务计划、配置中心、监控、报警等一系列功能。<br>演示地址：<a href="https://demo.spug.cc/">https://demo.spug.cc</a><br>官网地址：<a href="https://www.spug.cc/">https://www.spug.cc/</a><br>使用文档：<a href="https://www.spug.cc/docs/about-spug/">https://www.spug.cc/docs/about-spug/</a><br>常见问题：<a href="https://www.spug.cc/docs/faq/">https://www.spug.cc/docs/faq/</a></p><h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>批量执行: 主机命令在线批量执行<br>在线终端: 主机支持浏览器在线终端登录<br>文件管理: 主机文件在线上传下载<br>任务计划: 灵活的在线任务计划<br>发布部署: 支持自定义发布部署流程<br>配置中心: 支持 KV、文本、json 等格式的配置<br>监控中心: 支持站点、端口、进程、自定义等监控<br>报警中心: 支持短信、邮件、钉钉、微信等报警方式<br>优雅美观: 基于 Ant Design 的 UI 界面<br>开源免费: 前后端代码完全开源</p><h1 id="CODO"><a href="#CODO" class="headerlink" title="CODO"></a>CODO</h1><h2 id="codo介绍"><a href="#codo介绍" class="headerlink" title="codo介绍"></a>codo介绍</h2><p>CODO是一款为用户提供企业多混合云、自动化运维、完全开源的云管理平台。<br>CODO前端基于Vue iview开发、为用户提供友好的操作界面，增强用户体验。<br>CODO后端基于Python Tornado开发，其优势为轻量、简洁清晰、异步非阻塞。<br>CODO开源多云管理平台为用户提供多功能：ITSM、基于RBAC权限系统、Web Terminnal登陆日志审计、录像回放、强大的作业调度系统、CMDB、监控报警系统等<br><a href="https://docs.opendevops.cn/zh/guide/#microservice">https://docs.opendevops.cn/zh/guide/#microservice</a><br>地址：<a href="https://demo.opendevops.cn/login">https://demo.opendevops.cn/login</a><br>用户：demo<br>密码：2ZbFYNv9WibWcR7GB6kcEY</p><h2 id="功能介绍-1"><a href="#功能介绍-1" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>任务模版<br>任务发布<br>定时任务<br>代码仓库<br>监控告警<br>资产管理<br>配置中心<br>用户管理<br>系统管理</p><h1 id="蓝鲸智云"><a href="#蓝鲸智云" class="headerlink" title="蓝鲸智云"></a>蓝鲸智云</h1><p>腾讯蓝鲸智云，简称蓝鲸，是腾讯互动娱乐事业群（Interactive Entertainment Group，简称 IEG）自研自用的一套用于构建企业研发运营一体化体系的 PaaS 开发框架，提供了 aPaaS（DevOps 流水线、运行环境托管、前后台框架）和 iPaaS（持续集成、CMDB、作业平台、容器管理、数据平台、AI 等原子平台）等模块，帮助企业技术人员快速构建基础运营 PaaS。<br>传统的 Linux 等单机操作系统已发展数十年，随着云时代的到来，企业所需资源数暴增，操作节点（物理或虚拟服务器及容器）数量普遍达到数千个，大型互联网公司甚至达到百万级别，混合云模式成为常态，虽然 IaaS 供应商的出现从一定程度上解决了资源切割调度问题，但并未很好的解决资源与应用的融合，企业需要一种介于 IaaS 与应用（SaaS）之间的层级，用于屏蔽及控制 IaaS，快速开发及托管 SaaS，我们将其称之为基础 PaaS 层，并着重发展用于研发及托管企业内技术运营类 SaaS 的基础运营 PaaS，并将其作为区别于传统 OS 的下一代企业级分布式运营操作系统。</p><p>企业 IT 应用的全生命周期可划分为研发、运维、运营三段，在各行业进行互联网化转型的过程中，融入敏捷思维，即形成持续集成、持续部署、持续运营的概念（CI-CD-CO）。</p><p>为降低转型成本，不以增加人力数量为转型前提，腾讯 IEG 以运维团队作为转型起点，充分利用这一群体低价值重复性工作量占比高的特点，从 CD 领域切入，以 PaaS 技术进行运维自动化领域的烟囱治理，形成运维 PaaS 体系。将自动化所释放的人力资源，转型为运维开发团队，利用 PaaS 的自增长属性，将运维 PaaS 逐步向 CI 及 CO 拓展，最终完成企业级研发 - 运维 - 运营基础 PaaS 构建，落地企业研发运营一体化。</p><p>腾讯蓝鲸智云秉承开放共赢的理念，招募及联合国内优质合作伙伴，以改变中国运维行业为起点，致力于推动国内企业借助研发运营一体化，低成本实现企业 IT 经营管理模式升级和自主化。<br><a href="https://bk.tencent.com/index/">https://bk.tencent.com/index/</a></p><h2 id="功能介绍-2"><a href="#功能介绍-2" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>1,管控平台<br>2，配置平台<br>3，作业平台<br>4，paas平台<br>5，数据平台基础服务<br>6，数据平台-datahub<br>7，数据平台modelfow<br>8,容器管理平台<br>9，移动平台<br>10，故障自愈<br>11，标准运维<br>12，蓝鲸监控<br>13，日志检索<br>14，蓝鲸devops<br>15,wman<br>16,网络管理</p><h1 id="bigops"><a href="#bigops" class="headerlink" title="bigops"></a>bigops</h1><h2 id="bigops介绍"><a href="#bigops介绍" class="headerlink" title="bigops介绍"></a>bigops介绍</h2><p>如何让运维可以轻松配合开发和测试，管理好业务，已经成了运维最大的挑战。<br>运维的价值到底是什么？运维的挑战又是什么？<br>为了解决运维可视化、自动化及未来智能化的问题，我们开发了这款自动化运维软件，起名叫BigOps–比格运维。</p><p>如果获得BigOps软件？</p><p>项目首页：<a href="http://www.bigops.com/">http://www.bigops.com/</a><br>项目文档：<a href="http://docs.bigops.com/">http://docs.bigops.com/</a><br>开源地址：<a href="https://github.com/yunweibang">https://github.com/yunweibang</a><br>范例地址：<a href="http://demo.bigops.com/">http://demo.bigops.com/</a></p><h2 id="功能介绍-3"><a href="#功能介绍-3" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>一、统一认证<br>已经整合了Zabbix、Jira、Confluence、Jenkins和Gitlab，如果你现在也在使用这些开源软件，那么恭喜你，可以和BigOps无缝整合，只需要打个Patch即可轻松接入。<br>二、如果你已经有了LDAP，我们也可以接入你的认证系统<br>三、个人桌面，为每个用户定制自己的桌面，千人千面，相当每个人拥有了一个MAC OS的操作系统。<br>四、消息，管理员可以给普通用户发消息，系统也可以给管理员或者普通用户发消息。<br>五、工单。工单不光是审批，也可以做到审批后直接执行，节省运维工作量。（马上支持）<br>六、资源管理（CMDB），主机配置全自动化更新，准确率99%，并可以进行资产的全生命周期管理。<br>资源使用模型和实例的方式进行管理，随心所欲定制资源表单。<br>资源实例，支持导入、导出、，自定义显示列，批量修改和删除等操作<br>资源详情，清晰的显示资源所有信息及变更信息，主机和硬件可以自动化更新，无需人工参与。<br>七、强大的IP地址管理，让你轻松掌握IP使用情况<br>八、主机自动发现，自动发现公有云和指定网段新接入的主机。<br>九、公有云导入，支持阿里云、腾讯云、Ucloud、金山云自动导入和手动导入<br>十、hostmin，包括主机系统管理和系统备份等<br>十一、全面整合Zabbix,自动和zabbix主机关联<br>十二、监控大屏、包括主机状态、IP状态和zbx接口<br>已开发的功能还包括会话管理、硬件端口管理、硬件位置管理、用户权限、主机系统管理、主机系统备份等功能、等等20多个功能等你慢慢发掘。<br>正在开发的功能包括发布系统、告警系统、堡垒机等</p><h1 id="easyops"><a href="#easyops" class="headerlink" title="easyops"></a>easyops</h1><h2 id="easyops介绍"><a href="#easyops介绍" class="headerlink" title="easyops介绍"></a>easyops介绍</h2><p>EasyDevOps —DevOps解决方案，基于EasyOps平台强大的CI/CD和平台能力，深化DevOps开发运维一体化的应用，帮助企业落地从开发到测试、再到运维自动化、场景化，同时还致力于支撑敏捷团队的精益和协同，助力企业快速、稳定、持续的业务交付。<br>优维的DevOps解决方案已在多家金融机构、大型企业成功落地。</p><p>官网首页：<a href="https://www.uwintech.cn/">https://www.uwintech.cn/</a></p><h2 id="功能介绍-4"><a href="#功能介绍-4" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>CI/CD，快速交付，持续迭代，多云部署，支持容器</p><p>完善的制品库管理，并支持Docker镜像；<br>容器化CI流水线；<br>多云部署平台，支持多云K8S集群；<br>标准及高度定制的持续交付流水线，加快交付效率；<br>内置多种内外部开源工具，插件式开发；<br>灰度发布、蓝绿部署，轻松拥有；<br>DevOps交付看板，持续驱动IT优化。</p><h1 id="阿里云云效"><a href="#阿里云云效" class="headerlink" title="阿里云云效"></a>阿里云云效</h1><p>阿里云云效，云原生时代新 DevOps 平台，支持公共云、专有云和混合云多种部署形态，通过云原生新技术和研发新模式，助力创新创业和数字化转型企业快速实现研发敏捷和组织敏捷，打造“双敏”组织，实现 10 倍效能提升。</p><p>官方文档：<a href="https://help.aliyun.com/document_detail/153739.html?spm=a2c4g.11186623.6.542.74bf75c20EQWub">https://help.aliyun.com/document_detail/153739.html?spm=a2c4g.11186623.6.542.74bf75c20EQWub</a></p><h2 id="功能介绍-5"><a href="#功能介绍-5" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>阿里云云效，云原生时代新 DevOps 平台，支持公共云、专有云和混合云多种部署形态，通过云原生新技术和研发新模式，助力创新创业和数字化转型企业快速实现研发敏捷和组织敏捷，打造“双敏”组织，实现 10 倍效能提升。</p><p>我们的工作充满着大大小小的「项目」、「任务」：活动策划、工程实施、IT 研发、风险投资等等。使用云效做「项目化」管理，团队规划工作事目标更清晰，执行更到位，而且完成过程也十分轻松，成员将有全新的协作体验。</p><p>可视化的项目进展和协作<br>简洁优雅的「看板」呈现着项目的各个关键阶段，随时看见「谁」，在「何时」，要完成「什么」，团队成员不必再在协同工作进展上耗费时间。更棒的是，你可以打破部门边界，基于项目组合成员，跨部门协同也不再是难题。</p><p>了解如何进行项目协作：</p><p>了解项目 &gt;&gt;</p><p>井然有序的任务管理<br>如何让团队配合更默契？答案是：更明确的分工。将项目拆分为具体的可执行的任务，分工明确，井然有序。云效的「任务详情页」好像是一个容器，任务的执行过程和结果，都结构化地沉淀在这个容器里，帮助每个人准确掌握自己在任务中的职责，更好的做任务管理和展现，高效驱动每一项任务得到落实。</p><p>了解如何善用任务：</p><p>深入任务 &gt;&gt;</p><p>多元视角团队协作更佳<br>云效是连接团队的桥梁。打破部门边界，市场运营、产品经理和工程师可以共享同一个工作台。以「协作」的方式，多样化的工具整合，展现更紧密的跨部门协作，创造更多业务增长。多元视角赋能每一位成员，让企业、团队和个人以更高效的协作方式围绕目标 创造成果。</p><p>了解多样的工具整合：</p><p>实践敏捷研发全流程<br>每一个市场都在赛跑， 使用云效打造一体化研发协作流程，借助专业工具，让团队表现更优异，产品更快响应需求变化。</p><p>全面支持「看板」和「Scrum」敏捷方法，你可以围绕产品目标灵活规划每个迭代冲刺。实时数据反馈，让计划调整更及时，团队成员积极应对变化，持续交付价值。</p><p>前台业务部门和后台研发团队不应该是割裂的，云效正是连接前后台的桥梁。打破部门边界，市场运营、产品经理和工程师可以共享同一个工作台。更紧密的跨部门协作，能够创造更多业务增长。</p><p>你的产品交付，可以远超预期。</p><h1 id="StackStorm"><a href="#StackStorm" class="headerlink" title="StackStorm"></a>StackStorm</h1><p>StackStorm 是一个自动化平台。<br>这个自动化平台将您现有的基础设施和应用程序环境联系在一起来让你更容易地实现自动化。</p><p>官方网站：<a href="https://stackstorm.com/">https://stackstorm.com/</a></p><h2 id="功能介绍-6"><a href="#功能介绍-6" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>StackStorm 的主要用途有哪些 ？<br>更加便利的排除故障（Facilitated Troubleshooting） - StackStorm 可以用来处理 Nagios，Sensu，New Relic 和其他监控系统捕获的系统故障，然后在物理节点、OpenStack 或Amazon Instances 和应用程序组件上运行一系列诊断检查，并将结果发布到HipChat, Jira 等共享通信环境中。<br>自动修复（Automated remediation） - 识别和验证 OpenStack 计算节点上的硬件故障，并正确清空实例和向管理员发送关于潜在停机时间的电子邮件，在运行中如果出现任何问题，就会冻结这个 workflow 通过 PagerDuty 工具来通知技术人员来手动修复。<br>持续部署 （Continuous deployment）- 与 Jenkins 一起合作来进行构建和测试，配置新的AWS集群，使用基于 NewRelic 的应用程序性能数据来激活负载均衡的一些流量负载功能，并执行配置前滚或回滚的操作。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 自动化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 运维 </tag>
+            
+            <tag> 自动化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>磁盘inode节点被占满问题</title>
+      <link href="/centos_inode/"/>
+      <url>/centos_inode/</url>
+      
+        <content type="html"><![CDATA[<p>问题：</p><p>Linux服务器，查看日志发现程序无法继续写文件，但是用df -h查看磁盘容量还有剩余。<br>排查思路：怀疑是机器的inode节点被占满，使用df -i查看磁盘inode节点使用情况，果然是inode节点满了。</p><p>进行如下步骤进行排查：<br>1，df -i查看磁盘节点使用情况，查看到inode节点已满。<br>2，进入到可能的目录，运行for i in ./*; do echo i;findi | wc -l; done统计当前目录使用节点的情况<br>3，发现/tmp目录下被大量的小文件占满，联系开发发现是程序bug导致不断生成大量小文件，下周改进，在此之前写一个定时清理的脚本删除文件。</p><p>总结：解决inode节点满的一般方法就是删除占用inode节点的异常文件</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> inode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> inode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux虚拟IP配置</title>
+      <link href="/centos_virtual_ip/"/>
+      <url>/centos_virtual_ip/</url>
+      
+        <content type="html"><![CDATA[<h1 id="虚拟IP介绍"><a href="#虚拟IP介绍" class="headerlink" title="虚拟IP介绍"></a>虚拟IP介绍</h1><p>虚拟IP地址(VIP) 是一个不与特定计算机或一个计算机中的网络接口卡(NIC)相连的IP地址。数据包被发送到这个VIP地址，但是所有的数据还是经过真实的网络接口。</p><ul><li>真实IP又被称为管理IP，一般是配置在物理网卡上的实际IP，管理IP是不对外提供用户访问服务的，而作为管理服务器用，如SSH可以通过这个管理IP连接服务器。</li><li>虚拟IP即VIP，这只是一个概念而已，可能会误导你，实际上就是heartbeat临时绑定在物理网卡上的别名(heartbeat3以上页采用了辅助IP)，你可以在一块网卡上绑定多个别名。这个VIP可以看作是你上网的QQ网名、昵称、外号等。在实际生产环境中，需要在DNS配置中把网站域名地址解析到这个VIP地址，由这个VIP对用户提供服务。如：把<a href="http://www.zhangcong.top解析到vip/">www.zhangcong.top解析到VIP</a> 1.1.1.1 上。</li></ul><h1 id="虚拟IP作用"><a href="#虚拟IP作用" class="headerlink" title="虚拟IP作用"></a>虚拟IP作用</h1><p>大部分虚拟ip基本上都用于高可用的架构上边。主机启用虚拟ip，所有访问的请求都会到主机。当主机宕机的时候，高可用软件会将主机的虚拟ip down掉，然后在备机上启用虚拟ip。这样就完成了主备切换。从而保证业务的可用性。</p><h1 id="创建虚拟IP"><a href="#创建虚拟IP" class="headerlink" title="创建虚拟IP"></a>创建虚拟IP</h1><p>在linux中创建虚拟ip有两种方法，分别是：辅助IP和别名IP。 (别名IP将被遗弃，用辅助IP替代)</p><h2 id="辅助IP"><a href="#辅助IP" class="headerlink" title="辅助IP"></a>辅助IP</h2><p>辅助ip是由linux的ip命令去创建和操作的。</p><h3 id="创建辅助IP"><a href="#创建辅助IP" class="headerlink" title="创建辅助IP"></a>创建辅助IP</h3><p>创建命令：ip addr add IP/掩码 dev 网卡名</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ip a</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">  ·········</span><br><span class="line">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">  ·········</span><br><span class="line">[root@lj-master ~]<span class="comment"># ip addr add 10.11.7.240/24 dev ens192</span></span><br></pre></td></tr></table></figure><h3 id="查看辅助ip"><a href="#查看辅助ip" class="headerlink" title="查看辅助ip"></a>查看辅助ip</h3><p>使用命令ip a就可以查看，但是不能使用ifconfig –a去查看。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ip addr</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">·········</span><br><span class="line">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 00:50:56:8d:75:a2 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.11.7.232/24 brd 10.11.7.255 scope global ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 10.11.7.240/24 scope global ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::250:56ff:fe8d:75a2/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure><h3 id="删除辅助ip"><a href="#删除辅助ip" class="headerlink" title="删除辅助ip"></a>删除辅助ip</h3><p>删除命令：ip addr del IP dev 网卡名 (将add改为del即可。)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ip addr del 10.11.7.240/24 dev ens192</span></span><br></pre></td></tr></table></figure><h3 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h3><p>这种方式创建的虚拟ip，可以将生成虚拟ip的命令写到/etc/rc.local中去，开机即可自动加载。</p><h2 id="别名IP"><a href="#别名IP" class="headerlink" title="别名IP"></a>别名IP</h2><p>别名ip是由linux的ifconfig命令去创建和操作的。</p><h3 id="创建别名IP"><a href="#创建别名IP" class="headerlink" title="创建别名IP"></a>创建别名IP</h3><p>创建命令：ifconfig 网关名:1 IP netmask 子网掩码 up</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ifconfig</span></span><br><span class="line">ens192: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">  ·········</span><br><span class="line">[root@lj-master ~]<span class="comment"># ifconfig ens192:1 10.11.7.240 netmask 255.255.255.0 up</span></span><br></pre></td></tr></table></figure><h3 id="查看别名IP"><a href="#查看别名IP" class="headerlink" title="查看别名IP"></a>查看别名IP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ifconfig</span></span><br><span class="line">ens192: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.11.7.232  netmask 255.255.255.0  broadcast 10.11.7.255</span><br><span class="line">        ·········</span><br><span class="line">ens192:1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.11.7.240  netmask 255.255.255.0  broadcast 10.11.7.255</span><br><span class="line">        ether 00:50:56:8d:75:a2  txqueuelen 1000  (Ethernet)</span><br></pre></td></tr></table></figure><h3 id="删除别名IP"><a href="#删除别名IP" class="headerlink" title="删除别名IP"></a>删除别名IP</h3><p>删除命令：ifconfig 网关名:1 IP netmask 子网掩码 down (只要将后边的up改为down就可以了)。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@lj-master ~]<span class="comment"># ifconfig ens192:1 10.11.7.240 netmask 255.255.255.0 down</span></span><br></pre></td></tr></table></figure><h3 id="永久有效"><a href="#永久有效" class="headerlink" title="永久有效"></a>永久有效</h3><p>开机就有虚拟ip，可以在网卡的配置目录中去建立一个新的网卡的配置文件<br>centos和红帽都是在这个目录下/etc/sysconfig/network-scripts<br>cp ifcfg-eth0 ifcfg-eth0:1<br>然后更改其中的ip即可，重启网卡就行。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 虚拟IP </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> 虚拟IP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CentOS安装NTP校时</title>
       <link href="/centos_ntp/"/>
       <url>/centos_ntp/</url>
@@ -572,37 +831,6 @@
     
     
     <entry>
-      <title>Linux无法进入系统</title>
-      <link href="/centos_errorstart/"/>
-      <url>/centos_errorstart/</url>
-      
-        <content type="html"><![CDATA[<p><strong>开机进入了紧急救援模式，提示Failed to start system check on /dev/disk/by-uuid/</strong><br>提示登录后查看以下服务</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl status <span class="string">&quot;systemd-fsck@dev-disk-by\\x2duuid-c90f924a\\x2d0d00\\x2d4a22\\x2db52c\\x2d5d87f98d54d6.service&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 输出以下命令</span></span><br><span class="line"><span class="string">error read block 37748820 （Input/Output error）....</span></span><br><span class="line"><span class="string">fsck exited with status code 4</span></span><br><span class="line"><span class="string">run fsck manually</span></span><br></pre></td></tr></table></figure><p>查看一下fsck的错误类型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">man fsck</span><br><span class="line">...</span><br><span class="line">              0      No errors</span><br><span class="line">              1      Filesystem errors corrected</span><br><span class="line">              2      System should be rebooted</span><br><span class="line">              4      Filesystem errors left uncorrected</span><br><span class="line">              8      Operational error</span><br><span class="line">              16     Usage or syntax error</span><br><span class="line">              32     Checking canceled by user request</span><br><span class="line">              128    Shared-library error</span><br><span class="line">...</span><br></pre></td></tr></table></figure><p>跑一遍fsck,然后重启</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsck -y /dev/sda6</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> 无法启动 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> CentOS </tag>
-            
-            <tag> 无法启动 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>EXSI6.7虚拟机操作问题</title>
       <link href="/exsi_caozuo/"/>
       <url>/exsi_caozuo/</url>
@@ -626,6 +854,37 @@
             <tag> EXSI </tag>
             
             <tag> 开机/关机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux无法进入系统</title>
+      <link href="/centos_errorstart/"/>
+      <url>/centos_errorstart/</url>
+      
+        <content type="html"><![CDATA[<p><strong>开机进入了紧急救援模式，提示Failed to start system check on /dev/disk/by-uuid/</strong><br>提示登录后查看以下服务</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl status <span class="string">&quot;systemd-fsck@dev-disk-by\\x2duuid-c90f924a\\x2d0d00\\x2d4a22\\x2db52c\\x2d5d87f98d54d6.service&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 输出以下命令</span></span><br><span class="line"><span class="string">error read block 37748820 （Input/Output error）....</span></span><br><span class="line"><span class="string">fsck exited with status code 4</span></span><br><span class="line"><span class="string">run fsck manually</span></span><br></pre></td></tr></table></figure><p>查看一下fsck的错误类型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">man fsck</span><br><span class="line">...</span><br><span class="line">              0      No errors</span><br><span class="line">              1      Filesystem errors corrected</span><br><span class="line">              2      System should be rebooted</span><br><span class="line">              4      Filesystem errors left uncorrected</span><br><span class="line">              8      Operational error</span><br><span class="line">              16     Usage or syntax error</span><br><span class="line">              32     Checking canceled by user request</span><br><span class="line">              128    Shared-library error</span><br><span class="line">...</span><br></pre></td></tr></table></figure><p>跑一遍fsck,然后重启</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsck -y /dev/sda6</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> 无法启动 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> 无法启动 </tag>
             
         </tags>
       
@@ -795,37 +1054,6 @@
     
     
     <entry>
-      <title>CentOS升级Python3</title>
-      <link href="/python_upgrate/"/>
-      <url>/python_upgrate/</url>
-      
-        <content type="html"><![CDATA[<p>在linux中有自带的python，但是python的版本是2.7，但是我们需要用到的是python3.x，所以就不得不升级python2.7为python3.x<br>共计2种方法，推荐使用第二种</p><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><h3 id="查看python的版本"><a href="#查看python的版本" class="headerlink" title="查看python的版本"></a>查看python的版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python --version  或者  <span class="comment"># python -V</span></span><br></pre></td></tr></table></figure><h3 id="下载新版本"><a href="#下载新版本" class="headerlink" title="下载新版本"></a>下载新版本</h3><p>下载最新版本python并解压缩<br><a href="https://www.python.org/downloads/source/">官网下载版本</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz</span><br><span class="line">tar -zxvf Python-3.7.7.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-3.7.7/</span><br></pre></td></tr></table></figure><h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><p><strong>如果没有升级过Python就需要安装Python相关的依赖包</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">yum install -y make gcc gcc-c++</span><br></pre></td></tr></table></figure><p>安装完依赖包后开始安装python3</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure><h3 id="版本更换"><a href="#版本更换" class="headerlink" title="版本更换"></a>版本更换</h3><p>在/usr/local/bin/下有一个python3的链接，指向bin目录下的python3.7</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line">Python 2.7.16</span><br></pre></td></tr></table></figure><p>查看python的路径，在/usr/bin下面，可以看到python的链接是python2.7，所以执行python就相当于是执行python2.6<br>设置3.x为默认版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la /usr/bin | grep python</span><br><span class="line"><span class="built_in">mv</span> /usr/bin/python /usr/bin/python.bak</span><br></pre></td></tr></table></figure><p>进入解压的目录当中，有一个python的可执行文件或者使用命令查询</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">find / -name python</span><br><span class="line">/root/Python-3.3.0/python</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若是输出为3.x，就说明是python3</span></span><br><span class="line"><span class="built_in">ln</span> -s /home/ec2-user/Python-3.7.7/python /usr/bin/python</span><br><span class="line">python --version</span><br></pre></td></tr></table></figure><h3 id="配置yum"><a href="#配置yum" class="headerlink" title="配置yum"></a>配置yum</h3><p>升级Python版本之后将由默认的python指向了python3，yum不能正常使用，需要更改yum的配置文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /usr/bin/yum</span></span><br><span class="line"><span class="comment"># vi /usr/libexec/urlgrabber-ext-down</span></span><br></pre></td></tr></table></figure><p>修改文件内容如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/python ==&gt; #!/usr/bin/python2.7</span></span><br></pre></td></tr></table></figure><p>安装pip<br>下载pip，<a href="https://pypi.org/project/pip/">官网地址</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># pip3 install --upgrade pip</span></span><br></pre></td></tr></table></figure><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><h3 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@slave-node ~]<span class="comment"># yum -y install python3</span></span><br><span class="line">[root@slave-node ~]<span class="comment"># cd /usr/bin/</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># ll|grep python</span></span><br><span class="line">lrwxrwxrwx. 1 root root         9 Oct 19 15:32 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x. 1 root root      7216 Oct 31  2018 python2.7</span><br><span class="line">lrwxrwxrwx. 1 root root         7 Oct 19 15:32 python2.bak -&gt; python2</span><br><span class="line">lrwxrwxrwx  1 root root         9 Nov 17 16:04 python3 -&gt; python3.6</span><br><span class="line">-rwxr-xr-x  2 root root     11328 Nov 17  2020 python3.6</span><br><span class="line">-rwxr-xr-x  2 root root     11328 Nov 17  2020 python3.6m</span><br><span class="line">[root@slave-node bin]<span class="comment"># mv python python2.bak</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># ln -sf python3.6 python</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只用执行一次，防止yum不可用</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># sed -i &#x27;s?#!/usr/bin/python?&amp;2?&#x27; /usr/bin/yum</span></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 运维 </category>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> CentOS </tag>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CentOS安装FTP</title>
       <link href="/centos_ftp/"/>
       <url>/centos_ftp/</url>
@@ -849,6 +1077,37 @@
             <tag> CentOS </tag>
             
             <tag> FTP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS升级Python3</title>
+      <link href="/python_upgrate/"/>
+      <url>/python_upgrate/</url>
+      
+        <content type="html"><![CDATA[<p>在linux中有自带的python，但是python的版本是2.7，但是我们需要用到的是python3.x，所以就不得不升级python2.7为python3.x<br>共计2种方法，推荐使用第二种</p><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><h3 id="查看python的版本"><a href="#查看python的版本" class="headerlink" title="查看python的版本"></a>查看python的版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python --version  或者  <span class="comment"># python -V</span></span><br></pre></td></tr></table></figure><h3 id="下载新版本"><a href="#下载新版本" class="headerlink" title="下载新版本"></a>下载新版本</h3><p>下载最新版本python并解压缩<br><a href="https://www.python.org/downloads/source/">官网下载版本</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz</span><br><span class="line">tar -zxvf Python-3.7.7.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-3.7.7/</span><br></pre></td></tr></table></figure><h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><p><strong>如果没有升级过Python就需要安装Python相关的依赖包</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">yum install -y make gcc gcc-c++</span><br></pre></td></tr></table></figure><p>安装完依赖包后开始安装python3</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure><h3 id="版本更换"><a href="#版本更换" class="headerlink" title="版本更换"></a>版本更换</h3><p>在/usr/local/bin/下有一个python3的链接，指向bin目录下的python3.7</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line">Python 2.7.16</span><br></pre></td></tr></table></figure><p>查看python的路径，在/usr/bin下面，可以看到python的链接是python2.7，所以执行python就相当于是执行python2.6<br>设置3.x为默认版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la /usr/bin | grep python</span><br><span class="line"><span class="built_in">mv</span> /usr/bin/python /usr/bin/python.bak</span><br></pre></td></tr></table></figure><p>进入解压的目录当中，有一个python的可执行文件或者使用命令查询</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">find / -name python</span><br><span class="line">/root/Python-3.3.0/python</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若是输出为3.x，就说明是python3</span></span><br><span class="line"><span class="built_in">ln</span> -s /home/ec2-user/Python-3.7.7/python /usr/bin/python</span><br><span class="line">python --version</span><br></pre></td></tr></table></figure><h3 id="配置yum"><a href="#配置yum" class="headerlink" title="配置yum"></a>配置yum</h3><p>升级Python版本之后将由默认的python指向了python3，yum不能正常使用，需要更改yum的配置文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /usr/bin/yum</span></span><br><span class="line"><span class="comment"># vi /usr/libexec/urlgrabber-ext-down</span></span><br></pre></td></tr></table></figure><p>修改文件内容如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/python ==&gt; #!/usr/bin/python2.7</span></span><br></pre></td></tr></table></figure><p>安装pip<br>下载pip，<a href="https://pypi.org/project/pip/">官网地址</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># pip3 install --upgrade pip</span></span><br></pre></td></tr></table></figure><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><h3 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@slave-node ~]<span class="comment"># yum -y install python3</span></span><br><span class="line">[root@slave-node ~]<span class="comment"># cd /usr/bin/</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># ll|grep python</span></span><br><span class="line">lrwxrwxrwx. 1 root root         9 Oct 19 15:32 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x. 1 root root      7216 Oct 31  2018 python2.7</span><br><span class="line">lrwxrwxrwx. 1 root root         7 Oct 19 15:32 python2.bak -&gt; python2</span><br><span class="line">lrwxrwxrwx  1 root root         9 Nov 17 16:04 python3 -&gt; python3.6</span><br><span class="line">-rwxr-xr-x  2 root root     11328 Nov 17  2020 python3.6</span><br><span class="line">-rwxr-xr-x  2 root root     11328 Nov 17  2020 python3.6m</span><br><span class="line">[root@slave-node bin]<span class="comment"># mv python python2.bak</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># ln -sf python3.6 python</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只用执行一次，防止yum不可用</span></span><br><span class="line">[root@slave-node bin]<span class="comment"># sed -i &#x27;s?#!/usr/bin/python?&amp;2?&#x27; /usr/bin/yum</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> Python </tag>
             
         </tags>
       
@@ -1326,7 +1585,7 @@
       <link href="/exsi_upgrade/"/>
       <url>/exsi_upgrade/</url>
       
-        <content type="html"><![CDATA[<p>EXSI升级<br>如果直接5.1升6.7的话，会导致版本不兼容，虚拟机无法使用。选择的方案是5.1升级到6.0版本，然后6.0 升级到6.7版本。<br>exsi版本    exsi6.5        exsi6.7        exsi7.0<br>exsi5.5        允许          不允许          不允许<br>exsi6.0        允许          允许            不允许<br>exsi6.5                        允许            不允许<br>exsi6.7                                          不允许</p><h1 id="下载升级包"><a href="#下载升级包" class="headerlink" title="下载升级包"></a>下载升级包</h1><p>升级包下载地址：<a href="https://customerconnect.vmware.com/patch">https://customerconnect.vmware.com/patch</a><br><a href="mailto:&#x71;&#x69;&#x75;&#x66;&#x75;&#x71;&#105;&#64;&#x66;&#111;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x71;&#x69;&#x75;&#x66;&#x75;&#x71;&#105;&#64;&#x66;&#111;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>   Zxc,./123</p><h1 id="上传升级包"><a href="#上传升级包" class="headerlink" title="上传升级包"></a>上传升级包</h1><p><img src="https://qiufuqi.gitee.io/img/hexo/158292a510af2f3c22cdb1bae1f85189.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/b28fc2d45fc571b91ba1588c0cfcde2b.png"></p><h1 id="开启SSH"><a href="#开启SSH" class="headerlink" title="开启SSH"></a>开启SSH</h1><p>安全配置文件  属性<br><img src="https://qiufuqi.gitee.io/img/hexo/4dc1a74f1c6e8c812e9f3266c3292404.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/e8ca323fe54d5d3bc72f74612e4eb075.png"></p><h1 id="开始升级"><a href="#开始升级" class="headerlink" title="开始升级"></a>开始升级</h1><p>每次升级过后，需要reboot重启</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">exsi5.1 升级5.5  查看升级版本包</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi550-201312001.zip</span><br><span class="line">Name                              Vendor        Acceptance Level</span><br><span class="line">--------------------------------  ------------  ----------------</span><br><span class="line">ESXi-5.5.0-20131204001-no-tools   VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131204001-standard   VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131201001s-standard  VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131201001s-no-tools  VMware, Inc.  PartnerSupported</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi550-201312001.zip&quot;</span> -p ESXi-5.5.0-20131204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">加个参数--no-hardware-warning忽略这个警告，看能否升级成功。</span><br><span class="line"></span><br><span class="line">exsi5.1 升级5.5  查看升级版本包</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi550-201312001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi550-201312001.zip&quot;</span> -p ESXi-5.5.0-20131204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi5.5 升级6.0</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi600-202002001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi600-202002001.zip&quot;</span> -p ESXi-6.0.0-20200204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.0 升级6.5</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi650-202210001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi650-202210001.zip&quot;</span> -p ESXi-6.5.0-20221004001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.5 升级6.7</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi670-202210001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi670-202210001.zip&quot;</span> -p ESXi-6.7.0-20221004001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.7 升级7.0</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/VMware-ESXi-7.0U3k-21313628-depot.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/VMware-ESXi-7.0U3k-21313628-depot.zip&quot;</span> -p ESXi-7.0U3k-21313628-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi7.0 升级8</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/VMware-ESXi-8.0b-21203435-depot.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/VMware-ESXi-8.0b-21203435-depot.zip&quot;</span> -p ESXi-8.0b-21203435-standard</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>EXSI升级<br>如果直接5.1升6.7的话，会导致版本不兼容，虚拟机无法使用。选择的方案是5.1升级到6.0版本，然后6.0 升级到6.7版本。<br>exsi版本    exsi6.5        exsi6.7        exsi7.0<br>exsi5.5        允许          不允许          不允许<br>exsi6.0        允许          允许            不允许<br>exsi6.5                        允许            不允许<br>exsi6.7                                          不允许</p><h1 id="下载升级包"><a href="#下载升级包" class="headerlink" title="下载升级包"></a>下载升级包</h1><p>升级包下载地址：<a href="https://customerconnect.vmware.com/patch">https://customerconnect.vmware.com/patch</a><br><a href="mailto:&#x71;&#105;&#117;&#102;&#117;&#113;&#105;&#x40;&#102;&#111;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x71;&#105;&#117;&#102;&#117;&#113;&#105;&#x40;&#102;&#111;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>   Zxc,./123</p><h1 id="上传升级包"><a href="#上传升级包" class="headerlink" title="上传升级包"></a>上传升级包</h1><p><img src="https://qiufuqi.gitee.io/img/hexo/158292a510af2f3c22cdb1bae1f85189.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/b28fc2d45fc571b91ba1588c0cfcde2b.png"></p><h1 id="开启SSH"><a href="#开启SSH" class="headerlink" title="开启SSH"></a>开启SSH</h1><p>安全配置文件  属性<br><img src="https://qiufuqi.gitee.io/img/hexo/4dc1a74f1c6e8c812e9f3266c3292404.png"><br><img src="https://qiufuqi.gitee.io/img/hexo/e8ca323fe54d5d3bc72f74612e4eb075.png"></p><h1 id="开始升级"><a href="#开始升级" class="headerlink" title="开始升级"></a>开始升级</h1><p>每次升级过后，需要reboot重启</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">exsi5.1 升级5.5  查看升级版本包</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi550-201312001.zip</span><br><span class="line">Name                              Vendor        Acceptance Level</span><br><span class="line">--------------------------------  ------------  ----------------</span><br><span class="line">ESXi-5.5.0-20131204001-no-tools   VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131204001-standard   VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131201001s-standard  VMware, Inc.  PartnerSupported</span><br><span class="line">ESXi-5.5.0-20131201001s-no-tools  VMware, Inc.  PartnerSupported</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi550-201312001.zip&quot;</span> -p ESXi-5.5.0-20131204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">加个参数--no-hardware-warning忽略这个警告，看能否升级成功。</span><br><span class="line"></span><br><span class="line">exsi5.1 升级5.5  查看升级版本包</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi550-201312001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi550-201312001.zip&quot;</span> -p ESXi-5.5.0-20131204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi5.5 升级6.0</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi600-202002001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi600-202002001.zip&quot;</span> -p ESXi-6.0.0-20200204001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.0 升级6.5</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi650-202210001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi650-202210001.zip&quot;</span> -p ESXi-6.5.0-20221004001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.5 升级6.7</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/ESXi670-202210001.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/ESXi670-202210001.zip&quot;</span> -p ESXi-6.7.0-20221004001-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi6.7 升级7.0</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/VMware-ESXi-7.0U3k-21313628-depot.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/VMware-ESXi-7.0U3k-21313628-depot.zip&quot;</span> -p ESXi-7.0U3k-21313628-standard</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exsi7.0 升级8</span><br><span class="line">esxcli software sources profile list -d /vmfs/volumes/datastore1/VMware-ESXi-8.0b-21203435-depot.zip</span><br><span class="line">esxcli software profile update -d <span class="string">&quot;/vmfs/volumes/datastore1/VMware-ESXi-8.0b-21203435-depot.zip&quot;</span> -p ESXi-8.0b-21203435-standard</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -2308,9 +2567,9 @@
       
         <tags>
             
-            <tag> K8S </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> K8S </tag>
             
             <tag> 监控 </tag>
             
