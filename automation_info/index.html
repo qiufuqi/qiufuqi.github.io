@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>自动化运维汇总 | Austines Hexo Blog</title><meta name="keywords" content="自动化运维"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="动化运维是指通过运维工具来解决生产中大量、繁杂的事务，监控生产环境变化、自动响应并处置事件等问题，从而提升运维效率、降低重大问题发生的概率、更全面的保障生产环境。参考 SpugSpug介绍Spug是面向中小型企业设计的无 Agent的自动化运维平台，整合了主机管理、主机批量执行、主机在线终端、应用发布、任务计划、配置中心、监控、报警等一系列功能。演示地址：https:&#x2F;&#x2F;demo.spug.cc官">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化运维汇总">
+<meta property="og:url" content="https://qiufuqi.github.io/automation_info/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="动化运维是指通过运维工具来解决生产中大量、繁杂的事务，监控生产环境变化、自动响应并处置事件等问题，从而提升运维效率、降低重大问题发生的概率、更全面的保障生产环境。参考 SpugSpug介绍Spug是面向中小型企业设计的无 Agent的自动化运维平台，整合了主机管理、主机批量执行、主机在线终端、应用发布、任务计划、配置中心、监控、报警等一系列功能。演示地址：https:&#x2F;&#x2F;demo.spug.cc官">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20230417152227.png">
+<meta property="article:published_time" content="2023-04-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T06:28:00.475Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20230417152227.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/automation_info/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自动化运维汇总',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-05 14:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20230417152227.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">自动化运维汇总</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-16T16:00:00.000Z" title="发表于 2023-04-17 00:00:00">2023-04-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:28:00.475Z" title="更新于 2024-08-05 14:28:00">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="自动化运维汇总"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>动化运维是指通过运维工具来解决生产中大量、繁杂的事务，监控生产环境变化、自动响应并处置事件等问题，从而提升运维效率、降低重大问题发生的概率、更全面的保障生产环境。</strong><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/echo-valley/p/12711731.html">参考</a></p>
+<h1 id="Spug"><a href="#Spug" class="headerlink" title="Spug"></a>Spug</h1><h2 id="Spug介绍"><a href="#Spug介绍" class="headerlink" title="Spug介绍"></a>Spug介绍</h2><p>Spug是面向中小型企业设计的无 Agent的自动化运维平台，整合了主机管理、主机批量执行、主机在线终端、应用发布、任务计划、配置中心、监控、报警等一系列功能。<br>演示地址：<a target="_blank" rel="noopener" href="https://demo.spug.cc/">https://demo.spug.cc</a><br>官网地址：<a target="_blank" rel="noopener" href="https://www.spug.cc/">https://www.spug.cc/</a><br>使用文档：<a target="_blank" rel="noopener" href="https://www.spug.cc/docs/about-spug/">https://www.spug.cc/docs/about-spug/</a><br>常见问题：<a target="_blank" rel="noopener" href="https://www.spug.cc/docs/faq/">https://www.spug.cc/docs/faq/</a></p>
+<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>批量执行: 主机命令在线批量执行<br>在线终端: 主机支持浏览器在线终端登录<br>文件管理: 主机文件在线上传下载<br>任务计划: 灵活的在线任务计划<br>发布部署: 支持自定义发布部署流程<br>配置中心: 支持 KV、文本、json 等格式的配置<br>监控中心: 支持站点、端口、进程、自定义等监控<br>报警中心: 支持短信、邮件、钉钉、微信等报警方式<br>优雅美观: 基于 Ant Design 的 UI 界面<br>开源免费: 前后端代码完全开源</p>
+<h1 id="CODO"><a href="#CODO" class="headerlink" title="CODO"></a>CODO</h1><h2 id="codo介绍"><a href="#codo介绍" class="headerlink" title="codo介绍"></a>codo介绍</h2><p>CODO是一款为用户提供企业多混合云、自动化运维、完全开源的云管理平台。<br>CODO前端基于Vue iview开发、为用户提供友好的操作界面，增强用户体验。<br>CODO后端基于Python Tornado开发，其优势为轻量、简洁清晰、异步非阻塞。<br>CODO开源多云管理平台为用户提供多功能：ITSM、基于RBAC权限系统、Web Terminnal登陆日志审计、录像回放、强大的作业调度系统、CMDB、监控报警系统等<br><a target="_blank" rel="noopener" href="https://docs.opendevops.cn/zh/guide/#microservice">https://docs.opendevops.cn/zh/guide/#microservice</a><br>地址：<a target="_blank" rel="noopener" href="https://demo.opendevops.cn/login">https://demo.opendevops.cn/login</a><br>用户：demo<br>密码：2ZbFYNv9WibWcR7GB6kcEY</p>
+<h2 id="功能介绍-1"><a href="#功能介绍-1" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>任务模版<br>任务发布<br>定时任务<br>代码仓库<br>监控告警<br>资产管理<br>配置中心<br>用户管理<br>系统管理</p>
+<h1 id="蓝鲸智云"><a href="#蓝鲸智云" class="headerlink" title="蓝鲸智云"></a>蓝鲸智云</h1><p>腾讯蓝鲸智云，简称蓝鲸，是腾讯互动娱乐事业群（Interactive Entertainment Group，简称 IEG）自研自用的一套用于构建企业研发运营一体化体系的 PaaS 开发框架，提供了 aPaaS（DevOps 流水线、运行环境托管、前后台框架）和 iPaaS（持续集成、CMDB、作业平台、容器管理、数据平台、AI 等原子平台）等模块，帮助企业技术人员快速构建基础运营 PaaS。<br>传统的 Linux 等单机操作系统已发展数十年，随着云时代的到来，企业所需资源数暴增，操作节点（物理或虚拟服务器及容器）数量普遍达到数千个，大型互联网公司甚至达到百万级别，混合云模式成为常态，虽然 IaaS 供应商的出现从一定程度上解决了资源切割调度问题，但并未很好的解决资源与应用的融合，企业需要一种介于 IaaS 与应用（SaaS）之间的层级，用于屏蔽及控制 IaaS，快速开发及托管 SaaS，我们将其称之为基础 PaaS 层，并着重发展用于研发及托管企业内技术运营类 SaaS 的基础运营 PaaS，并将其作为区别于传统 OS 的下一代企业级分布式运营操作系统。</p>
+<p>企业 IT 应用的全生命周期可划分为研发、运维、运营三段，在各行业进行互联网化转型的过程中，融入敏捷思维，即形成持续集成、持续部署、持续运营的概念（CI-CD-CO）。</p>
+<p>为降低转型成本，不以增加人力数量为转型前提，腾讯 IEG 以运维团队作为转型起点，充分利用这一群体低价值重复性工作量占比高的特点，从 CD 领域切入，以 PaaS 技术进行运维自动化领域的烟囱治理，形成运维 PaaS 体系。将自动化所释放的人力资源，转型为运维开发团队，利用 PaaS 的自增长属性，将运维 PaaS 逐步向 CI 及 CO 拓展，最终完成企业级研发 - 运维 - 运营基础 PaaS 构建，落地企业研发运营一体化。</p>
+<p>腾讯蓝鲸智云秉承开放共赢的理念，招募及联合国内优质合作伙伴，以改变中国运维行业为起点，致力于推动国内企业借助研发运营一体化，低成本实现企业 IT 经营管理模式升级和自主化。<br><a target="_blank" rel="noopener" href="https://bk.tencent.com/index/">https://bk.tencent.com/index/</a></p>
+<h2 id="功能介绍-2"><a href="#功能介绍-2" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>1,管控平台<br>2，配置平台<br>3，作业平台<br>4，paas平台<br>5，数据平台基础服务<br>6，数据平台-datahub<br>7，数据平台modelfow<br>8,容器管理平台<br>9，移动平台<br>10，故障自愈<br>11，标准运维<br>12，蓝鲸监控<br>13，日志检索<br>14，蓝鲸devops<br>15,wman<br>16,网络管理</p>
+<h1 id="bigops"><a href="#bigops" class="headerlink" title="bigops"></a>bigops</h1><h2 id="bigops介绍"><a href="#bigops介绍" class="headerlink" title="bigops介绍"></a>bigops介绍</h2><p>如何让运维可以轻松配合开发和测试，管理好业务，已经成了运维最大的挑战。<br>运维的价值到底是什么？运维的挑战又是什么？<br>为了解决运维可视化、自动化及未来智能化的问题，我们开发了这款自动化运维软件，起名叫BigOps–比格运维。</p>
+<p>如果获得BigOps软件？</p>
+<p>项目首页：<a target="_blank" rel="noopener" href="http://www.bigops.com/">http://www.bigops.com/</a><br>项目文档：<a target="_blank" rel="noopener" href="http://docs.bigops.com/">http://docs.bigops.com/</a><br>开源地址：<a target="_blank" rel="noopener" href="https://github.com/yunweibang">https://github.com/yunweibang</a><br>范例地址：<a target="_blank" rel="noopener" href="http://demo.bigops.com/">http://demo.bigops.com/</a></p>
+<h2 id="功能介绍-3"><a href="#功能介绍-3" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>一、统一认证<br>已经整合了Zabbix、Jira、Confluence、Jenkins和Gitlab，如果你现在也在使用这些开源软件，那么恭喜你，可以和BigOps无缝整合，只需要打个Patch即可轻松接入。<br>二、如果你已经有了LDAP，我们也可以接入你的认证系统<br>三、个人桌面，为每个用户定制自己的桌面，千人千面，相当每个人拥有了一个MAC OS的操作系统。<br>四、消息，管理员可以给普通用户发消息，系统也可以给管理员或者普通用户发消息。<br>五、工单。工单不光是审批，也可以做到审批后直接执行，节省运维工作量。（马上支持）<br>六、资源管理（CMDB），主机配置全自动化更新，准确率99%，并可以进行资产的全生命周期管理。<br>资源使用模型和实例的方式进行管理，随心所欲定制资源表单。<br>资源实例，支持导入、导出、，自定义显示列，批量修改和删除等操作<br>资源详情，清晰的显示资源所有信息及变更信息，主机和硬件可以自动化更新，无需人工参与。<br>七、强大的IP地址管理，让你轻松掌握IP使用情况<br>八、主机自动发现，自动发现公有云和指定网段新接入的主机。<br>九、公有云导入，支持阿里云、腾讯云、Ucloud、金山云自动导入和手动导入<br>十、hostmin，包括主机系统管理和系统备份等<br>十一、全面整合Zabbix,自动和zabbix主机关联<br>十二、监控大屏、包括主机状态、IP状态和zbx接口<br>已开发的功能还包括会话管理、硬件端口管理、硬件位置管理、用户权限、主机系统管理、主机系统备份等功能、等等20多个功能等你慢慢发掘。<br>正在开发的功能包括发布系统、告警系统、堡垒机等</p>
+<h1 id="easyops"><a href="#easyops" class="headerlink" title="easyops"></a>easyops</h1><h2 id="easyops介绍"><a href="#easyops介绍" class="headerlink" title="easyops介绍"></a>easyops介绍</h2><p>EasyDevOps —DevOps解决方案，基于EasyOps平台强大的CI/CD和平台能力，深化DevOps开发运维一体化的应用，帮助企业落地从开发到测试、再到运维自动化、场景化，同时还致力于支撑敏捷团队的精益和协同，助力企业快速、稳定、持续的业务交付。<br>优维的DevOps解决方案已在多家金融机构、大型企业成功落地。</p>
+<p>官网首页：<a target="_blank" rel="noopener" href="https://www.uwintech.cn/">https://www.uwintech.cn/</a></p>
+<h2 id="功能介绍-4"><a href="#功能介绍-4" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>CI/CD，快速交付，持续迭代，多云部署，支持容器</p>
+<p>完善的制品库管理，并支持Docker镜像；<br>容器化CI流水线；<br>多云部署平台，支持多云K8S集群；<br>标准及高度定制的持续交付流水线，加快交付效率；<br>内置多种内外部开源工具，插件式开发；<br>灰度发布、蓝绿部署，轻松拥有；<br>DevOps交付看板，持续驱动IT优化。</p>
+<h1 id="阿里云云效"><a href="#阿里云云效" class="headerlink" title="阿里云云效"></a>阿里云云效</h1><p>阿里云云效，云原生时代新 DevOps 平台，支持公共云、专有云和混合云多种部署形态，通过云原生新技术和研发新模式，助力创新创业和数字化转型企业快速实现研发敏捷和组织敏捷，打造“双敏”组织，实现 10 倍效能提升。</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/153739.html?spm=a2c4g.11186623.6.542.74bf75c20EQWub">https://help.aliyun.com/document_detail/153739.html?spm=a2c4g.11186623.6.542.74bf75c20EQWub</a></p>
+<h2 id="功能介绍-5"><a href="#功能介绍-5" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>阿里云云效，云原生时代新 DevOps 平台，支持公共云、专有云和混合云多种部署形态，通过云原生新技术和研发新模式，助力创新创业和数字化转型企业快速实现研发敏捷和组织敏捷，打造“双敏”组织，实现 10 倍效能提升。</p>
+<p>我们的工作充满着大大小小的「项目」、「任务」：活动策划、工程实施、IT 研发、风险投资等等。使用云效做「项目化」管理，团队规划工作事目标更清晰，执行更到位，而且完成过程也十分轻松，成员将有全新的协作体验。</p>
+<p>可视化的项目进展和协作<br>简洁优雅的「看板」呈现着项目的各个关键阶段，随时看见「谁」，在「何时」，要完成「什么」，团队成员不必再在协同工作进展上耗费时间。更棒的是，你可以打破部门边界，基于项目组合成员，跨部门协同也不再是难题。</p>
+<p>了解如何进行项目协作：</p>
+<p>了解项目 &gt;&gt;</p>
+<p>井然有序的任务管理<br>如何让团队配合更默契？答案是：更明确的分工。将项目拆分为具体的可执行的任务，分工明确，井然有序。云效的「任务详情页」好像是一个容器，任务的执行过程和结果，都结构化地沉淀在这个容器里，帮助每个人准确掌握自己在任务中的职责，更好的做任务管理和展现，高效驱动每一项任务得到落实。</p>
+<p>了解如何善用任务：</p>
+<p>深入任务 &gt;&gt;</p>
+<p>多元视角团队协作更佳<br>云效是连接团队的桥梁。打破部门边界，市场运营、产品经理和工程师可以共享同一个工作台。以「协作」的方式，多样化的工具整合，展现更紧密的跨部门协作，创造更多业务增长。多元视角赋能每一位成员，让企业、团队和个人以更高效的协作方式围绕目标 创造成果。</p>
+<p>了解多样的工具整合：</p>
+<p>实践敏捷研发全流程<br>每一个市场都在赛跑， 使用云效打造一体化研发协作流程，借助专业工具，让团队表现更优异，产品更快响应需求变化。</p>
+<p>全面支持「看板」和「Scrum」敏捷方法，你可以围绕产品目标灵活规划每个迭代冲刺。实时数据反馈，让计划调整更及时，团队成员积极应对变化，持续交付价值。</p>
+<p>前台业务部门和后台研发团队不应该是割裂的，云效正是连接前后台的桥梁。打破部门边界，市场运营、产品经理和工程师可以共享同一个工作台。更紧密的跨部门协作，能够创造更多业务增长。</p>
+<p>你的产品交付，可以远超预期。</p>
+<h1 id="StackStorm"><a href="#StackStorm" class="headerlink" title="StackStorm"></a>StackStorm</h1><p>StackStorm 是一个自动化平台。<br>这个自动化平台将您现有的基础设施和应用程序环境联系在一起来让你更容易地实现自动化。</p>
+<p>官方网站：<a target="_blank" rel="noopener" href="https://stackstorm.com/">https://stackstorm.com/</a></p>
+<h2 id="功能介绍-6"><a href="#功能介绍-6" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>StackStorm 的主要用途有哪些 ？<br>更加便利的排除故障（Facilitated Troubleshooting） - StackStorm 可以用来处理 Nagios，Sensu，New Relic 和其他监控系统捕获的系统故障，然后在物理节点、OpenStack 或Amazon Instances 和应用程序组件上运行一系列诊断检查，并将结果发布到HipChat, Jira 等共享通信环境中。<br>自动修复（Automated remediation） - 识别和验证 OpenStack 计算节点上的硬件故障，并正确清空实例和向管理员发送关于潜在停机时间的电子邮件，在运行中如果出现任何问题，就会冻结这个 workflow 通过 PagerDuty 工具来通知技术人员来手动修复。<br>持续部署 （Continuous deployment）- 与 Jenkins 一起合作来进行构建和测试，配置新的AWS集群，使用基于 NewRelic 的应用程序性能数据来激活负载均衡的一些流量负载功能，并执行配置前滚或回滚的操作。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/automation_info/">https://qiufuqi.github.io/automation_info/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20230417152227.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/1/"><img class="prev-cover" src="https://fastly.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/centos_inode/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20230417142330.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">磁盘inode节点被占满问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/ljzy_jkrz/" title="蓝鲸智云6.1监控日志部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155137.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-20</div><div class="title">蓝鲸智云6.1监控日志部署</div></div></a></div><div><a href="/ljzy_restart/" title="蓝鲸智云6.1系统重启"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155200.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-20</div><div class="title">蓝鲸智云6.1系统重启</div></div></a></div><div><a href="/ljzy_problem/" title="蓝鲸智云社区版6.1部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155246.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-19</div><div class="title">蓝鲸智云社区版6.1部署</div></div></a></div><div><a href="/ljzy_jichu/" title="蓝鲸智云6.1基础套餐部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-19</div><div class="title">蓝鲸智云6.1基础套餐部署</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spug"><span class="toc-number">1.</span> <span class="toc-text">Spug</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spug%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">Spug介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CODO"><span class="toc-number">2.</span> <span class="toc-text">CODO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#codo%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">codo介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-1"><span class="toc-number">2.2.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%93%9D%E9%B2%B8%E6%99%BA%E4%BA%91"><span class="toc-number">3.</span> <span class="toc-text">蓝鲸智云</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-2"><span class="toc-number">3.1.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bigops"><span class="toc-number">4.</span> <span class="toc-text">bigops</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bigops%E4%BB%8B%E7%BB%8D"><span class="toc-number">4.1.</span> <span class="toc-text">bigops介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-3"><span class="toc-number">4.2.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#easyops"><span class="toc-number">5.</span> <span class="toc-text">easyops</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easyops%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.1.</span> <span class="toc-text">easyops介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-4"><span class="toc-number">5.2.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E6%95%88"><span class="toc-number">6.</span> <span class="toc-text">阿里云云效</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-5"><span class="toc-number">6.1.</span> <span class="toc-text">功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StackStorm"><span class="toc-number">7.</span> <span class="toc-text">StackStorm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D-6"><span class="toc-number">7.1.</span> <span class="toc-text">功能介绍</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

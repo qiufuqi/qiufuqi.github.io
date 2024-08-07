@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Cisco交换机VTP协议 | Austines Hexo Blog</title><meta name="keywords" content="交换机,Cisco,VTP"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_60503432&#x2F;article&#x2F;details&#x2F;127194455 VTP（VLAN Trunk Protocol）—CISCO私有的协议VTP一个可以说很方便的协议，学习Cisco时也很常用的协议，他的作用就是可以在有大量交换设备，需要配置类似的vlan划分的时候，简化配置过程，使各个交换机互相学习Vlan Database 为什么要使用VTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cisco交换机VTP协议">
+<meta property="og:url" content="https://qiufuqi.github.io/cisco_vtp/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_60503432&#x2F;article&#x2F;details&#x2F;127194455 VTP（VLAN Trunk Protocol）—CISCO私有的协议VTP一个可以说很方便的协议，学习Cisco时也很常用的协议，他的作用就是可以在有大量交换设备，需要配置类似的vlan划分的时候，简化配置过程，使各个交换机互相学习Vlan Database 为什么要使用VTP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20230406153459.png">
+<meta property="article:published_time" content="2022-11-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-07T00:31:25.446Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="交换机">
+<meta property="article:tag" content="Cisco">
+<meta property="article:tag" content="VTP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20230406153459.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/cisco_vtp/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Cisco交换机VTP协议',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-07 08:31:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20230406153459.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Cisco交换机VTP协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-23T16:00:00.000Z" title="发表于 2022-11-24 00:00:00">2022-11-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T00:31:25.446Z" title="更新于 2024-08-07 08:31:25">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E4%BA%A4%E6%8D%A2%E6%9C%BA/">交换机</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E4%BA%A4%E6%8D%A2%E6%9C%BA/Cisco/">Cisco</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Cisco交换机VTP协议"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_60503432/article/details/127194455">https://blog.csdn.net/qq_60503432/article/details/127194455</a></p>
+<p>VTP（VLAN Trunk Protocol）—CISCO私有的协议<br>VTP一个可以说很方便的协议，学习Cisco时也很常用的协议，他的作用就是可以在有大量交换设备，需要配置类似的vlan划分的时候，简化配置过程，使各个交换机互相学习Vlan Database</p>
+<p>为什么要使用VTP呢 ?<br>考虑到在一个三层模型拥有多台交换设备的网络环境中，为了使得在每台交换设备上VLAN信息一致，那必须得在每台设备上单独配置相同的VLAN。如果设备足够多那么这样的效率是很低的并且如果经常需要临时的创建和删除某些VLAN在这样的大型网络中效率更低，VTP允许在一台交换机上添加、删除、修改VLAN信息然后同步到其他的交换机。</p>
+<h1 id="VTP模式"><a href="#VTP模式" class="headerlink" title="VTP模式"></a>VTP模式</h1><p><img src="https://qiufuqi.github.io/img/hexo/20230406162245.png"><br>在VTP协议中我们把设备大体分为两类：Server和Client<br>Server端能够添加、删除、修改vlan信息并且把vlan信息保存在flash:vlan.dat中<br>Client只能向Server同步vlan信息并且vlan信息无法保存，每次重启都要向Server同步</p>
+<p>server        创建、修改、删除、发送或转发通告（发送自己的消息，转发别人的消息）、同步（接受别人发来的消息）、保存<br>client        转发通告、同步、不保存<br>transparent   创建、修改、删除、转发通告、不同步、保存</p>
+<p>为了丰富VTP的功能除了Server和Client模式之外，还设置了一个Transparent模式；<br>Transparent会传递vlan信息，但自己本身不同步Server的vlan信息，vlan信息保存在nvram:startup-config中；<br>Transparent对vlan的操作只在本交换机上有效；<br>三种模式对设备的数目没有限制（在一个交换网络中没有规定只能有一台server、client、transparent）</p>
+<h1 id="VTP运行"><a href="#VTP运行" class="headerlink" title="VTP运行"></a>VTP运行</h1><p><img src="https://qiufuqi.github.io/img/hexo/20230406163357.png"></p>
+<p>VTP帧发向组播MAC地址：0100.0CCC.CCCC<br>VTP同步的关键是配置修订号（指的是对设备进行了多少次的更新、修改）<br>VTPserver和clinent同步到最新的配置版本号，VTP通告在变化时，每5分钟发送。<br>配置修订号越大设备认为配置越新，<strong>修订号大的同步vlan信息给修订号小的，修订号小的设备vlan信息被覆盖</strong>；<br>正是因为同步是依据配置修订号来，导致VTP很少有人用。</p>
+<p>局限性：</p>
+<ol>
+<li>依据修订号来同步vlan信息</li>
+<li>思科私有</li>
+</ol>
+<h1 id="VTP作用"><a href="#VTP作用" class="headerlink" title="VTP作用"></a>VTP作用</h1><p>VTP维护整个管理域VLAN信息的一致性<br>VTP仅在Trunk端口上发送通告<br>同步到最新的VLAN信息</p>
+<h1 id="VTP配置"><a href="#VTP配置" class="headerlink" title="VTP配置"></a>VTP配置</h1><h2 id="配置需求"><a href="#配置需求" class="headerlink" title="配置需求"></a>配置需求</h2><p>Trunk接口，VTP域名，指定VTP模式（默认server），配置VTP密码<br>配置命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)<span class="comment">#vtp domainTEST</span></span><br><span class="line">Changing VTP domain name from NULL to TESTS</span><br><span class="line">witch(config)<span class="comment">#vtp mode server</span></span><br><span class="line">Switch(config)<span class="comment">#vtp password cisco</span></span><br><span class="line">Setting device VLAN database password to cisco</span><br></pre></td></tr></table></figure>
+<p>验证VTP配置</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/cisco_vtp/">https://qiufuqi.github.io/cisco_vtp/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/">交换机</a><a class="post-meta__tags" href="/tags/Cisco/">Cisco</a><a class="post-meta__tags" href="/tags/VTP/">VTP</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20230406153459.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/exsi_vCenter_vSAN/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20221207140120.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vSAN单站点群集</div></div></a></div><div class="next-post pull-right"><a href="/cisco_shili/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20230406153459.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Cisco交换机常用命令</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/cisco_access/" title="Cisco路由器access-list访问控制"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230406153459.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-18</div><div class="title">Cisco路由器access-list访问控制</div></div></a></div><div><a href="/cisco_bash/" title="Cisco交换机常用命令"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230406153459.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-28</div><div class="title">Cisco交换机常用命令</div></div></a></div><div><a href="/cisco_shili/" title="Cisco交换机常用命令"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230406153459.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-24</div><div class="title">Cisco交换机常用命令</div></div></a></div><div><a href="/huawei_bash/" title="华为交换机常用命令"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230327084004.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">华为交换机常用命令</div></div></a></div><div><a href="/huawei_shili/" title="华为交换机路由实例"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230327084004.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">华为交换机路由实例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VTP%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">VTP模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VTP%E8%BF%90%E8%A1%8C"><span class="toc-number">2.</span> <span class="toc-text">VTP运行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VTP%E4%BD%9C%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">VTP作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VTP%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">VTP配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%9C%80%E6%B1%82"><span class="toc-number">4.1.</span> <span class="toc-text">配置需求</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

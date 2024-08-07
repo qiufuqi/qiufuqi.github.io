@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>蓝鲸智云6.1系统重启 | Austines Hexo Blog</title><meta name="keywords" content="自动化运维,蓝鲸智云,重启"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="断电重启，手动重启，人工误操作，机器死机，蓝鲸进程怎么办？ 中控及：重启后确认所有进程状态： 12[root@lj1 install]# cd &#x2F;data&#x2F;install[root@lj1 install]# .&#x2F;bkcli status all 正常情况下应该都是正常拉起RUNNING状态，如果有EXIT的，则尝试手动拉起。手动拉起的具体方法参考组件的启动停止 社区版所有机器同时重启，很大概率会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝鲸智云6.1系统重启">
+<meta property="og:url" content="https://qiufuqi.github.io/ljzy_restart/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="断电重启，手动重启，人工误操作，机器死机，蓝鲸进程怎么办？ 中控及：重启后确认所有进程状态： 12[root@lj1 install]# cd &#x2F;data&#x2F;install[root@lj1 install]# .&#x2F;bkcli status all 正常情况下应该都是正常拉起RUNNING状态，如果有EXIT的，则尝试手动拉起。手动拉起的具体方法参考组件的启动停止 社区版所有机器同时重启，很大概率会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20230301155200.png">
+<meta property="article:published_time" content="2022-12-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T06:28:00.475Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20230301155200.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/ljzy_restart/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '蓝鲸智云6.1系统重启',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-08-05 14:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20230301155200.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">蓝鲸智云6.1系统重启</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-19T16:00:00.000Z" title="发表于 2022-12-20 00:00:00">2022-12-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:28:00.475Z" title="更新于 2024-08-05 14:28:00">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E8%87%AA%E5%8A%A8%E5%8C%96/%E8%93%9D%E9%B2%B8%E6%99%BA%E4%BA%91/">蓝鲸智云</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="蓝鲸智云6.1系统重启"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>断电重启，手动重启，人工误操作，机器死机，蓝鲸进程怎么办？</p>
+<p>中控及：<br>重启后确认所有进程状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@lj1 install]<span class="comment"># cd /data/install</span></span><br><span class="line">[root@lj1 install]<span class="comment"># ./bkcli status all</span></span><br></pre></td></tr></table></figure>
+<p>正常情况下应该都是正常拉起RUNNING状态，如果有EXIT的，则尝试手动拉起。手动拉起的具体方法参考组件的启动停止</p>
+<p>社区版所有机器同时重启，很大概率会有很多进程启动失败，因为不同机器上组件恢复的时间没法控制，导致依赖的组件还没启动起来，导致失败，连锁反应。所以这种情况，遵循和安装时的启动原则</p>
+<ul>
+<li>先启动db</li>
+<li>启动依赖的其他开源组件及服务</li>
+<li>启动蓝鲸产品<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start cmdb</span></span><br><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start job</span></span><br><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start bknodeman</span></span><br></pre></td></tr></table></figure>
+已经部署过SaaS，那么手动拉起。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start paas</span></span><br><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start saas-o # 正式环境</span></span><br><span class="line">[root@lj1 install]<span class="comment"># ./bkcli start saas-t # 测试环境</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>ElasticSearch – 服务启动操作超时<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/allway2/article/details/121966081">参考解决</a><br><img src="https://qiufuqi.github.io/img/hexo/20221222113041.png"></p>
+<p>解决办法<br>修改 ElasticSearch 配置<br>编辑 ElasticSearch 服务的配置文件。<br>TimeoutStartSec配置等待启动的时间。默认值为90秒，将此值增加到适当的值，在我的情况下，我将其设置为500</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/lib/systemd/system/elasticsearch.service</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiufuqi.github.io/img/hexo/20221222113119.png"><br>保存该文件，然后重新加载 systemd 管理器配置。</p>
+<p>检查启动的超时值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl show elasticsearch | grep ^Timeout</span><br><span class="line">TimeoutStartUSec=8min 20s</span><br><span class="line">TimeoutStopUSec=infinity</span><br></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/ljzy_restart/">https://qiufuqi.github.io/ljzy_restart/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20230301155200.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ljzy_jkrz/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20230301155137.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">蓝鲸智云6.1监控日志部署</div></div></a></div><div class="next-post pull-right"><a href="/ljzy_problem/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20230301155246.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">蓝鲸智云社区版6.1部署</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/automation_info/" title="自动化运维汇总"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230417152227.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-17</div><div class="title">自动化运维汇总</div></div></a></div><div><a href="/ljzy_jkrz/" title="蓝鲸智云6.1监控日志部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155137.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-20</div><div class="title">蓝鲸智云6.1监控日志部署</div></div></a></div><div><a href="/ljzy_problem/" title="蓝鲸智云社区版6.1部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155246.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-19</div><div class="title">蓝鲸智云社区版6.1部署</div></div></a></div><div><a href="/ljzy_jichu/" title="蓝鲸智云6.1基础套餐部署"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230301155047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-19</div><div class="title">蓝鲸智云6.1基础套餐部署</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

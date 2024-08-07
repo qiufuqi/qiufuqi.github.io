@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VCSA安装步骤 | Austines Hexo Blog</title><meta name="keywords" content="Exsi,vCenter"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Vmware vCenter 6.7部署安装全过程 参考地址 镜像下载地址分享链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1ONjVivtoc0TYmtK0vIhDKw?pwd&#x3D;wak9提取码: wak9  其他镜像下载：https:&#x2F;&#x2F;www.dinghui.org&#x2F;vmware-iso-download.html 安装准备前期准备：  安装前请先准备好VMware-VCSA-all">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VCSA安装步骤">
+<meta property="og:url" content="https://qiufuqi.github.io/exsi_vCenter_install/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="Vmware vCenter 6.7部署安装全过程 参考地址 镜像下载地址分享链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1ONjVivtoc0TYmtK0vIhDKw?pwd&#x3D;wak9提取码: wak9  其他镜像下载：https:&#x2F;&#x2F;www.dinghui.org&#x2F;vmware-iso-download.html 安装准备前期准备：  安装前请先准备好VMware-VCSA-all">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20220922143047.png">
+<meta property="article:published_time" content="2022-09-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T06:28:00.408Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="EXSI">
+<meta property="article:tag" content="vCenter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20220922143047.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/exsi_vCenter_install/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VCSA安装步骤',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-05 14:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20220922143047.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VCSA安装步骤</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-20T16:00:00.000Z" title="发表于 2022-09-21 00:00:00">2022-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:28:00.408Z" title="更新于 2024-08-05 14:28:00">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/EXSI/">EXSI</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/EXSI/vCenter/">vCenter</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VCSA安装步骤"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>Vmware vCenter 6.7部署安装全过程</strong></p>
+<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1735797791474009805&wfr=spider&for=pc">参考地址</a></p>
+<p>镜像下载地址分享<br>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ONjVivtoc0TYmtK0vIhDKw?pwd=wak9">https://pan.baidu.com/s/1ONjVivtoc0TYmtK0vIhDKw?pwd=wak9</a><br>提取码: wak9 </p>
+<p>其他镜像下载：<a target="_blank" rel="noopener" href="https://www.dinghui.org/vmware-iso-download.html">https://www.dinghui.org/vmware-iso-download.html</a></p>
+<h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><p>前期准备：</p>
+<ul>
+<li>安装前请先准备好VMware-VCSA-all-6.7.0-19300125.iso文件，放置在windows操作系统下。</li>
+<li>一台EXSI主机 （vCenter系统安装在次主机上）</li>
+</ul>
+<p>vCenter硬件要求<br>准备把vCenter安装在ESXI服务器上的一个虚拟机中，最低12G内存+2VCPU，这个条件还只是最小化安装vCenter，只能管理10台ESXI服务器，100台虚拟机。由于ESXI本身需要4G内存，因此使用此搭配时，至少需要16G+的内存，否则无法安装虚拟机。</p>
+<h1 id="安装开始"><a href="#安装开始" class="headerlink" title="安装开始"></a>安装开始</h1><p>双击前面准备好的iso文件，将其挂载为DVD驱动器，进入vcsa-ui-installer文件夹。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172408.png"><br>然后选择win32，如果你的其它的操作系统，则相应安装。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172436.png"><br>双击安装程序，开始安装。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172455.png"><br>设置安装界面语言为中文，点击右上角切换，点击“安装”。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172517.png"></p>
+<p>下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921172626.png"><br>勾选许可，点击下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921172704.png"></p>
+<p>输入ESXi主机的地址、端口号、用户名以及密码，然后点击下一步  提前准备的exsi主机<br><img src="https://qiufuqi.github.io/img/hexo/20220921172728.png"><br>点击是<br><img src="https://qiufuqi.github.io/img/hexo/20220921172809.png"><br>设置 一下虚拟名称，root密码，点击下一步。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172829.png"><br>我这里就部署一台微型，点击下一步。不同部署大小所需的资源如下图：<br><img src="https://qiufuqi.github.io/img/hexo/20220921172846.png"><br>下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921172903.png"><br>根据自己的情况选择dhcp或是静态ip地址，配置。下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921172920.png"><br>最后点击完成。<br><img src="https://qiufuqi.github.io/img/hexo/20220921172934.png"><br><img src="https://qiufuqi.github.io/img/hexo/20220921172945.png"><br><img src="https://qiufuqi.github.io/img/hexo/20220921172958.png"><br>继续部署第二阶段，点击继续。然后点击下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921173022.png"><br>点击下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921173037.png"><br>输入vCenterServer密码，并单击”下一步”<br><img src="https://qiufuqi.github.io/img/hexo/20220921173051.png"><br>取消勾选，点击下一步。<br><img src="https://qiufuqi.github.io/img/hexo/20220921173112.png"><br>点击完成<br><img src="https://qiufuqi.github.io/img/hexo/20220921174019.png"><br>点击确定<br><img src="https://qiufuqi.github.io/img/hexo/20220921174035.png"><br>最后耐心等待即可。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174105.png"><br>完成后点击关闭<br><img src="https://qiufuqi.github.io/img/hexo/20220921174122.png"></p>
+<p>然后通过我们的浏览器就能正常访问了。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174214.png"></p>
+<h1 id="许可证过期"><a href="#许可证过期" class="headerlink" title="许可证过期"></a>许可证过期</h1><p>当我们进入系统时，上方会有个明显的提示：清单中包含许可证已过期或即将过期的 vCenter Server 系统。从官方下载的都是申请60天试用的，那么就意味着60天后会过期。<br>运行许可证生成软件<br><img src="https://qiufuqi.github.io/img/hexo/20221205135047.png"></p>
+<p>进入分配许可 “管理您的许可证”——“许可证”——“添加新许可” 输入许可证秘钥<br><img src="https://qiufuqi.github.io/img/hexo/20220921174415.png"></p>
+<p>编辑许可证名称 点击完成<br><img src="https://qiufuqi.github.io/img/hexo/20220921174453.png"></p>
+<p>许可证添加成功之后，信息如下从灰色!可以得知，其实该许可证还没分配的，所以上方的许可证即将过期的提示还在<br>进入分配许可证 资产——选择主机——选择分配许可证<br><img src="https://qiufuqi.github.io/img/hexo/20220921174533.png"></p>
+<p>分配许可证<br>选择刚才上面新配置的许可证，选中之后可以看到下面分配验证的提示：许可证分配有效<br><img src="https://qiufuqi.github.io/img/hexo/20220921174557.png"></p>
+<p>分配许可证成功之后校验<br><img src="https://qiufuqi.github.io/img/hexo/20220921174637.png"><br>刷新之后，上方明显：‘清单中包含许可证已过期或即将过期的 vCenter Server 系统’的提示已消失<br><img src="https://qiufuqi.github.io/img/hexo/20220921174656.png"></p>
+<h1 id="新建数据中心"><a href="#新建数据中心" class="headerlink" title="新建数据中心"></a>新建数据中心</h1><p>添加主机了。点击首页IP地址后面的“操作”下拉框，选择“新建数据中心”。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174734.png"><br>设置新建数据中心的名称。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174755.png"></p>
+<p>新建完成之后，点击进入到数据中心。再点击数据中心后面的“操作”下拉框，选择“添加主机”。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174813.png"></p>
+<p>设置ESXi主机的IP地址信息，按照提示进行下一步<br><img src="https://qiufuqi.github.io/img/hexo/20220921174829.png"><br>分配许可证信息。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174910.png"></p>
+<p>锁定模式，一般不建议启用，如果是正规的数据中心，应该要进行管控。我就这一台，而且vCenter还是嵌入式部署，可不敢点启用，使用了默认的“禁用”。<br><img src="https://qiufuqi.github.io/img/hexo/20220921174931.png"></p>
+<p>再点击到数据中心“Guo Tiejun”下的主机，就可以看到主机信息了。<br><img src="https://qiufuqi.github.io/img/hexo/20220921175001.png"></p>
+<h1 id="其他问题处理"><a href="#其他问题处理" class="headerlink" title="其他问题处理"></a>其他问题处理</h1><h2 id="管理问题"><a href="#管理问题" class="headerlink" title="管理问题"></a>管理问题</h2><p>vcenter在添加主机时，锁定模式选择“正常”，故导致无法直接登陆ESXI宿主机<br><img src="https://qiufuqi.github.io/img/hexo/20220921175051.png"></p>
+<p>在vcenter选择相应的ESXI宿主机，配置&gt;系统&gt;安全配置文件&gt;锁定模式&gt;编辑，修改为禁用。<br><img src="https://qiufuqi.github.io/img/hexo/20220921175125.png"></p>
+<h2 id="迁移问题"><a href="#迁移问题" class="headerlink" title="迁移问题"></a>迁移问题</h2><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/xiaoyuanzheng/5611330">迁移参考</a><br>迁移的两种：冷迁移和热迁移。<br>冷迁移：vm关机后进行迁移，该方法适用所有vm，只要不是vm的版本不高过esxi的所支持版本，迁移后都可以正常启动<br>热迁移：vm在开机状态下进行迁移。</p>
+<p>vmware从6.7版本开始支持跨cpu进行热迁移了，只需要开启一个叫evc的功能。（6.7以前没这个功能）<br>开启evc功能后，分intel跟amd的cpu支持热迁移。选择之后，vm使用的cpu是vmware虚拟机一层后的cpu，也就是模拟intel或者amd的cpu，这个时候cpuid 还有特性会被修改，不依赖物理主机的cpu。</p>
+<h3 id="开启evc功能"><a href="#开启evc功能" class="headerlink" title="开启evc功能"></a>开启evc功能</h3><p>开启evc的位置有两个，一个是针对单个vm的,需要在关机状态下才能操作，开机状态无法操作，开启路径选择一台vm——配置——vmware evc —— 编辑–指定cpu，如下图：<br><img src="https://qiufuqi.github.io/img/hexo/20221104085507.png"></p>
+<p>第二个开启evc的位置是通过群集，选择群集–配置——vmware evc —— 编辑–指定cpu，但是群集启用有要求，必须是群集里面没有开启其他系列evc的vm。 也就是说，开启的时候，会应用到群集所有vm，但是要求vm都没开启evc（如开启evc，必须是选择同一个系列的cpu，例如都选择了intel–sky 系列cpu）。<br>开启之后，vm重启后会生效evc的功能。</p>
+<p>这里注意一点，如果把群集的evc功能关闭，群集内的vm的evc功能并不会失效，即便重启vm也不会关闭，具体原因不知道，所以建议尽量在单个vm上开启evc，最好是做镜像的时候设置，不要开启群集的evc。</p>
+<p><strong>解决DELL 服务器安装完esxi后evc模式被禁用问题</strong><br>当我们安装完DELL服务器的esxi后，主机EVC模式出现：CPU模式 不可用（无响应）时，是因为在BIOS里面【Monitor/Mwait】功能被禁用了，需要开启。<br><img src="https://qiufuqi.github.io/img/hexo/20221104085646.png"><br>开启<br><img src="https://qiufuqi.github.io/img/hexo/20221104085658.png"></p>
+<h3 id="开启vMotion"><a href="#开启vMotion" class="headerlink" title="开启vMotion"></a>开启vMotion</h3><p>单击主机→配置→VMkernel适配器→单击vmk0设备→编辑<br><img src="https://qiufuqi.github.io/img/hexo/20220926103544.png"><br>勾选vMotion服务，然后确定<br><img src="https://qiufuqi.github.io/img/hexo/20220926103615.png"></p>
+<p>输入许可证</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">VCSA许可证：</span><br><span class="line">VCSA7:</span><br><span class="line">JC45H-0Z292-M8808-1C0Q0-3A8H8</span><br><span class="line"></span><br><span class="line">VCSA6:</span><br><span class="line">HG612-FH19H-08DL1-V19X2-1VKND</span><br><span class="line">NU4JA-4V2DQ-48428-T32GK-8VRN4</span><br><span class="line">0Y4H2-8P217-H8900-M8AE4-2LH44</span><br><span class="line">NA658-2308J-08809-93AQ6-278J0</span><br><span class="line"></span><br><span class="line">VCSA5：</span><br><span class="line">JG6QQ-02L92-UZR39-R13Q2-120LC</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXSI许可证：</span><br><span class="line">EXSI6：</span><br><span class="line">0A65P-00HD0-3Z5M1-M097M-22P7H</span><br><span class="line"></span><br><span class="line">EXSI5.5：</span><br><span class="line">UJ623-A8091-K8L4T-0P38H-8ENQ1</span><br><span class="line">4F6GR-A6K9Q-LZPC8-Z1AQ4-AA34U</span><br><span class="line"></span><br><span class="line">EXSI5.1：</span><br><span class="line">JA0XT-4W300-AZDW9-43856-8A8HL</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/exsi_vCenter_install/">https://qiufuqi.github.io/exsi_vCenter_install/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/EXSI/">EXSI</a><a class="post-meta__tags" href="/tags/vCenter/">vCenter</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20220922143047.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/centos_oracle/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20231205141201.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CentOS安装Oracle</div></div></a></div><div class="next-post pull-right"><a href="/exsi_cipan/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20220922143249.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">EXSI6.7磁盘扩容</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/exsi_vCenter_HA/" title="vCenter HA高可用"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221207140120.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-10</div><div class="title">vCenter HA高可用</div></div></a></div><div><a href="/exsi_vCenter_remove/" title="vCenter虚拟机迁移问题"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20220922143047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">vCenter虚拟机迁移问题</div></div></a></div><div><a href="/exsi_vCenter_license/" title="VCSA许可证"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20220922143047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-21</div><div class="title">VCSA许可证</div></div></a></div><div><a href="/exsi_vCenter_5.5/" title="VCSA5.5安装步骤.md"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221207140120.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-15</div><div class="title">VCSA5.5安装步骤.md</div></div></a></div><div><a href="/exsi_vCenter_recover/" title="vCenter 备份还原"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221207140120.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-24</div><div class="title">vCenter 备份还原</div></div></a></div><div><a href="/exsi_vCenter_problem/" title="vCenter日常使用问题"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221207140120.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-24</div><div class="title">vCenter日常使用问题</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">安装准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BC%80%E5%A7%8B"><span class="toc-number">2.</span> <span class="toc-text">安装开始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%B8%E5%8F%AF%E8%AF%81%E8%BF%87%E6%9C%9F"><span class="toc-number">3.</span> <span class="toc-text">许可证过期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83"><span class="toc-number">4.</span> <span class="toc-text">新建数据中心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">其他问题处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-number">5.1.</span> <span class="toc-text">管理问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E9%97%AE%E9%A2%98"><span class="toc-number">5.2.</span> <span class="toc-text">迁移问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AFevc%E5%8A%9F%E8%83%BD"><span class="toc-number">5.2.1.</span> <span class="toc-text">开启evc功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AFvMotion"><span class="toc-number">5.2.2.</span> <span class="toc-text">开启vMotion</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

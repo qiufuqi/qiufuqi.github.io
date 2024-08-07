@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Linux字符处理 | Austines Hexo Blog</title><meta name="keywords" content="Linux,CentOS,字符处理"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux字符处理93页 管道符| 把上一个命令的输出内容当作下一个命令的输入内容，两个命令之间通过管道符连接即可。 12# 将输出的内容作为下一个命令more的输入[root@localhost hard]# ls -l &#x2F;etc&#x2F;init.d | more grep搜索文本grep文本搜索工具，显示符合条件的所在行。用法如下：grep [-ivnc] ‘需要匹配的字符’ 文件名-i ：不区分大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux字符处理">
+<meta property="og:url" content="https://qiufuqi.github.io/centos_char/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="Linux字符处理93页 管道符| 把上一个命令的输出内容当作下一个命令的输入内容，两个命令之间通过管道符连接即可。 12# 将输出的内容作为下一个命令more的输入[root@localhost hard]# ls -l &#x2F;etc&#x2F;init.d | more grep搜索文本grep文本搜索工具，显示符合条件的所在行。用法如下：grep [-ivnc] ‘需要匹配的字符’ 文件名-i ：不区分大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20230418114913.png">
+<meta property="article:published_time" content="2023-05-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T06:28:00.412Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="字符处理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20230418114913.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/centos_char/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux字符处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-05 14:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20230418114913.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux字符处理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-29T16:00:00.000Z" title="发表于 2023-05-30 00:00:00">2023-05-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:28:00.412Z" title="更新于 2024-08-05 14:28:00">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/Linux/%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/">字符处理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux字符处理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Linux字符处理"><a href="#Linux字符处理" class="headerlink" title="Linux字符处理"></a>Linux字符处理</h1><p>93页</p>
+<h2 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h2><p>| 把上一个命令的输出内容当作下一个命令的输入内容，两个命令之间通过管道符连接即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将输出的内容作为下一个命令more的输入</span></span><br><span class="line">[root@localhost hard]<span class="comment"># ls -l /etc/init.d | more</span></span><br></pre></td></tr></table></figure>
+<h2 id="grep搜索文本"><a href="#grep搜索文本" class="headerlink" title="grep搜索文本"></a>grep搜索文本</h2><p>grep文本搜索工具，显示符合条件的所在行。用法如下：<br>grep [-ivnc] ‘需要匹配的字符’ 文件名<br>-i ：不区分大小写<br>-c ：统计包含匹配的行数<br>-n ：输出行号<br>-v ：反向匹配</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># cat cat.txt </span></span><br><span class="line">The <span class="built_in">cat</span><span class="string">&#x27;s name is Tom, what&#x27;</span>s the mouse<span class="string">&#x27;s name?</span></span><br><span class="line"><span class="string">The mouse&#x27;</span>s NAME is Jerry</span><br><span class="line">They are good friends</span><br><span class="line">[root@localhost home]<span class="comment"># grep -i &#x27;name&#x27; cat.txt     # 不区分大小写</span></span><br><span class="line">The <span class="built_in">cat</span><span class="string">&#x27;s name is Tom, what&#x27;</span>s the mouse<span class="string">&#x27;s name?</span></span><br><span class="line"><span class="string">The mouse&#x27;</span>s NAME is Jerry</span><br><span class="line">[root@localhost home]<span class="comment"># grep -vi &#x27;name&#x27; cat.txt    # 不区分大小写和反向匹配</span></span><br><span class="line">They are good friends</span><br><span class="line">[root@localhost home]<span class="comment"># cat cat.txt |grep -vi &#x27;name&#x27; # 或者使用管道符</span></span><br><span class="line">They are good friends</span><br></pre></td></tr></table></figure>
+<h2 id="sort排序"><a href="#sort排序" class="headerlink" title="sort排序"></a>sort排序</h2><p>sort对无序的数据进行排序，用法如下：<br>sort [-ntkr] 文件名<br>-n : 采用数字排序<br>-t : 指定分隔符<br>-k : 指定第几列<br>-r : 反向排序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># cat cat.txt </span></span><br><span class="line">b:3</span><br><span class="line">c:2</span><br><span class="line">a:4</span><br><span class="line">e:5</span><br><span class="line">d:1</span><br><span class="line">f:11</span><br><span class="line"><span class="comment"># 指定分隔符：，指定列2，反向排序，数字排序</span></span><br><span class="line">[root@localhost home]<span class="comment"># cat cat.txt | sort -t &quot;:&quot; -k 2 -r -n</span></span><br><span class="line">f:11</span><br><span class="line">e:5</span><br><span class="line">a:4</span><br><span class="line">b:3</span><br><span class="line">c:2</span><br><span class="line">d:1</span><br></pre></td></tr></table></figure>
+<h2 id="uniq删除重复内容"><a href="#uniq删除重复内容" class="headerlink" title="uniq删除重复内容"></a>uniq删除重复内容</h2><p>uniq删除重复的行(重复的行需要连续，所以一般和sort连用)，还可以统计出完全相同行出现的总次数,用法如下：<br>uniq [-ic]<br>-i : 忽略大小写<br>-c : 计算重复行数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># cat cat.txt </span></span><br><span class="line">abc</span><br><span class="line">123</span><br><span class="line">abc</span><br><span class="line">456</span><br><span class="line">[root@localhost home]<span class="comment"># cat cat.txt | uniq   # 重复行不连续，所以不删除</span></span><br><span class="line">abc</span><br><span class="line">123</span><br><span class="line">abc</span><br><span class="line">456</span><br><span class="line">[root@localhost home]<span class="comment"># cat cat.txt | sort |uniq -c  # 重复行删除，且计算行数</span></span><br><span class="line">      1 123</span><br><span class="line">      1 456</span><br><span class="line">      2 abc</span><br></pre></td></tr></table></figure>
+<h2 id="cut截取文本"><a href="#cut截取文本" class="headerlink" title="cut截取文本"></a>cut截取文本</h2><p>cut的处理对象时一行文本，从中选取需要的部分，用法如下：<br>cut -f 指定的列 -d ‘分隔符’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以：作为分隔符，打印出第1列，第6-7列</span></span><br><span class="line">[root@localhost home]<span class="comment"># cat /etc/passwd| cut -f 1,6-7 -d &#x27;:&#x27;</span></span><br><span class="line">root:/root:/bin/bash</span><br><span class="line">bin:/bin:/sbin/nologin</span><br><span class="line">daemon:/sbin:/sbin/nologin</span><br><span class="line">adm:/var/adm:/sbin/nologin</span><br><span class="line">lp:/var/spool/lpd:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>cut -c 指定列的字符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印出每列1-5和7-10个字符的内容</span></span><br><span class="line">[root@localhost home]<span class="comment"># cat /etc/passwd| cut -c1-5,7-10</span></span><br><span class="line">root::0:0</span><br><span class="line">bin:x1:1:</span><br><span class="line">daemo:x:2</span><br><span class="line">adm:x3:4:</span><br><span class="line">lp:x::7:l</span><br><span class="line"><span class="built_in">sync</span>::5:0</span><br></pre></td></tr></table></figure>
+<h2 id="tr文本转换"><a href="#tr文本转换" class="headerlink" title="tr文本转换"></a>tr文本转换</h2><p>tr命令用于文本转换或删除，用法如下：<br>tr ‘转换前’ ‘转换后’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 小写转大写</span></span><br><span class="line">[root@localhost home]<span class="comment"># cat /etc/passwd | tr &#x27;[a-z]&#x27; &#x27;[A-Z]&#x27;</span></span><br><span class="line">ROOT:X:0:0:ROOT:/ROOT:/BIN/BASH</span><br><span class="line">BIN:X:1:1:BIN:/BIN:/SBIN/NOLOGIN</span><br><span class="line">DAEMON:X:2:2:DAEMON:/SBIN:/SBIN/NOLOGIN</span><br></pre></td></tr></table></figure>
+<p>tr -d ‘被删除内容’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># cat /etc/passwd | tr -d &#x27;:&#x27;</span></span><br><span class="line">rootx00root/root/bin/bash</span><br><span class="line">binx11bin/bin/sbin/nologin</span><br><span class="line">daemonx22daemon/sbin/sbin/nologin</span><br></pre></td></tr></table></figure>
+<h2 id="paste文本合并"><a href="#paste文本合并" class="headerlink" title="paste文本合并"></a>paste文本合并</h2><p>paste将文件按照行进行合并，中间默认使用tab隔开，可用-d指定分隔符<br>paste -d 指定字符  文件1 文件2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># cat a.txt </span></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">[root@localhost home]<span class="comment"># cat b.txt </span></span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">[root@localhost home]<span class="comment"># paste a.txt b.txt </span></span><br><span class="line">1	a</span><br><span class="line">2	b</span><br><span class="line">3	c</span><br><span class="line">[root@localhost home]<span class="comment"># paste -d: a.txt b.txt </span></span><br><span class="line">1:a</span><br><span class="line">2:b</span><br><span class="line">3:c</span><br></pre></td></tr></table></figure>
+<h2 id="split分割大文件"><a href="#split分割大文件" class="headerlink" title="split分割大文件"></a>split分割大文件</h2><p>split支持按照行数分割和按照大小分割这两种模式。二进制文件没有行的概念，只能按照大小进行分割。<br>按照行数：split -l 500 文件名 文件名_<br>按照大小：split -b 50k 文件名 文件名_</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]<span class="comment"># split -l 1 a.txt a_</span></span><br><span class="line">[root@localhost home]<span class="comment"># ls</span></span><br><span class="line">a_aa  a_ab  a_ac</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/centos_char/">https://qiufuqi.github.io/centos_char/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/CentOS/">CentOS</a><a class="post-meta__tags" href="/tags/Shell/">Shell</a><a class="post-meta__tags" href="/tags/%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/">字符处理</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20230418114913.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/debian_install/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20230606165524.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Debian系统安装</div></div></a></div><div class="next-post pull-right"><a href="/centos_file_system/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20230418114913.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux文件系统</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/centos_file_system/" title="Linux文件系统"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230418114913.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-30</div><div class="title">Linux文件系统</div></div></a></div><div><a href="/centos_jincheng/" title="Linux进程管理"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230418114913.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-30</div><div class="title">Linux进程管理</div></div></a></div><div><a href="/centos_user/" title="Linux用户管理"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230418114913.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-26</div><div class="title">Linux用户管理</div></div></a></div><div><a href="/centos_GLIBC/" title="Linux升级GLIBC问题.md"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230417142330.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-12</div><div class="title">Linux升级GLIBC问题.md</div></div></a></div><div><a href="/centos_waiwang/" title="Linux禁止外网"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20230417142330.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-10</div><div class="title">Linux禁止外网</div></div></a></div><div><a href="/centos_curl/" title="Linux更新升级curl版本"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20231214171849.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-14</div><div class="title">Linux更新升级curl版本</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">Linux字符处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">1.1.</span> <span class="toc-text">管道符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep%E6%90%9C%E7%B4%A2%E6%96%87%E6%9C%AC"><span class="toc-number">1.2.</span> <span class="toc-text">grep搜索文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">sort排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uniq%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">1.4.</span> <span class="toc-text">uniq删除重复内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cut%E6%88%AA%E5%8F%96%E6%96%87%E6%9C%AC"><span class="toc-number">1.5.</span> <span class="toc-text">cut截取文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr%E6%96%87%E6%9C%AC%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.6.</span> <span class="toc-text">tr文本转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#paste%E6%96%87%E6%9C%AC%E5%90%88%E5%B9%B6"><span class="toc-number">1.7.</span> <span class="toc-text">paste文本合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#split%E5%88%86%E5%89%B2%E5%A4%A7%E6%96%87%E4%BB%B6"><span class="toc-number">1.8.</span> <span class="toc-text">split分割大文件</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Zabbix监控4-告警发送 | Austines Hexo Blog</title><meta name="keywords" content="Zabbix,监控,Agent,告警"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Zabbix预警信息发送：Email和钉钉。 Email告警媒介配置Email管理 &gt; 报警媒介类型，选择Email 填写邮箱相关信息（我用的是126的邮箱，请根据自己邮箱设置来填写） 编辑消息模板，告警时会调用这里的模板信息 配置好相关邮箱信息后，可进行邮箱发送测试（我的邮箱成功收到邮件） 创建用户即用户和报警媒介关联，注意创建用户要对服务器群组有读取权限才可以发送邮件管理–&gt;用户群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zabbix监控4-告警发送">
+<meta property="og:url" content="https://qiufuqi.github.io/zabbix_alert/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="Zabbix预警信息发送：Email和钉钉。 Email告警媒介配置Email管理 &gt; 报警媒介类型，选择Email 填写邮箱相关信息（我用的是126的邮箱，请根据自己邮箱设置来填写） 编辑消息模板，告警时会调用这里的模板信息 配置好相关邮箱信息后，可进行邮箱发送测试（我的邮箱成功收到邮件） 创建用户即用户和报警媒介关联，注意创建用户要对服务器群组有读取权限才可以发送邮件管理–&gt;用户群">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20221116102126.png">
+<meta property="article:published_time" content="2023-06-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T06:28:00.391Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="Zabbix">
+<meta property="article:tag" content="agent">
+<meta property="article:tag" content="告警">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20221116102126.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/zabbix_alert/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Zabbix监控4-告警发送',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-05 14:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20221116102126.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Zabbix监控4-告警发送</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-13T16:00:00.000Z" title="发表于 2023-06-14 00:00:00">2023-06-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:28:00.391Z" title="更新于 2024-08-05 14:28:00">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E7%9B%91%E6%8E%A7/">监控</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E7%9B%91%E6%8E%A7/%E5%91%8A%E8%AD%A6/">告警</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Zabbix监控4-告警发送"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Zabbix预警信息发送：Email和钉钉。</p>
+<h1 id="Email告警"><a href="#Email告警" class="headerlink" title="Email告警"></a>Email告警</h1><h2 id="媒介配置Email"><a href="#媒介配置Email" class="headerlink" title="媒介配置Email"></a>媒介配置Email</h2><p>管理 &gt; 报警媒介类型，选择Email<br><img src="https://qiufuqi.github.io/img/hexo/20230614160152.png"></p>
+<p>填写邮箱相关信息（我用的是126的邮箱，请根据自己邮箱设置来填写）<br><img src="https://qiufuqi.github.io/img/hexo/20230615143029.png"></p>
+<p>编辑消息模板，告警时会调用这里的模板信息<br><img src="https://qiufuqi.github.io/img/hexo/20230614165349.png"></p>
+<p>配置好相关邮箱信息后，可进行邮箱发送测试（我的邮箱成功收到邮件）<br><img src="https://qiufuqi.github.io/img/hexo/20230614160836.png"></p>
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>即用户和报警媒介关联，注意创建用户要对服务器群组有读取权限才可以发送邮件<br>管理–&gt;用户群组–&gt;创建用户群组 ，添加对服务器群组读取权限<br><img src="https://qiufuqi.github.io/img/hexo/20230615142545.png"></p>
+<p>管理 &gt; 用户，创建新的用户，并添加到对应用户组，添加/编辑[报警媒介]<br><img src="https://qiufuqi.github.io/img/hexo/20230614161059.png"><br>编辑报警媒介，填写收件人（出现问题会给指定邮箱发送告警邮件）<br><img src="https://qiufuqi.github.io/img/hexo/20230614161151.png"><br><strong>权限无法修改，由用户组统一分配。</strong></p>
+<h2 id="警报动作"><a href="#警报动作" class="headerlink" title="警报动作"></a>警报动作</h2><p>配置 &gt; 动作 &gt; 创建动作<br><img src="https://qiufuqi.github.io/img/hexo/20230614161435.png"><br>动作：输入告警名称，触发器触发的条件(测试使用，可以不选)<br><img src="https://qiufuqi.github.io/img/hexo/20230615143653.png"><br>操作：<br>默认操作步骤持续时间改为60s，操作/回复操作 点击添加按钮 （可提前创建用户组/用户，创建用户时 要勾选报警媒介，填写接收邮件地址）<br>发送消息可以按照个人，也可以按照组来发送，消息内容自定义。</p>
+<p>故障操作：<br><img src="https://qiufuqi.github.io/img/hexo/20230614163020.png"><br>自定义消息内容 或者使用报警媒介那边的消息模板</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">主题：Host:&#123;HOST.NAME&#125;: &#123;TRIGGER.NAME&#125;故障</span><br><span class="line">消息：</span><br><span class="line">&#123;Zabbix告警：</span><br><span class="line">Warning 主机:&#123;HOST.NAME&#125;</span><br><span class="line">Host:&#123;HOST.IP&#125;</span><br><span class="line">监控项目:&#123;ITEM.NAME&#125;</span><br><span class="line">监控取值:&#123;ITEM.LASTVALUE&#125;</span><br><span class="line">报警等级:&#123;TRIGGER.SEVERITY&#125;</span><br><span class="line">当前状态:&#123;TRIGGER.STATUS&#125;</span><br><span class="line">报警信息:&#123;TRIGGER.NAME&#125;</span><br><span class="line">报警data:&#123;EVENT.DATE&#125; &#123;EVENT.TIME&#125;</span><br><span class="line">事件ID:&#123;EVENT.ID&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>恢复操作：<br><img src="https://qiufuqi.github.io/img/hexo/20230614162602.png"><br>自定义消息内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">主题：Host:&#123;HOST.NAME&#125;: &#123;TRIGGER.NAME&#125;已恢复!</span><br><span class="line">消息：</span><br><span class="line">&#123;Zabbix恢复：</span><br><span class="line">Warning 主机:&#123;HOST.NAME&#125;</span><br><span class="line">Host:&#123;HOST.IP&#125;</span><br><span class="line">监控项目:&#123;ITEM.NAME&#125;</span><br><span class="line">监控取值:&#123;ITEM.LASTVALUE&#125;</span><br><span class="line">报警等级:&#123;TRIGGER.SEVERITY&#125;</span><br><span class="line">当前状态:&#123;TRIGGER.STATUS&#125;</span><br><span class="line">报警信息:&#123;TRIGGER.NAME&#125;</span><br><span class="line">报警data:&#123;EVENT.DATE&#125; &#123;EVENT.TIME&#125;</span><br><span class="line">恢复时间:&#123;EVENT.RECOVERY.DATE&#125; &#123;EVENT.RECOVERY.TIME&#125;</span><br><span class="line">持续时间:&#123;EVENT.AGE&#125;</span><br><span class="line">事件ID:&#123;EVENT.ID&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="验证报警"><a href="#验证报警" class="headerlink" title="验证报警"></a>验证报警</h2><p>将被监控虚机关机，再开机，就会收到邮件提醒。<br>（大部分出问题再用户组权限出，要有对某个组的读写的权限）<br>报表 =&gt; 触发器 TOP100 可查看出现哪些问题<br>报表 =&gt; 动作日志 可查看是否发送邮件</p>
+<h1 id="钉钉报警"><a href="#钉钉报警" class="headerlink" title="钉钉报警"></a>钉钉报警</h1><h2 id="创建钉钉机器人"><a href="#创建钉钉机器人" class="headerlink" title="创建钉钉机器人"></a>创建钉钉机器人</h2><p>自行百度创建，拿到Webhook地址</p>
+<h2 id="升级服务器Python版本"><a href="#升级服务器Python版本" class="headerlink" title="升级服务器Python版本"></a>升级服务器Python版本</h2><p>升级Python3 <a href="/python_upgrate">升级参考</a>，安装必要的组件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@zabbix-server alertscripts]<span class="comment"># wget https://bootstrap.pypa.io/pip/3.6/get-pip.py</span></span><br><span class="line">[root@zabbix-server alertscripts]<span class="comment"># python get-pip.py</span></span><br><span class="line">[root@zabbix-server alertscripts]<span class="comment"># pip install requests</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="创建钉钉报警脚本"><a href="#创建钉钉报警脚本" class="headerlink" title="创建钉钉报警脚本"></a>创建钉钉报警脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看脚本存放位置</span></span><br><span class="line">[root@zabbix-server zabbix]<span class="comment"># grep ^AlertScriptsPath /etc/zabbix/zabbix_server.conf</span></span><br><span class="line">AlertScriptsPath=/usr/lib/zabbix/alertscripts</span><br><span class="line">[root@zabbix-server zabbix]<span class="comment"># cd /usr/lib/zabbix/alertscripts</span></span><br><span class="line">[root@zabbix-server zabbix]<span class="comment"># vi dingding.py</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="comment">#zabbix钉钉报警  ./dingding.py(0) 钉钉号(1) test(2) &quot;这个条测试信息,忽略 ID&quot;(3) </span></span><br><span class="line">import requests,json,sys,os,datetime</span><br><span class="line">webhook=<span class="string">&quot;https://oapi.dingtalk.com/robot/send?access_token=************************&quot;</span></span><br><span class="line">user=sys.argv[1]</span><br><span class="line">text=sys.argv[3]</span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;text&quot;</span>,</span><br><span class="line">    <span class="string">&quot;text&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;content&quot;</span>: text</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;at&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;atMobiles&quot;</span>: [</span><br><span class="line">            user</span><br><span class="line">        ],</span><br><span class="line">        <span class="string">&quot;isAtAll&quot;</span>: False</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">headers = &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>&#125;</span><br><span class="line">x=requests.post(url=webhook,data=json.dumps(data),headers=headers)</span><br><span class="line"><span class="keyword">if</span> os.path.exists(<span class="string">&quot;/var/log/zabbix/dingding.log&quot;</span>):</span><br><span class="line">    f=open(<span class="string">&quot;/var/log/zabbix/dingding.log&quot;</span>,<span class="string">&quot;a+&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    f=open(<span class="string">&quot;/var/log/zabbix/dingding.log&quot;</span>,<span class="string">&quot;w+&quot;</span>)</span><br><span class="line">f.write(<span class="string">&quot;\n&quot;</span>+<span class="string">&quot;--&quot;</span>*30)</span><br><span class="line"><span class="keyword">if</span> x.json()[<span class="string">&quot;errcode&quot;</span>] == 0:</span><br><span class="line">    f.write(<span class="string">&quot;\n&quot;</span>+str(datetime.datetime.now())+<span class="string">&quot;    &quot;</span>+str(user)+<span class="string">&quot;    &quot;</span>+<span class="string">&quot;发送成功&quot;</span>+<span class="string">&quot;\n&quot;</span>+str(text))</span><br><span class="line">    f.close()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    f.write(<span class="string">&quot;\n&quot;</span>+str(datetime.datetime.now()) + <span class="string">&quot;    &quot;</span> + str(user) + <span class="string">&quot;    &quot;</span> + <span class="string">&quot;发送失败&quot;</span> + <span class="string">&quot;\n&quot;</span> + str(text))</span><br><span class="line">    <span class="built_in">print</span>(x.json())</span><br><span class="line">    f.close()</span><br><span class="line">[root@zabbix-server alertscripts]<span class="comment"># chmod +x dingding.py </span></span><br></pre></td></tr></table></figure>
+<p>创建日志文件夹/文件：/var/log/zabbix/dingding.log</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@zabbix-server zabbix]<span class="comment"># touch /var/log/zabbix/dingding.log</span></span><br><span class="line">[root@zabbix-server zabbix]<span class="comment"># chown -R zabbix.zabbix /var/log/zabbix/dingding.log</span></span><br></pre></td></tr></table></figure>
+<p>测试报警信息 （钉钉群中有这个手机号或者钉钉号）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./dingding.py  185xxxxxxxx <span class="built_in">test</span> <span class="string">&quot;这个条测试信息,忽略&quot;</span> </span><br><span class="line">./dingding.py  钉钉号 <span class="built_in">test</span> <span class="string">&quot;这个条测试信息,忽略 ID&quot;</span> </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/zabbix_alert/">https://qiufuqi.github.io/zabbix_alert/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Zabbix/">Zabbix</a><a class="post-meta__tags" href="/tags/agent/">agent</a><a class="post-meta__tags" href="/tags/%E5%91%8A%E8%AD%A6/">告警</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20221116102126.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zabbix_show/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Zabbix监控4-告警发送</div></div></a></div><div class="next-post pull-right"><a href="/zabbix_install/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Zabbix监控1-Server和Proxy</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zabbix_show/" title="Zabbix监控4-告警发送"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-14</div><div class="title">Zabbix监控4-告警发送</div></div></a></div><div><a href="/zabbix_agent_caiji/" title="Zabbix监控3-数据采集方式"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-14</div><div class="title">Zabbix监控3-数据采集方式</div></div></a></div><div><a href="/zabbix_agent_model/" title="Zabbix-(zabbix-agent)主动和被动模式"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20231205135025.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-08</div><div class="title">Zabbix-(zabbix-agent)主动和被动模式</div></div></a></div><div><a href="/zabbix_install/" title="Zabbix监控1-Server和Proxy"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-13</div><div class="title">Zabbix监控1-Server和Proxy</div></div></a></div><div><a href="/zabbix_oracle/" title="Zabbix监控Oracle"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221117170417.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-17</div><div class="title">Zabbix监控Oracle</div></div></a></div><div><a href="/zabbix_agent/" title="Zabbix监控2-Agent客户端"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20221116102126.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-08</div><div class="title">Zabbix监控2-Agent客户端</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">107</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Email%E5%91%8A%E8%AD%A6"><span class="toc-number">1.</span> <span class="toc-text">Email告警</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AA%92%E4%BB%8B%E9%85%8D%E7%BD%AEEmail"><span class="toc-number">1.1.</span> <span class="toc-text">媒介配置Email</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.</span> <span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AD%A6%E6%8A%A5%E5%8A%A8%E4%BD%9C"><span class="toc-number">1.3.</span> <span class="toc-text">警报动作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%8A%A5%E8%AD%A6"><span class="toc-number">1.4.</span> <span class="toc-text">验证报警</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%92%89%E9%92%89%E6%8A%A5%E8%AD%A6"><span class="toc-number">2.</span> <span class="toc-text">钉钉报警</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%92%89%E9%92%89%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">2.1.</span> <span class="toc-text">创建钉钉机器人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E6%9C%8D%E5%8A%A1%E5%99%A8Python%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.</span> <span class="toc-text">升级服务器Python版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%92%89%E9%92%89%E6%8A%A5%E8%AD%A6%E8%84%9A%E6%9C%AC"><span class="toc-number">2.3.</span> <span class="toc-text">创建钉钉报警脚本</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_arp/" title="华为-13-ARP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-13-ARP协议"/></a><div class="content"><a class="title" href="/huawei_arp/" title="华为-13-ARP协议">华为-13-ARP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_dhcp/" title="华为-12-DHCP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-12-DHCP协议"/></a><div class="content"><a class="title" href="/huawei_dhcp/" title="华为-12-DHCP协议">华为-12-DHCP协议</a><time datetime="2024-02-18T16:00:00.000Z" title="发表于 2024-02-19 00:00:00">2024-02-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
