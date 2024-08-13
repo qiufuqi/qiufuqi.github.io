@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>oxidized网络设备自动备份 | Austines Hexo Blog</title><meta name="keywords" content="网络安全,oxidized"><meta name="author" content="Austines,qiufuqi@foxmail.com"><meta name="copyright" content="Austines"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="文字参考 Docker部署参考项目地址随着网络设备的增多，通过人手备份网络设备倍感压力，而且效率低。有编程基础的人可能会通过Python的parimiko 或者netmiko 连接到设备操作 把文件通过ftp 上传到FTP服务器, 在通过定时任务,定期自动备份。这个应该是现阶段主流非人民币网络玩家的最优解决方案。今天我们来看看oxidized这个被称之为“最好用的”网络备份系统，友好的支持不同厂商">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oxidized网络设备自动备份">
+<meta property="og:url" content="https://qiufuqi.github.io/oxidized_install/index.html">
+<meta property="og:site_name" content="Austines Hexo Blog">
+<meta property="og:description" content="文字参考 Docker部署参考项目地址随着网络设备的增多，通过人手备份网络设备倍感压力，而且效率低。有编程基础的人可能会通过Python的parimiko 或者netmiko 连接到设备操作 把文件通过ftp 上传到FTP服务器, 在通过定时任务,定期自动备份。这个应该是现阶段主流非人民币网络玩家的最优解决方案。今天我们来看看oxidized这个被称之为“最好用的”网络备份系统，友好的支持不同厂商">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiufuqi.github.io/img/hexo/20240812085958.png">
+<meta property="article:published_time" content="2024-08-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-13T06:17:27.496Z">
+<meta property="article:author" content="Austines">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="oxidized">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiufuqi.github.io/img/hexo/20240812085958.png"><link rel="shortcut icon" href="https://qiufuqi.github.io/img/hexo/20231205140030.png"><link rel="canonical" href="https://qiufuqi.github.io/oxidized_install/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'oxidized网络设备自动备份',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-13 14:17:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">128</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">112</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">109</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qiufuqi.github.io/img/hexo/20240812085958.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Austines Hexo Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">oxidized网络设备自动备份</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-13T06:17:27.496Z" title="更新于 2024-08-13 14:17:27">2024-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/oxidized/">oxidized</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="oxidized网络设备自动备份"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1654423">文字参考</a> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/alanlin/p/11173214.html">Docker部署参考</a><br><a target="_blank" rel="noopener" href="https://github.com/ytti/oxidized">项目地址</a><br>随着网络设备的增多，通过人手备份网络设备倍感压力，而且效率低。有编程基础的人可能会通过Python的parimiko 或者netmiko 连接到设备操作 把文件通过ftp 上传到FTP服务器, 在通过定时任务,定期自动备份。这个应该是现阶段主流非人民币网络玩家的最优解决方案。<br>今天我们来看看oxidized这个被称之为“最好用的”网络备份系统，友好的支持不同厂商。</p>
+<h1 id="oxidized简介"><a href="#oxidized简介" class="headerlink" title="oxidized简介"></a>oxidized简介</h1><p>oxidized 是一个网络设备备份系统, 轻量级,可扩展,支持超过90多个操作系统。个人觉得它无与伦比的优势, 同时支持h3c,华为,思科。<br>随着容器化的兴起，部署软件变得的越来越简单，有的已经帮您封装好，你开箱即用就可以了。<br>oxidized组成：</p>
+<ul>
+<li>config 文件：oxidized 配置文件</li>
+<li>Sources 字段：定位 router.db 文件的位置</li>
+<li>Outputs 字段 ：设备备份文件的存储位置</li>
+<li>model 字段：设备厂商所用的系统, 核心功能就是靠这个实现的</li>
+<li>router.db文件：被管网络设备详细信息</li>
+</ul>
+<h1 id="部署安装"><a href="#部署安装" class="headerlink" title="部署安装"></a>部署安装</h1><h2 id="拉取官方镜像"><a href="#拉取官方镜像" class="headerlink" title="拉取官方镜像"></a>拉取官方镜像</h2><p>把官方的 oxidized/oxidized 镜像拉下来，有可能会失败，则自己制作镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@LYGVLTOPOT01 ~]<span class="comment"># docker pull repository-tst.hengrui.com/docker-proxy/oxidized/oxidized:latest</span></span><br><span class="line">latest: Pulling from oxidized/oxidized</span><br><span class="line">toomanyrequests: You have reached your pull rate <span class="built_in">limit</span>. You may increase the <span class="built_in">limit</span> by authenticating and upgrading: https://www.docker.com/increase-rate-limit</span><br></pre></td></tr></table></figure>
+<h2 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h2><p>如果上一步拉取失败，则自己制作镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone oxidized文件</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/ytti/oxidized</span><br><span class="line"><span class="comment"># build xoidized镜像 -- 可能会有报错</span></span><br><span class="line">docker build -q -t oxidized/oxidized:latest oxidized/</span><br></pre></td></tr></table></figure>
+<h2 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run --name oxidized -it -v /etc/localtime:/etc/localtime:ro -v /data/oxidized:/home/oxidized/.config/oxidized -p 8888:8888/tcp -e CONFIG_RELOAD_INTERVAL=3600 --restart unless-stopped -d oxidized/oxidized </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志 &amp;&amp; 进入oxidized内部</span></span><br><span class="line">docker logs -n 50 oxidized</span><br><span class="line">docker <span class="built_in">exec</span> -it oxidized /bin/bash</span><br></pre></td></tr></table></figure>
+<p>发现首次会启动失败，提示缺少router.db文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@LYGVLTOPOT01 oxidized]<span class="comment"># docker logs -n 50 oxidized </span></span><br><span class="line">*** Running /etc/my_init.d/00_regen_ssh_host_keys.sh...</span><br><span class="line">*** Running /etc/my_init.d/10_syslog-ng.init...</span><br><span class="line">Aug 12 15:27:45 3d76614d6801 syslog-ng[14]: syslog-ng starting up; version=<span class="string">&#x27;3.35.1&#x27;</span></span><br><span class="line">*** Booting runit daemon...</span><br><span class="line">*** Runit started as PID 24</span><br><span class="line">Aug 12 15:27:46 3d76614d6801 cron[30]: (CRON) INFO (pidfile fd = 3)</span><br><span class="line">Aug 12 15:27:46 3d76614d6801 cron[30]: (CRON) INFO (Running @reboot <span class="built_in">jobs</span>)</span><br><span class="line">edit ~/.config/oxidized/config</span><br><span class="line">I, [2024-08-12T15:27:48.453778 <span class="comment">#40]  INFO -- : Oxidized starting, running as pid 40</span></span><br><span class="line">F, [2024-08-12T15:27:48.456570 <span class="comment">#40] FATAL -- : Oxidized crashed, crashfile written in /home/oxidized/.config/oxidized/crash</span></span><br><span class="line">no <span class="built_in">source</span> csv config, edit ~/.config/oxidized/config</span><br><span class="line">I, [2024-08-12T15:27:49.751378 <span class="comment">#42]  INFO -- : Oxidized starting, running as pid 42</span></span><br><span class="line">I, [2024-08-12T15:27:49.760121 <span class="comment">#42]  INFO -- : lib/oxidized/nodes.rb: Loading nodes</span></span><br><span class="line">F, [2024-08-12T15:27:49.955537 <span class="comment">#42] FATAL -- : Oxidized crashed, crashfile written in /home/oxidized/.config/oxidized/crash</span></span><br><span class="line">no output file config, edit ~/.config/oxidized/config</span><br><span class="line">I, [2024-08-12T15:27:51.283274 <span class="comment">#44]  INFO -- : Oxidized starting, running as pid 44</span></span><br><span class="line">I, [2024-08-12T15:27:51.284005 <span class="comment">#44]  INFO -- : lib/oxidized/nodes.rb: Loading nodes</span></span><br><span class="line">I, [2024-08-12T15:27:51.481188 <span class="comment">#44]  INFO -- : lib/oxidized/nodes.rb: Loaded 1 nodes</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>此处的顺序和config中map调用有关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@LYGVLTOPOT01 ~]<span class="comment"># cat /data/oxidized/router.db </span></span><br><span class="line">YJYHX_255.22:vrp:10.50.255.22:hradmin:Asdf!123</span><br><span class="line"></span><br><span class="line">[root@LYGVLTOPOT01 ~]<span class="comment"># vi /data/oxidized/config</span></span><br><span class="line">······</span><br><span class="line"><span class="built_in">log</span>: /home/oxidized/.config/oxidized/logs/oxidized.log</span><br><span class="line">······</span><br><span class="line"><span class="built_in">source</span>:</span><br><span class="line">  default: csv</span><br><span class="line">  csv:</span><br><span class="line">    file: <span class="string">&quot;/home/oxidized/.config/oxidized/router.db&quot;</span></span><br><span class="line">    delimiter: !ruby/regexp /:/</span><br><span class="line">    map:</span><br><span class="line">      name: 0</span><br><span class="line">      model: 1</span><br><span class="line">      ip: 2</span><br><span class="line">      username: 3</span><br><span class="line">      password: 4</span><br><span class="line">    gpg: <span class="literal">false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="启动oxidized"><a href="#启动oxidized" class="headerlink" title="启动oxidized"></a>启动oxidized</h2><p>重启对应的docker镜像名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart oxidized</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiufuqi.github.io/img/hexo/20240813085746.png"></p>
+<h1 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h1><h2 id="页面展示问题"><a href="#页面展示问题" class="headerlink" title="页面展示问题"></a>页面展示问题</h2><p>页面默认不展示某个字段，每次需要点击按钮选中，很麻烦</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入镜像</span></span><br><span class="line">docker <span class="built_in">exec</span> -it oxidized /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入目录下，修改 nodes.haml 文件 （具体路径可能有差别）</span></span><br><span class="line">vi /var/lib/gems/3.0.0/gems/oxidized-web-0.13.1/lib/oxidized/web/views/nodes.haml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在底部找到, 删除targets 即可</span></span><br><span class="line">columnDefs: [&#123; visible: <span class="literal">false</span>, targets: 1&#125;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="时间问题"><a href="#时间问题" class="headerlink" title="时间问题"></a>时间问题</h2><p>docker oxidized时区问题，时间显示不是北京时间 问题原因：ruby语言的时间直接获取的UTC时间</p>
+<ul>
+<li>docker exec -it oxidized /bin/bash</li>
+<li>vi /var/lib/gems/3.0.0/gems/oxidized-0.30.1/lib/oxidized/job.rb</li>
+<li>执行:%s/Time.now.utc/Time.now，把Time.now.utc全部改成Time.now，一共3处</li>
+<li>退出容器</li>
+<li>重启容器</li>
+</ul>
+<p><img src="https://qiufuqi.github.io/img/hexo/20240813113453.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io">Austines</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiufuqi.github.io/oxidized_install/">https://qiufuqi.github.io/oxidized_install/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiufuqi.github.io" target="_blank">Austines Hexo Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a><a class="post-meta__tags" href="/tags/oxidized/">oxidized</a></div><div class="post_share"><div class="social-share" data-image="https://qiufuqi.github.io/img/hexo/20240812085958.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/suricata_install/"><img class="prev-cover" src="https://qiufuqi.github.io/img/hexo/20240808094629.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Suricata部署安装</div></div></a></div><div class="next-post pull-right"><a href="/huawei_switch_template/"><img class="next-cover" src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="onerror=null;src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">华为交换机配置模板</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/suricata_install/" title="Suricata部署安装"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20240808094629.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">Suricata部署安装</div></div></a></div><div><a href="/arkime_install/" title="ARKIME部署安装"><img class="cover" src="https://qiufuqi.github.io/img/hexo/20240805144344.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-05</div><div class="title">ARKIME部署安装</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://qiufuqi.github.io/img/hexo/20231205135815.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205140222.png'" alt="avatar"/></div><div class="author-info__name">Austines</div><div class="author-info__description">时间留下的痕迹，怎么也无法磨灭！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">128</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">112</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">109</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiufuqi"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#oxidized%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">oxidized简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">部署安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F"><span class="toc-number">2.1.</span> <span class="toc-text">拉取官方镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F"><span class="toc-number">2.2.</span> <span class="toc-text">制作镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%95%9C%E5%83%8F"><span class="toc-number">2.3.</span> <span class="toc-text">启动镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">修改配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8oxidized"><span class="toc-number">2.5.</span> <span class="toc-text">启动oxidized</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">问题处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E9%97%AE%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text">页面展示问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text">时间问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/suricata_install/" title="Suricata部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240808094629.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="Suricata部署安装"/></a><div class="content"><a class="title" href="/suricata_install/" title="Suricata部署安装">Suricata部署安装</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/oxidized_install/" title="oxidized网络设备自动备份"><img src="https://qiufuqi.github.io/img/hexo/20240812085958.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="oxidized网络设备自动备份"/></a><div class="content"><a class="title" href="/oxidized_install/" title="oxidized网络设备自动备份">oxidized网络设备自动备份</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_switch_template/" title="华为交换机配置模板"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为交换机配置模板"/></a><div class="content"><a class="title" href="/huawei_switch_template/" title="华为交换机配置模板">华为交换机配置模板</a><time datetime="2024-08-05T16:00:00.000Z" title="发表于 2024-08-06 00:00:00">2024-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/arkime_install/" title="ARKIME部署安装"><img src="https://qiufuqi.github.io/img/hexo/20240805144344.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="ARKIME部署安装"/></a><div class="content"><a class="title" href="/arkime_install/" title="ARKIME部署安装">ARKIME部署安装</a><time datetime="2024-08-04T16:00:00.000Z" title="发表于 2024-08-05 00:00:00">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/huawei_snmp/" title="华为-15-SNMP协议"><img src="https://qiufuqi.github.io/img/hexo/20230327084004.png" onerror="this.onerror=null;this.src='https://qiufuqi.github.io/img/hexo/20231205134626.png'" alt="华为-15-SNMP协议"/></a><div class="content"><a class="title" href="/huawei_snmp/" title="华为-15-SNMP协议">华为-15-SNMP协议</a><time datetime="2024-02-19T16:00:00.000Z" title="发表于 2024-02-20 00:00:00">2024-02-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Austines</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
